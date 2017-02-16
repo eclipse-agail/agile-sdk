@@ -1,0 +1,22 @@
+{
+  "name": "agile-sdk",
+  "version": "0.0.1",
+  "description": "javascript wrapper for agile-iot sdk",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "babel-node mocha",
+    "docs": "jsdoc2md 'dist/*.js' > DOCUMENTATION.md",
+    "build": "babel src --out-dir dist --copy-files"
+  },
+  "keywords": [
+    "iot"
+  ],
+  "author": "craig-mulligan",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "0.15.3"
+  },
+  "devDependencies": {
+    "babel-cli": "6.23.0"
+  }
+}
