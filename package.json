@@ -6,7 +6,9 @@
   "scripts": {
     "test": "babel-node ./node_modules/.bin/_mocha",
     "docs": "jsdoc2md 'src/**/*.js' > DOCUMENTATION.md",
-    "build": "babel src --out-dir dist --copy-files"
+    "build": "babel src --out-dir dist --copy-files",
+    "version": "versionist",
+    "prepublish": "npm run build && npm run version"
   },
   "keywords": [
     "iot"
@@ -23,6 +25,7 @@
     "lodash": "4.17.4",
     "mocha": "3.2.0",
     "mochainon": "1.0.0",
-    "nock": "9.0.6"
+    "nock": "9.0.6",
+    "versionist": "2.8.1"
   }
 }
