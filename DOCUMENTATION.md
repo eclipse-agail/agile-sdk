@@ -23,7 +23,7 @@ agile('http://agile-core:8080')
         * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
             * [.start()](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
             * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
-            * [.status(id)](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
+            * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
         * [.get()](#agile.protocolManager.get) ⇒ <code>Promise</code>
         * [.delete(uuid)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
         * [.create(uuid)](#agile.protocolManager.create) ⇒ <code>Promise</code>
@@ -53,7 +53,7 @@ agile('http://agile-core:8080')
     * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
         * [.start()](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
         * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
-        * [.status(id)](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
+        * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
     * [.get()](#agile.protocolManager.get) ⇒ <code>Promise</code>
     * [.delete(uuid)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
     * [.create(uuid)](#agile.protocolManager.create) ⇒ <code>Promise</code>
@@ -67,7 +67,7 @@ agile('http://agile-core:8080')
 * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
     * [.start()](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
     * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
-    * [.status(id)](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
+    * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager.discovery.start"></a>
 
@@ -79,7 +79,7 @@ agile('http://agile-core:8080')
 **Example**  
 ```js
 agile.protocolManager.discovery.start().then(function() {
- console.log('protocolManager discover is on');
+  console.log('protocolManager discover is on');
 });
 ```
 <a name="agile.protocolManager.discovery.stop"></a>
@@ -92,26 +92,21 @@ agile.protocolManager.discovery.start().then(function() {
 **Example**  
 ```js
 agile.protocolManager.discovery.stop().then(function() {
-      console.log('protocolManager discover is off');
-    });
+  console.log('protocolManager discover is off');
+});
 ```
 <a name="agile.protocolManager.discovery.status"></a>
 
-##### discovery.status(id) ⇒ <code>Promise</code>
+##### discovery.status() ⇒ <code>Promise</code>
 **Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
 **Summary**: Return the status of discovery on the available protocols  
 **Access:** public  
 **Fulfil**: <code>bool</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| id | <code>String</code> | deviceId |
-
 **Example**  
 ```js
 agile.protocolManager.discovery.status().then(function(status) {
-      console.log(status);
-    });
+  console.log(status);
+});
 ```
 <a name="agile.protocolManager.get"></a>
 
@@ -123,8 +118,8 @@ agile.protocolManager.discovery.status().then(function(status) {
 **Example**  
 ```js
 agile.protocolManager.protocols.get().then(function(protocols) {
-      console.log(protocols);
-    });
+  console.log(protocols);
+});
 ```
 <a name="agile.protocolManager.delete"></a>
 
@@ -141,8 +136,8 @@ agile.protocolManager.protocols.get().then(function(protocols) {
 **Example**  
 ```js
 agile.protocolManager.protocols.delete(protocolId).then(function() {
-      console.log('protocol has been unregistered');
-    });
+  console.log('protocol has been unregistered');
+});
 ```
 <a name="agile.protocolManager.create"></a>
 
@@ -159,8 +154,8 @@ agile.protocolManager.protocols.delete(protocolId).then(function() {
 **Example**  
 ```js
 agile.protocolManager.protocols.create(protocolId).then(function() {
-      console.log('protocol has been registered');
-    });
+  console.log('protocol has been registered');
+});
 ```
 <a name="agile.protocolManager.devices"></a>
 
@@ -172,8 +167,8 @@ agile.protocolManager.protocols.create(protocolId).then(function() {
 **Example**  
 ```js
 agile.protocolManager.devices().then(function(devices) {
-  		console.log(devices);
-  	});
+ console.log(devices);
+});
 ```
 <a name="agile.deviceManager"></a>
 
@@ -196,7 +191,7 @@ agile.protocolManager.devices().then(function(devices) {
 **Example**  
 ```js
 agile.deviceManager.getAll().then(function(devices) {
- console.log(devices);
+  console.log(devices);
 });
 ```
 <a name="agile.deviceManager.get"></a>
@@ -214,7 +209,7 @@ agile.deviceManager.getAll().then(function(devices) {
 **Example**  
 ```js
 agile.deviceManager.get(id).then(function(device) {
- console.log(device);
+  console.log(device);
 });
 ```
 <a name="agile.deviceManager.create"></a>
@@ -280,8 +275,8 @@ agile.deviceManager.typeof().then(function(deviceTypes) {
 **Example**  
 ```js
 agile.device.status(deviceId).then(function(status) {
-      console.log(status);
-    });
+ console.log(status);
+});
 ```
 <a name="agile.device.get"></a>
 
@@ -299,14 +294,14 @@ agile.device.status(deviceId).then(function(status) {
 **Example**  
 ```js
 agile.device.get(deviceId).then(function(deviceComponents) {
-      console.log(deviceComponents);
-    });
+  console.log(deviceComponents);
+});
 ```
 **Example**  
 ```js
 agile.device.get(deviceId, componentId).then(function(deviceComponents) {
-      console.log(deviceComponents);
-    });
+  console.log(deviceComponents);
+});
 ```
 <a name="agile.device.connect"></a>
 
@@ -323,8 +318,8 @@ agile.device.get(deviceId, componentId).then(function(deviceComponents) {
 **Example**  
 ```js
 agile.device.connect(deviceId).then(function() {
-      console.log('Connected!');
-    });
+  console.log('Connected!');
+});
 ```
 <a name="agile.device.disconnect"></a>
 
@@ -341,8 +336,8 @@ agile.device.connect(deviceId).then(function() {
 **Example**  
 ```js
 agile.device.disconnect(deviceId).then(function() {
-      console.log('Disconnected!');
-    });
+  console.log('Disconnected!');
+});
 ```
 <a name="agile.device.execute"></a>
 
@@ -360,8 +355,8 @@ agile.device.disconnect(deviceId).then(function() {
 **Example**  
 ```js
 agile.device.connect(id, command).then(function() {
-      console.log('Connected!');
-    });
+  console.log('Connected!');
+});
 ```
 <a name="agile.device.execute"></a>
 
@@ -379,8 +374,8 @@ agile.device.connect(id, command).then(function() {
 **Example**  
 ```js
 agile.device.execute(id, command).then(function() {
-      console.log('Connected!');
-    });
+  console.log('Connected!');
+});
 ```
 <a name="agile.device.lastUpdate"></a>
 
