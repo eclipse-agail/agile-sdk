@@ -4,8 +4,8 @@
   "description": "javascript wrapper for agile-iot sdk",
   "main": "dist/index.js",
   "scripts": {
-    "test": "babel-node mocha",
-    "docs": "jsdoc2md 'dist/*.js' > DOCUMENTATION.md",
+    "test": "babel-node ./node_modules/.bin/_mocha",
+    "docs": "jsdoc2md 'src/**/*.js' > DOCUMENTATION.md",
     "build": "babel src --out-dir dist --copy-files"
   },
   "keywords": [
@@ -14,9 +14,15 @@
   "author": "craig-mulligan",
   "license": "ISC",
   "dependencies": {
-    "axios": "0.15.3"
+    "axios": "0.15.3",
+    "url-parse": "1.1.7",
+    "websocket": "1.0.24"
   },
   "devDependencies": {
-    "babel-cli": "6.23.0"
+    "babel-cli": "6.23.0",
+    "lodash": "4.17.4",
+    "mocha": "3.2.0",
+    "mochainon": "1.0.0",
+    "nock": "9.0.6"
   }
 }
