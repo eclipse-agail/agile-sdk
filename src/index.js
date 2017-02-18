@@ -23,18 +23,18 @@ export default (base) => {
   return ({
     /**
     * @namespace protocolManager
-  	* @memberof agile
+    * @memberof agile
     **/
     protocolManager: protocolManager(apiBase),
     /**
     * @namespace deviceManager
-  	* @memberof agile
+    * @memberof agile
     **/
     deviceManager: deviceManager(apiBase),
     /**
     * @namespace device
-  	* @memberof agile
+    * @memberof agile
     **/
-    device: device(apiBase, wsBase),
-  })
-}
+    device: device(apiBase, wsBase)
+  });
+};

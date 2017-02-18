@@ -25,8 +25,8 @@ agile('http://agile-core:8080')
             * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
             * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
         * [.get()](#agile.protocolManager.get) ⇒ <code>Promise</code>
-        * [.delete(uuid)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
-        * [.create(uuid)](#agile.protocolManager.create) ⇒ <code>Promise</code>
+        * [.delete(protocolId)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
+        * [.create(protocolId)](#agile.protocolManager.create) ⇒ <code>Promise</code>
         * [.devices()](#agile.protocolManager.devices) ⇒ <code>Promise</code>
     * [.deviceManager](#agile.deviceManager) : <code>object</code>
         * [.getAll()](#agile.deviceManager.getAll) ⇒ <code>Promise</code>
@@ -38,7 +38,6 @@ agile('http://agile-core:8080')
         * [.get(deviceId, [componentId])](#agile.device.get) ⇒ <code>Promise</code>
         * [.connect(deviceId)](#agile.device.connect) ⇒ <code>Promise</code>
         * [.disconnect(deviceId)](#agile.device.disconnect) ⇒ <code>Promise</code>
-        * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
         * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
         * [.lastUpdate(deviceId, [componentId])](#agile.device.lastUpdate) ⇒ <code>Promise</code>
         * [.subscribe(deviceId, componentId)](#agile.device.subscribe) ⇒ <code>Promise</code>
@@ -55,8 +54,8 @@ agile('http://agile-core:8080')
         * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
         * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
     * [.get()](#agile.protocolManager.get) ⇒ <code>Promise</code>
-    * [.delete(uuid)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
-    * [.create(uuid)](#agile.protocolManager.create) ⇒ <code>Promise</code>
+    * [.delete(protocolId)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
+    * [.create(protocolId)](#agile.protocolManager.create) ⇒ <code>Promise</code>
     * [.devices()](#agile.protocolManager.devices) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager.discovery"></a>
@@ -123,7 +122,7 @@ agile.protocolManager.protocols.get().then(function(protocols) {
 ```
 <a name="agile.protocolManager.delete"></a>
 
-#### protocolManager.delete(uuid) ⇒ <code>Promise</code>
+#### protocolManager.delete(protocolId) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[protocolManager](#agile.protocolManager)</code>  
 **Summary**: Unregister a Dbus Protocol object reference  
 **Access:** public  
@@ -131,7 +130,7 @@ agile.protocolManager.protocols.get().then(function(protocols) {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| uuid | <code>String</code> | protocolId |
+| protocolId | <code>String</code> | Agile protocol Id |
 
 **Example**  
 ```js
@@ -141,7 +140,7 @@ agile.protocolManager.protocols.delete(protocolId).then(function() {
 ```
 <a name="agile.protocolManager.create"></a>
 
-#### protocolManager.create(uuid) ⇒ <code>Promise</code>
+#### protocolManager.create(protocolId) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[protocolManager](#agile.protocolManager)</code>  
 **Summary**: Register a new Dbus object implementing the protocol API  
 **Access:** public  
@@ -149,7 +148,7 @@ agile.protocolManager.protocols.delete(protocolId).then(function() {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| uuid | <code>String</code> | protocolId |
+| protocolId | <code>String</code> | Agile protocol Id |
 
 **Example**  
 ```js
@@ -255,7 +254,6 @@ agile.deviceManager.typeof().then(function(deviceTypes) {
     * [.connect(deviceId)](#agile.device.connect) ⇒ <code>Promise</code>
     * [.disconnect(deviceId)](#agile.device.disconnect) ⇒ <code>Promise</code>
     * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
-    * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
     * [.lastUpdate(deviceId, [componentId])](#agile.device.lastUpdate) ⇒ <code>Promise</code>
     * [.subscribe(deviceId, componentId)](#agile.device.subscribe) ⇒ <code>Promise</code>
     * [.get(deviceId, [componentId])](#agile.device.get) ⇒ <code>Promise</code>
@@ -355,25 +353,6 @@ agile.device.disconnect(deviceId).then(function() {
 **Example**  
 ```js
 agile.device.connect(id, command).then(function() {
-  console.log('Connected!');
-});
-```
-<a name="agile.device.execute"></a>
-
-#### device.execute(id, command) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
-**Summary**: Perform an action on the device  
-**Access:** public  
-**Fulfil**: <code>Undefined</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| id | <code>String</code> | Agile device Id |
-| command | <code>String</code> | Operation name to be performed |
-
-**Example**  
-```js
-agile.device.execute(id, command).then(function() {
   console.log('Connected!');
 });
 ```

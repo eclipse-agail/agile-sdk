@@ -3,8 +3,10 @@ Agile SDK
 
 > The official JavaScript [Agile IoT](https://github.com/Agile-IoT) SDK.
 
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
 [![Build Status](https://travis-ci.org/resin-io/resin-sdk.svg?branch=master)](https://travis-ci.org/Agile-IoT/agile-sdk)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Agile-IoT)
+
 
 Role
 ----
@@ -25,7 +27,7 @@ Documentation
 
 The module exports a single factory function that takes a your Agile API hostname as a single argument.
 
-```
+``` js
 var agile = require('agile-sdk')('http://agile.local:8080')
 ```
 

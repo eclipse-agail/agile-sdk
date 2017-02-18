@@ -4,8 +4,8 @@ const getWS = () => {
   if (!process.env.REACT_APP_BROWSER) {
     return require('websocket').w3cwebsocket;
   }
-  return window.WebSocket
-}
+  return window.WebSocket;
+};
 const WS = getWS();
 
 const device = (base, wsBase) => {
@@ -28,7 +28,7 @@ const device = (base, wsBase) => {
     **/
     status: (deviceId) => axios({
       method: 'GET',
-      url: `${base}/${deviceId}/status`,
+      url: `${base}/${deviceId}/status`
     })
     .then(res => (res.data.status)),
     /**
@@ -57,9 +57,9 @@ const device = (base, wsBase) => {
       }
       return axios({
         method: 'GET',
-        url: `${base}/${deviceId}`,
+        url: url
       })
-      .then(res => (res.data))
+      .then(res => (res.data));
     },
     /**
     * @summary Connect the device at protocol level
@@ -77,7 +77,7 @@ const device = (base, wsBase) => {
     **/
     connect: (deviceId) => axios({
       method: 'POST',
-      url: `${base}/${deviceId}/connection`,
+      url: `${base}/${deviceId}/connection`
     })
     .then(res => (res.data)),
     /**
@@ -96,7 +96,7 @@ const device = (base, wsBase) => {
     **/
     disconnect: (deviceId) => axios({
       method: 'DELETE',
-      url: `${base}/${deviceId}/connection`,
+      url: `${base}/${deviceId}/connection`
     })
     .then(res => (res.data)),
     /**
@@ -116,27 +116,7 @@ const device = (base, wsBase) => {
     **/
     execute: (id, command) => axios({
       method: 'GET',
-      url: `${base}/${id}/execute/${command}`,
-    })
-    .then(res => (res.data)),
-    /**
-    * @summary Perform an action on the device
-    * @name execute
-    * @public
-    * @function
-    * @memberof agile.device
-    * @param {String} id - Agile device Id
-    * @param {String} command - Operation name to be performed
-    * @fulfil {Undefined}
-    * @returns {Promise}
-    * @example
-    * agile.device.execute(id, command).then(function() {
-    *   console.log('Connected!');
-    * });
-    **/
-    execute: (id, command) => axios({
-      method: 'GET',
-      url: `${base}/${id}/execute/${command}`,
+      url: `${base}/${id}/execute/${command}`
     })
     .then(res => (res.data)),
     /**
@@ -167,7 +147,7 @@ const device = (base, wsBase) => {
 
       return axios({
         method: 'GET',
-        url: url,
+        url: url
       })
       .then(res => (res.data));
     },
@@ -203,7 +183,7 @@ const device = (base, wsBase) => {
     * });
     **/
     subscribe: (deviceId, componentId) => {
-      return new Promise(function(resolve, reject) {
+      return new Promise(function (resolve, reject) {
         resolve(new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`));
       });
     },
@@ -224,10 +204,10 @@ const device = (base, wsBase) => {
     **/
     unsubscribe: (deviceId, componentId) => axios({
       method: 'DELETE',
-      url: `${base}/${deviceId}/${componentId}/subscribe`,
+      url: `${base}/${deviceId}/${componentId}/subscribe`
     })
-    .then(res => (res.data)),
-  })
-}
+    .then(res => (res.data))
+  });
+};
 
 export default device;

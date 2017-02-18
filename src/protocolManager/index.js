@@ -2,7 +2,7 @@ import axios from 'axios';
 import discovery from './discovery';
 
 const protocolManager = (base) => {
-  base = `${base}/protocols`
+  base = `${base}/protocols`;
   return ({
     /**
     * @summary Get the list of registered protocols
@@ -19,7 +19,7 @@ const protocolManager = (base) => {
     **/
     get: () => axios({
       method: 'GET',
-      url: `${base}`,
+      url: `${base}`
     })
     .then(res => (res.data)),
     /**
@@ -29,7 +29,7 @@ const protocolManager = (base) => {
     * @function
     * @memberof agile.protocolManager
     *
-    * @param {String} uuid - protocolId
+    * @param {String} protocolId - Agile protocol Id
     * @fulfil {null}
     * @returns {Promise}
     *
@@ -40,7 +40,7 @@ const protocolManager = (base) => {
     **/
     delete: () => axios({
       method: 'DELETE',
-      url: `${base}`,
+      url: `${base}`
     })
     .then(res => (res.data)),
     /**
@@ -50,7 +50,7 @@ const protocolManager = (base) => {
     * @function
     * @memberof agile.protocolManager
     *
-    * @param {String} uuid - protocolId
+    * @param {String} protocolId - Agile protocol Id
     * @fulfil {null}
     * @returns {Promise}
     *
@@ -61,34 +61,34 @@ const protocolManager = (base) => {
     **/
     status: () => axios({
       method: 'POST',
-      url: `${base}`,
+      url: `${base}`
     })
     .then(res => (res.data)),
     /**
     * @summary List all discovered devices on all available protocols
-  	* @name devices
-  	* @public
-  	* @function
-  	* @memberof agile.protocolManager
-  	*
-  	* @fulfil {Object[]} - devices
-  	* @returns {Promise}
-  	*
-  	* @example
-  	* agile.protocolManager.devices().then(function(devices) {
-  	*  console.log(devices);
-  	* });
+    * @name devices
+    * @public
+    * @function
+    * @memberof agile.protocolManager
+    *
+    * @fulfil {Object[]} - devices
+    * @returns {Promise}
+    *
+    * @example
+    * agile.protocolManager.devices().then(function(devices) {
+    *  console.log(devices);
+    * });
     **/
     devices: () => axios({
-      url: `${base}/devices`,
+      url: `${base}/devices`
     })
     .then(res => (res.data)),
     /**
     * @namespace discovery
-  	* @memberof agile.protocolManager
+    * @memberof agile.protocolManager
     **/
     discovery: discovery(base)
-  })
-}
+  });
+};
 
 export default protocolManager;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const discovery = (base) => {
-  base = `${base}/discovery`
+  base = `${base}/discovery`;
   return ({
     /**
     * @summary Start a device discovery on all available protocols
@@ -20,7 +20,7 @@ const discovery = (base) => {
     **/
     start: () => axios({
       method: 'POST',
-      url: `${base}`,
+      url: `${base}`
     })
     .then(res => (res.data)),
     /**
@@ -40,7 +40,7 @@ const discovery = (base) => {
     **/
     stop: () => axios({
       method: 'DELETE',
-      url: `${base}`,
+      url: `${base}`
     })
     .then(res => (res.data)),
     /**
@@ -60,10 +60,10 @@ const discovery = (base) => {
     **/
     status: () => axios({
       method: 'GET',
-      url: `${base}`,
+      url: `${base}`
     })
-    .then(res => (res.data)),
-  })
-}
+    .then(res => (res.data))
+  });
+};
 
 export default discovery;

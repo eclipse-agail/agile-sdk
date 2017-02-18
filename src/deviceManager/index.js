@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const deviceManager = (base) => {
-  base = `${base}/devices`
+  base = `${base}/devices`;
   return ({
     /**
     * @summary Get the List all registered devices
@@ -18,7 +18,7 @@ const deviceManager = (base) => {
     **/
     getAll: () => axios({
       method: 'GET',
-      url: `${base}`,
+      url: `${base}`
     })
     .then(res => (res.data)),
     /**
@@ -37,7 +37,7 @@ const deviceManager = (base) => {
     **/
     get: (id) => axios({
       method: 'GET',
-      url: `${base}/${id}`,
+      url: `${base}/${id}`
     })
     .then(res => (res.data)),
     /**
@@ -56,7 +56,7 @@ const deviceManager = (base) => {
     **/
     delete: (id) => axios({
       method: 'DELETE',
-      url: `${base}/${id}`,
+      url: `${base}/${id}`
     })
     .then(res => (res.data)),
     /**
@@ -105,7 +105,7 @@ const deviceManager = (base) => {
       }
     })
     .then(res => (res.data))
-  })
-}
+  });
+};
 
 export default deviceManager;
