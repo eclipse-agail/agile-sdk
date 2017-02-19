@@ -65,6 +65,11 @@ agile.device.subscribe(deviceId, componentID).then(stream => {
 
 [Read full documentation](DOCUMENTATION.md).
 
+Change Log
+---------
+
+The change log is automatically managed by [versionist](https://github.com/resin-io/versionist). [View full change log](CHANGELOG.md).
+
 Support
 -------
 
