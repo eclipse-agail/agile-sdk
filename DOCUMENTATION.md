@@ -229,7 +229,7 @@ agile.deviceManager.create(deviceObj, type).then(function(newDevice) {
 
 **Example**  
 ```js
-agile.deviceManager.typeof().then(function(deviceTypes) {
+agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
  console.log(deviceTypes);
 });
 ```
