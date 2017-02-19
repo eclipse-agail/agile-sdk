@@ -5,31 +5,12 @@ const deviceManager = (base) => {
   base = `${base}/devices`;
   return ({
     /**
-    * @summary Get the List all registered devices
-    * @name getAll
-    * @public
-    * @function
-    * @memberof agile.deviceManager
-    * @fulfil {Array} - devices
-    * @returns {Promise}
-    * @example
-    * agile.deviceManager.getAll().then(function(devices) {
-    *   console.log(devices);
-    * });
-    **/
-    getAll: () => axios({
-      method: 'GET',
-      url: `${base}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
-    /**
-    * @summary Get a device definition
+    * @summary Get all or single device definition
     * @name get
     * @public
     * @function
     * @memberof agile.deviceManager
-    * @param {String} deviceId - Agile device Id
+    * @param {String} [deviceId] - Agile device Id
     * @fulfil {Array} - devices
     * @returns {Promise}
     * @example
@@ -37,12 +18,18 @@ const deviceManager = (base) => {
     *   console.log(device);
     * });
     **/
-    get: (deviceId) => axios({
-      method: 'GET',
-      url: `${base}/${deviceId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    get: (deviceId) => {
+      let url = `${base}`;
+      if (deviceId) {
+        url = `${base}/${deviceId}`;
+      }
+      return axios({
+        method: 'GET',
+        url: url
+      })
+      .then(res => (res.data))
+      .catch(errorHandler);
+    },
     /**
     * @summary Delete a device definition and unregister it
     * @name delete
