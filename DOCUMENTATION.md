@@ -29,8 +29,7 @@ agile('http://agile-core:8080')
         * [.create(protocolId)](#agile.protocolManager.create) ⇒ <code>Promise</code>
         * [.devices()](#agile.protocolManager.devices) ⇒ <code>Promise</code>
     * [.deviceManager](#agile.deviceManager) : <code>object</code>
-        * [.getAll()](#agile.deviceManager.getAll) ⇒ <code>Promise</code>
-        * [.get(deviceId)](#agile.deviceManager.get) ⇒ <code>Promise</code>
+        * [.get([deviceId])](#agile.deviceManager.get) ⇒ <code>Promise</code>
         * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
         * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
     * [.device](#agile.device) : <code>object</code>
@@ -41,7 +40,7 @@ agile('http://agile-core:8080')
         * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
         * [.lastUpdate(deviceId, [componentId])](#agile.device.lastUpdate) ⇒ <code>Promise</code>
         * [.subscribe(deviceId, componentId)](#agile.device.subscribe) ⇒ <code>Promise</code>
-        * [.get(deviceId, [componentId])](#agile.device.get) ⇒ <code>Promise</code>
+        * [.unsubscribe(deviceId, [componentId])](#agile.device.unsubscribe) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -175,35 +174,21 @@ agile.protocolManager.devices().then(function(devices) {
 **Kind**: static namespace of <code>[agile](#agile)</code>  
 
 * [.deviceManager](#agile.deviceManager) : <code>object</code>
-    * [.getAll()](#agile.deviceManager.getAll) ⇒ <code>Promise</code>
-    * [.get(deviceId)](#agile.deviceManager.get) ⇒ <code>Promise</code>
+    * [.get([deviceId])](#agile.deviceManager.get) ⇒ <code>Promise</code>
     * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
     * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
 
-<a name="agile.deviceManager.getAll"></a>
-
-#### deviceManager.getAll() ⇒ <code>Promise</code>
-**Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
-**Summary**: Get the List all registered devices  
-**Access:** public  
-**Fulfil**: <code>Array</code> - devices  
-**Example**  
-```js
-agile.deviceManager.getAll().then(function(devices) {
-  console.log(devices);
-});
-```
 <a name="agile.deviceManager.get"></a>
 
-#### deviceManager.get(deviceId) ⇒ <code>Promise</code>
+#### deviceManager.get([deviceId]) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
-**Summary**: Get a device definition  
+**Summary**: Get all or single device definition  
 **Access:** public  
 **Fulfil**: <code>Array</code> - devices  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| deviceId | <code>String</code> | Agile device Id |
+| [deviceId] | <code>String</code> | Agile device Id |
 
 **Example**  
 ```js
@@ -244,7 +229,7 @@ agile.deviceManager.create(deviceObj, type).then(function(newDevice) {
 
 **Example**  
 ```js
-agile.deviceManager.typeof().then(function(deviceTypes) {
+agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
  console.log(deviceTypes);
 });
 ```
@@ -261,7 +246,7 @@ agile.deviceManager.typeof().then(function(deviceTypes) {
     * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
     * [.lastUpdate(deviceId, [componentId])](#agile.device.lastUpdate) ⇒ <code>Promise</code>
     * [.subscribe(deviceId, componentId)](#agile.device.subscribe) ⇒ <code>Promise</code>
-    * [.get(deviceId, [componentId])](#agile.device.get) ⇒ <code>Promise</code>
+    * [.unsubscribe(deviceId, [componentId])](#agile.device.unsubscribe) ⇒ <code>Promise</code>
 
 <a name="agile.device.status"></a>
 
@@ -392,7 +377,7 @@ agile.device.lastUpdate(deviceId).then(function(componentsReading) {
 **Kind**: static method of <code>[device](#agile.device)</code>  
 **Summary**: Enable a subscription to a data stream. Asynchronous data updates will be delivered via websocket.  
 **Access:** public  
-**Fulfil**: <code>Object</code> - stream - https://www.w3.org/TR/websockets/  
+**Fulfil**: <code>Object</code> - websocket instance - https://www.w3.org/TR/websockets/  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -421,13 +406,13 @@ agile.device.execute(deviceId, componentId).then(function(stream) {
  };
 });
 ```
-<a name="agile.device.get"></a>
+<a name="agile.device.unsubscribe"></a>
 
-#### device.get(deviceId, [componentId]) ⇒ <code>Promise</code>
+#### device.unsubscribe(deviceId, [componentId]) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[device](#agile.device)</code>  
-**Summary**: Read values of all components from the device  
+**Summary**: Unsubscribe from a data stream  
 **Access:** public  
-**Fulfil**: <code>Object\|Array</code> Single Component readings returned as object, Device readings returned as Array of Objects.  
+**Fulfil**: <code>undefined</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

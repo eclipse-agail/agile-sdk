@@ -160,7 +160,7 @@ const device = (base, wsBase) => {
     * @memberof agile.device
     * @param {String} deviceId - Agile device Id
     * @param {String} componentId - Operation name to be performed
-    * @fulfil {Object} - stream - https://www.w3.org/TR/websockets/
+    * @fulfil {Object} - websocket instance - https://www.w3.org/TR/websockets/
     * @returns {Promise}
     * @example
     * agile.device.execute(deviceId, componentId).then(function(stream) {
@@ -189,14 +189,14 @@ const device = (base, wsBase) => {
       });
     },
     /**
-    * @summary Read values of all components from the device
-    * @name get
+    * @summary Unsubscribe from a data stream
+    * @name unsubscribe
     * @public
     * @function
     * @memberof agile.device
     * @param {String} deviceId - Agile device Id
     * @param {String} [componentId] - Agile component name, like a sensor
-    * @fulfil {Object|Array} Single Component readings returned as object, Device readings returned as Array of Objects.
+    * @fulfil {undefined}
     * @returns {Promise}
     * @example
     * agile.device.get(deviceId).then(function(deviceComponents) {
