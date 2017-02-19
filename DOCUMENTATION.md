@@ -30,8 +30,8 @@ agile('http://agile-core:8080')
         * [.devices()](#agile.protocolManager.devices) ⇒ <code>Promise</code>
     * [.deviceManager](#agile.deviceManager) : <code>object</code>
         * [.getAll()](#agile.deviceManager.getAll) ⇒ <code>Promise</code>
-        * [.get(id)](#agile.deviceManager.get) ⇒ <code>Promise</code>
-        * [.create(device, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
+        * [.get(deviceId)](#agile.deviceManager.get) ⇒ <code>Promise</code>
+        * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
         * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
     * [.device](#agile.device) : <code>object</code>
         * [.status(deviceId)](#agile.device.status) ⇒ <code>Promise</code>
@@ -176,8 +176,8 @@ agile.protocolManager.devices().then(function(devices) {
 
 * [.deviceManager](#agile.deviceManager) : <code>object</code>
     * [.getAll()](#agile.deviceManager.getAll) ⇒ <code>Promise</code>
-    * [.get(id)](#agile.deviceManager.get) ⇒ <code>Promise</code>
-    * [.create(device, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
+    * [.get(deviceId)](#agile.deviceManager.get) ⇒ <code>Promise</code>
+    * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
     * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
 
 <a name="agile.deviceManager.getAll"></a>
@@ -195,7 +195,7 @@ agile.deviceManager.getAll().then(function(devices) {
 ```
 <a name="agile.deviceManager.get"></a>
 
-#### deviceManager.get(id) ⇒ <code>Promise</code>
+#### deviceManager.get(deviceId) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
 **Summary**: Get a device definition  
 **Access:** public  
@@ -203,17 +203,17 @@ agile.deviceManager.getAll().then(function(devices) {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| id | <code>String</code> | deviceId |
+| deviceId | <code>String</code> | Agile device Id |
 
 **Example**  
 ```js
-agile.deviceManager.get(id).then(function(device) {
+agile.deviceManager.get(deviceId).then(function(device) {
   console.log(device);
 });
 ```
 <a name="agile.deviceManager.create"></a>
 
-#### deviceManager.create(device, string) ⇒ <code>Promise</code>
+#### deviceManager.create(deviceOverview, string) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
 **Summary**: Register a new device based on information from ProtocolManager and device type  
 **Access:** public  
@@ -221,12 +221,12 @@ agile.deviceManager.get(id).then(function(device) {
 
 | Param | Type |
 | --- | --- |
-| device | <code>Object</code> | 
+| deviceOverview | <code>Object</code> | 
 | string | <code>type</code> | 
 
 **Example**  
 ```js
-agile.deviceManager.create(deviceObj).then(function(newDevice) {
+agile.deviceManager.create(deviceObj, type).then(function(newDevice) {
  console.log(newDevice);
 });
 ```
@@ -237,6 +237,11 @@ agile.deviceManager.create(deviceObj).then(function(newDevice) {
 **Summary**: Get matching types for a device overview  
 **Access:** public  
 **Fulfil**: <code>Array</code> - deviceTypes  
+
+| Type | Description |
+| --- | --- |
+| <code>Object</code> | deviceOverview |
+
 **Example**  
 ```js
 agile.deviceManager.typeof().then(function(deviceTypes) {

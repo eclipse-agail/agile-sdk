@@ -1,11 +1,6 @@
 import axios from 'axios';
+import { errorHandler, getWS } from '../utils';
 
-const getWS = () => {
-  if (!process.env.REACT_APP_BROWSER) {
-    return require('websocket').w3cwebsocket;
-  }
-  return window.WebSocket;
-};
 const WS = getWS();
 
 const device = (base, wsBase) => {
@@ -30,7 +25,8 @@ const device = (base, wsBase) => {
       method: 'GET',
       url: `${base}/${deviceId}/status`
     })
-    .then(res => (res.data.status)),
+    .then(res => (res.data.status))
+    .catch(errorHandler),
     /**
     * @summary Read values of all components from the device
     * @name get
@@ -59,7 +55,8 @@ const device = (base, wsBase) => {
         method: 'GET',
         url: url
       })
-      .then(res => (res.data));
+      .then(res => (res.data))
+      .catch(errorHandler);
     },
     /**
     * @summary Connect the device at protocol level
@@ -79,7 +76,8 @@ const device = (base, wsBase) => {
       method: 'POST',
       url: `${base}/${deviceId}/connection`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Disconnect device at protocol level
     * @name disconnect
@@ -98,7 +96,8 @@ const device = (base, wsBase) => {
       method: 'DELETE',
       url: `${base}/${deviceId}/connection`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Perform an action on the device
     * @name execute
@@ -118,7 +117,8 @@ const device = (base, wsBase) => {
       method: 'GET',
       url: `${base}/${id}/execute/${command}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Get the last record fetched from the device or component
     * @name lastUpdate
@@ -149,7 +149,8 @@ const device = (base, wsBase) => {
         method: 'GET',
         url: url
       })
-      .then(res => (res.data));
+      .then(res => (res.data))
+      .catch(errorHandler);
     },
     /**
     * @summary Enable a subscription to a data stream. Asynchronous data updates will be delivered via websocket.
@@ -207,6 +208,7 @@ const device = (base, wsBase) => {
       url: `${base}/${deviceId}/${componentId}/subscribe`
     })
     .then(res => (res.data))
+    .catch(errorHandler)
   });
 };
 

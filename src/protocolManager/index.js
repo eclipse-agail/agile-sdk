@@ -1,5 +1,6 @@
 import axios from 'axios';
 import discovery from './discovery';
+import { errorHandler } from '../utils';
 
 const protocolManager = (base) => {
   base = `${base}/protocols`;
@@ -21,7 +22,8 @@ const protocolManager = (base) => {
       method: 'GET',
       url: `${base}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Unregister a Dbus Protocol object reference
     * @name delete
@@ -42,7 +44,8 @@ const protocolManager = (base) => {
       method: 'DELETE',
       url: `${base}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Register a new Dbus object implementing the protocol API
     * @name create
@@ -63,7 +66,8 @@ const protocolManager = (base) => {
       method: 'POST',
       url: `${base}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary List all discovered devices on all available protocols
     * @name devices
@@ -82,7 +86,8 @@ const protocolManager = (base) => {
     devices: () => axios({
       url: `${base}/devices`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @namespace discovery
     * @memberof agile.protocolManager

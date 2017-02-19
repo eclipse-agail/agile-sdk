@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorHandler } from '../utils';
 
 const deviceManager = (base) => {
   base = `${base}/devices`;
@@ -20,33 +21,35 @@ const deviceManager = (base) => {
       method: 'GET',
       url: `${base}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Get a device definition
     * @name get
     * @public
     * @function
     * @memberof agile.deviceManager
-    * @param {String} id - deviceId
+    * @param {String} deviceId - Agile device Id
     * @fulfil {Array} - devices
     * @returns {Promise}
     * @example
-    * agile.deviceManager.get(id).then(function(device) {
+    * agile.deviceManager.get(deviceId).then(function(device) {
     *   console.log(device);
     * });
     **/
-    get: (id) => axios({
+    get: (deviceId) => axios({
       method: 'GET',
-      url: `${base}/${id}`
+      url: `${base}/${deviceId}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Delete a device definition and unregister it
     * @name delete
     * @public
     * @function
     * @memberof agile.deviceManager.devices
-    * @param {String} id - deviceId
+    * @param {String} deviceId - Agile device Id
     * @fulfil {undefined}
     * @returns {Promise}
     * @example
@@ -54,35 +57,37 @@ const deviceManager = (base) => {
     *   console.log(Device 12345 deleted);
     * });
     **/
-    delete: (id) => axios({
+    delete: (deviceId) => axios({
       method: 'DELETE',
-      url: `${base}/${id}`
+      url: `${base}/${deviceId}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Register a new device based on information from ProtocolManager and device type
     * @name create
     * @public
     * @function
     * @memberof agile.deviceManager
-    * @param {Object} device
+    * @param {Object} deviceOverview
     * @param {type} string
     * @fulfil {Object} - device
     * @returns {Promise}
     * @example
-    * agile.deviceManager.create(deviceObj).then(function(newDevice) {
+    * agile.deviceManager.create(deviceObj, type).then(function(newDevice) {
     *  console.log(newDevice);
     * });
     **/
-    create: (device, type) => axios({
+    create: (deviceOverview, type) => axios({
       method: 'POST',
       url: `${base}`,
       data: {
-        overview: device,
+        overview: deviceOverview,
         type: type
       }
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Get matching types for a device overview
     * @name typeof
@@ -90,21 +95,20 @@ const deviceManager = (base) => {
     * @function
     * @memberof agile.deviceManager
     * @fulfil {Array} - deviceTypes
+    * @param {Object} - deviceOverview
     * @returns {Promise}
     * @example
     * agile.deviceManager.typeof().then(function(deviceTypes) {
     *  console.log(deviceTypes);
     * });
     **/
-    typeof: (device, type) => axios({
-      method: 'GET',
+    typeof: (deviceOverview) => axios({
+      method: 'POST',
       url: `${base}/typeof`,
-      data: {
-        overview: device,
-        type: type
-      }
+      data: deviceOverview
     })
     .then(res => (res.data))
+    .catch(errorHandler)
   });
 };
 

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorHandler } from '../utils';
 
 const discovery = (base) => {
   base = `${base}/discovery`;
@@ -22,7 +23,8 @@ const discovery = (base) => {
       method: 'POST',
       url: `${base}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Stop a device discovery on all available protocols
     * @name stop
@@ -42,7 +44,8 @@ const discovery = (base) => {
       method: 'DELETE',
       url: `${base}`
     })
-    .then(res => (res.data)),
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Return the status of discovery on the available protocols
     * @name status
@@ -63,6 +66,7 @@ const discovery = (base) => {
       url: `${base}`
     })
     .then(res => (res.data))
+    .catch(errorHandler)
   });
 };
 
