@@ -85,7 +85,7 @@ const deviceManager = (base) => {
     * @param {Object} - deviceOverview
     * @returns {Promise}
     * @example
-    * agile.deviceManager.typeof().then(function(deviceTypes) {
+    * agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
     *  console.log(deviceTypes);
     * });
     **/
