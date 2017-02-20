@@ -1,6 +1,7 @@
 import protocolManager from './protocolManager';
 import deviceManager from './deviceManager';
 import device from './device';
+import protocol from './protocol';
 import parseUrl from 'url-parse';
 /**
   * @namespace agile
@@ -35,6 +36,11 @@ export default (base) => {
     * @namespace device
     * @memberof agile
     **/
-    device: device(apiBase, wsBase)
+    device: device(apiBase, wsBase),
+    /**
+    * @namespace protocol
+    * @memberof agile
+    **/
+    protocol: protocol(apiBase)
   });
 };

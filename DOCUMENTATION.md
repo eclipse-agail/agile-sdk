@@ -42,6 +42,11 @@ agile('http://agile-core:8080')
         * [.lastUpdate(deviceId, [componentId])](#agile.device.lastUpdate) ⇒ <code>Promise</code>
         * [.subscribe(deviceId, componentId)](#agile.device.subscribe) ⇒ <code>Promise</code>
         * [.unsubscribe(deviceId, componentId)](#agile.device.unsubscribe) ⇒ <code>Promise</code>
+    * [.protocol](#agile.protocol) : <code>object</code>
+        * [.disconnect(protocolId, deviceId)](#agile.protocol.disconnect) ⇒ <code>Promise</code>
+        * [.connect(protocolId, deviceId)](#agile.protocol.connect) ⇒ <code>Promise</code>
+        * [.read(protocolId, deviceId)](#agile.protocol.read) ⇒ <code>Promise</code>
+        * [.write(protocolId, deviceId, data)](#agile.protocol.write) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -208,7 +213,7 @@ agile.deviceManager.get('bleB0B448BE5084').then(function(device) {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [deviceId] | <code>String</code> | Agile device Id |
+| deviceId | <code>String</code> | Agile device Id |
 
 **Example**  
 ```js
@@ -226,8 +231,8 @@ agile.deviceManager.delete('bleB0B448BE5084').then(function() {
 
 | Param | Type |
 | --- | --- |
-| deviceOverview | <code>Object</code> |
-| string | <code>type</code> |
+| deviceOverview | <code>Object</code> | 
+| string | <code>type</code> | 
 
 **Example**  
 ```js
@@ -458,5 +463,93 @@ agile.device.subscribe('bleB0B448BE5084', 'Temperature').then(function(stream) {
 ```js
 agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
  console.log('Unsubscribed!');
+});
+```
+<a name="agile.protocol"></a>
+
+### agile.protocol : <code>object</code>
+**Kind**: static namespace of <code>[agile](#agile)</code>  
+
+* [.protocol](#agile.protocol) : <code>object</code>
+    * [.disconnect(protocolId, deviceId)](#agile.protocol.disconnect) ⇒ <code>Promise</code>
+    * [.connect(protocolId, deviceId)](#agile.protocol.connect) ⇒ <code>Promise</code>
+    * [.read(protocolId, deviceId)](#agile.protocol.read) ⇒ <code>Promise</code>
+    * [.write(protocolId, deviceId, data)](#agile.protocol.write) ⇒ <code>Promise</code>
+
+<a name="agile.protocol.disconnect"></a>
+
+#### protocol.disconnect(protocolId, deviceId) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Summary**: Disconnect from the device  
+**Access:** public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| protocolId | <code>String</code> | Agile Id of the protocol |
+| deviceId | <code>String</code> | Agile internal Id of the protocol |
+
+**Example**  
+```js
+agile.protocol.disconnect(deviceId, componentId).then(function() {
+ console.log('Disconnected!');
+});
+```
+<a name="agile.protocol.connect"></a>
+
+#### protocol.connect(protocolId, deviceId) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Summary**: Connect to the device  
+**Access:** public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| protocolId | <code>String</code> | Agile Id of the protocol |
+| deviceId | <code>String</code> | Agile internal Id of the protocol |
+
+**Example**  
+```js
+agile.protocol.connect(deviceId, componentId).then(function() {
+ console.log('Connected!');
+});
+```
+<a name="agile.protocol.read"></a>
+
+#### protocol.read(protocolId, deviceId) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Summary**: Call a read via protocol  
+**Access:** public  
+**Fulfil**: <code>Object</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| protocolId | <code>String</code> | Agile Id of the protocol |
+| deviceId | <code>String</code> | Agile internal Id of the protocol |
+
+**Example**  
+```js
+agile.protocol.read(deviceId, componentId).then(function(data) {
+ console.log(data);
+});
+```
+<a name="agile.protocol.write"></a>
+
+#### protocol.write(protocolId, deviceId, data) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Summary**: Call a write via protocol  
+**Access:** public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| protocolId | <code>String</code> | Agile Id of the protocol |
+| deviceId | <code>String</code> | Agile internal Id of the protocol |
+| data | <code>object</code> | An object containing the content to write |
+
+**Example**  
+```js
+agile.protocol.write(deviceId, componentId).then(function() {
+ console.log('wrote data!');
 });
 ```
