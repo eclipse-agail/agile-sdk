@@ -208,7 +208,7 @@ agile.deviceManager.get('bleB0B448BE5084').then(function(device) {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| deviceId | <code>String</code> | Agile device Id |
+| [deviceId] | <code>String</code> | Agile device Id |
 
 **Example**  
 ```js
@@ -226,8 +226,8 @@ agile.deviceManager.delete('bleB0B448BE5084').then(function() {
 
 | Param | Type |
 | --- | --- |
-| deviceOverview | <code>Object</code> | 
-| string | <code>type</code> | 
+| deviceOverview | <code>Object</code> |
+| string | <code>type</code> |
 
 **Example**  
 ```js
