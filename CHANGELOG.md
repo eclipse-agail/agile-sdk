@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v0.2.0 - 2017-02-20
 
-* Deprecate deviceManger.getAll() [gaudi]
+* Deprecate deviceManger.getAll() [craig-mulligan]
 
 ## v0.1.1 - 2017-02-18
 
