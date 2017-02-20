@@ -14,7 +14,7 @@ const deviceManager = (base) => {
     * @fulfil {Array} - devices
     * @returns {Promise}
     * @example
-    * agile.deviceManager.get(deviceId).then(function(device) {
+    * agile.deviceManager.get('bleB0B448BE5084').then(function(device) {
     *   console.log(device);
     * });
     **/
@@ -35,13 +35,13 @@ const deviceManager = (base) => {
     * @name delete
     * @public
     * @function
-    * @memberof agile.deviceManager.devices
+    * @memberof agile.deviceManager
     * @param {String} deviceId - Agile device Id
     * @fulfil {undefined}
     * @returns {Promise}
     * @example
-    * agile.deviceManager.delete(12345).then(function() {
-    *   console.log(Device 12345 deleted);
+    * agile.deviceManager.delete('bleB0B448BE5084').then(function() {
+    *   console.log('Device bleB0B448BD1085 deleted');
     * });
     **/
     delete: (deviceId) => axios({
@@ -61,7 +61,15 @@ const deviceManager = (base) => {
     * @fulfil {Object} - device
     * @returns {Promise}
     * @example
-    * agile.deviceManager.create(deviceObj, type).then(function(newDevice) {
+    * const deviceOverview = {
+    *   "name": "CC2650 SensorTag",
+    *   "protocol": "iot.agile.protocol.BLE",
+    *   "id": "B0:B4:48:BD:10:85",
+    *   "status": "CONNECTED"
+    * };
+    * const type = "TI SensorTag";
+    *
+    * agile.deviceManager.create(deviceOverview, type).then(function(newDevice) {
     *  console.log(newDevice);
     * });
     **/
@@ -85,6 +93,13 @@ const deviceManager = (base) => {
     * @param {Object} - deviceOverview
     * @returns {Promise}
     * @example
+    * const deviceOverview = {
+    *   "name": "CC2650 SensorTag",
+    *   "protocol": "iot.agile.protocol.BLE",
+    *   "id": "B0:B4:48:BD:10:85",
+    *   "status": "CONNECTED"
+    * };
+    *
     * agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
     *  console.log(deviceTypes);
     * });

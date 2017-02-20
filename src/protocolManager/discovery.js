@@ -16,7 +16,7 @@ const discovery = (base) => {
     *
     * @example
     * agile.protocolManager.discovery.start().then(function() {
-    *   console.log('protocolManager discover is on');
+    *   console.log('protocolManager discovery is on');
     * });
     **/
     start: () => axios({
@@ -37,7 +37,7 @@ const discovery = (base) => {
     *
     * @example
     * agile.protocolManager.discovery.stop().then(function() {
-    *   console.log('protocolManager discover is off');
+    *   console.log('protocolManager discovery is off');
     * });
     **/
     stop: () => axios({
@@ -53,7 +53,7 @@ const discovery = (base) => {
     * @function
     * @memberof agile.protocolManager.discovery
     *
-    * @fulfil {bool}
+    * @fulfil {Object}
     * @returns {Promise}
     *
     * @example

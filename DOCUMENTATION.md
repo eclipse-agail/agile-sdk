@@ -30,6 +30,7 @@ agile('http://agile-core:8080')
         * [.devices()](#agile.protocolManager.devices) ⇒ <code>Promise</code>
     * [.deviceManager](#agile.deviceManager) : <code>object</code>
         * [.get([deviceId])](#agile.deviceManager.get) ⇒ <code>Promise</code>
+        * [.delete(deviceId)](#agile.deviceManager.delete) ⇒ <code>Promise</code>
         * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
         * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
     * [.device](#agile.device) : <code>object</code>
@@ -37,10 +38,10 @@ agile('http://agile-core:8080')
         * [.get(deviceId, [componentId])](#agile.device.get) ⇒ <code>Promise</code>
         * [.connect(deviceId)](#agile.device.connect) ⇒ <code>Promise</code>
         * [.disconnect(deviceId)](#agile.device.disconnect) ⇒ <code>Promise</code>
-        * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
+        * [.execute(deviceId, command)](#agile.device.execute) ⇒ <code>Promise</code>
         * [.lastUpdate(deviceId, [componentId])](#agile.device.lastUpdate) ⇒ <code>Promise</code>
         * [.subscribe(deviceId, componentId)](#agile.device.subscribe) ⇒ <code>Promise</code>
-        * [.unsubscribe(deviceId, [componentId])](#agile.device.unsubscribe) ⇒ <code>Promise</code>
+        * [.unsubscribe(deviceId, componentId)](#agile.device.unsubscribe) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -77,7 +78,7 @@ agile('http://agile-core:8080')
 **Example**  
 ```js
 agile.protocolManager.discovery.start().then(function() {
-  console.log('protocolManager discover is on');
+  console.log('protocolManager discovery is on');
 });
 ```
 <a name="agile.protocolManager.discovery.stop"></a>
@@ -90,7 +91,7 @@ agile.protocolManager.discovery.start().then(function() {
 **Example**  
 ```js
 agile.protocolManager.discovery.stop().then(function() {
-  console.log('protocolManager discover is off');
+  console.log('protocolManager discovery is off');
 });
 ```
 <a name="agile.protocolManager.discovery.status"></a>
@@ -99,7 +100,7 @@ agile.protocolManager.discovery.stop().then(function() {
 **Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
 **Summary**: Return the status of discovery on the available protocols  
 **Access:** public  
-**Fulfil**: <code>bool</code>  
+**Fulfil**: <code>Object</code>  
 **Example**  
 ```js
 agile.protocolManager.discovery.status().then(function(status) {
@@ -161,7 +162,7 @@ agile.protocolManager.protocols.create(protocolId).then(function() {
 **Kind**: static method of <code>[protocolManager](#agile.protocolManager)</code>  
 **Summary**: List all discovered devices on all available protocols  
 **Access:** public  
-**Fulfil**: <code>Object[]</code> - devices  
+**Fulfil**: <code>Array</code> - devices  
 **Example**  
 ```js
 agile.protocolManager.devices().then(function(devices) {
@@ -175,6 +176,7 @@ agile.protocolManager.devices().then(function(devices) {
 
 * [.deviceManager](#agile.deviceManager) : <code>object</code>
     * [.get([deviceId])](#agile.deviceManager.get) ⇒ <code>Promise</code>
+    * [.delete(deviceId)](#agile.deviceManager.delete) ⇒ <code>Promise</code>
     * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
     * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
 
@@ -192,8 +194,26 @@ agile.protocolManager.devices().then(function(devices) {
 
 **Example**  
 ```js
-agile.deviceManager.get(deviceId).then(function(device) {
+agile.deviceManager.get('bleB0B448BE5084').then(function(device) {
   console.log(device);
+});
+```
+<a name="agile.deviceManager.delete"></a>
+
+#### deviceManager.delete(deviceId) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
+**Summary**: Delete a device definition and unregister it  
+**Access:** public  
+**Fulfil**: <code>undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| deviceId | <code>String</code> | Agile device Id |
+
+**Example**  
+```js
+agile.deviceManager.delete('bleB0B448BE5084').then(function() {
+  console.log('Device bleB0B448BD1085 deleted');
 });
 ```
 <a name="agile.deviceManager.create"></a>
@@ -211,7 +231,15 @@ agile.deviceManager.get(deviceId).then(function(device) {
 
 **Example**  
 ```js
-agile.deviceManager.create(deviceObj, type).then(function(newDevice) {
+const deviceOverview = {
+  "name": "CC2650 SensorTag",
+  "protocol": "iot.agile.protocol.BLE",
+  "id": "B0:B4:48:BD:10:85",
+  "status": "CONNECTED"
+};
+const type = "TI SensorTag";
+
+agile.deviceManager.create(deviceOverview, type).then(function(newDevice) {
  console.log(newDevice);
 });
 ```
@@ -229,6 +257,13 @@ agile.deviceManager.create(deviceObj, type).then(function(newDevice) {
 
 **Example**  
 ```js
+const deviceOverview = {
+  "name": "CC2650 SensorTag",
+  "protocol": "iot.agile.protocol.BLE",
+  "id": "B0:B4:48:BD:10:85",
+  "status": "CONNECTED"
+};
+
 agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
  console.log(deviceTypes);
 });
@@ -243,10 +278,10 @@ agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
     * [.get(deviceId, [componentId])](#agile.device.get) ⇒ <code>Promise</code>
     * [.connect(deviceId)](#agile.device.connect) ⇒ <code>Promise</code>
     * [.disconnect(deviceId)](#agile.device.disconnect) ⇒ <code>Promise</code>
-    * [.execute(id, command)](#agile.device.execute) ⇒ <code>Promise</code>
+    * [.execute(deviceId, command)](#agile.device.execute) ⇒ <code>Promise</code>
     * [.lastUpdate(deviceId, [componentId])](#agile.device.lastUpdate) ⇒ <code>Promise</code>
     * [.subscribe(deviceId, componentId)](#agile.device.subscribe) ⇒ <code>Promise</code>
-    * [.unsubscribe(deviceId, [componentId])](#agile.device.unsubscribe) ⇒ <code>Promise</code>
+    * [.unsubscribe(deviceId, componentId)](#agile.device.unsubscribe) ⇒ <code>Promise</code>
 
 <a name="agile.device.status"></a>
 
@@ -262,7 +297,7 @@ agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
 
 **Example**  
 ```js
-agile.device.status(deviceId).then(function(status) {
+agile.device.status('bleB0B448BE5084').then(function(status) {
  console.log(status);
 });
 ```
@@ -281,14 +316,14 @@ agile.device.status(deviceId).then(function(status) {
 
 **Example**  
 ```js
-agile.device.get(deviceId).then(function(deviceComponents) {
+agile.device.get('bleB0B448BE5084').then(function(deviceComponents) {
   console.log(deviceComponents);
 });
 ```
 **Example**  
 ```js
-agile.device.get(deviceId, componentId).then(function(deviceComponents) {
-  console.log(deviceComponents);
+agile.device.get('bleB0B448BE5084', 'Temperature').then(function(deviceComponent) {
+  console.log(deviceComponent);
 });
 ```
 <a name="agile.device.connect"></a>
@@ -305,7 +340,7 @@ agile.device.get(deviceId, componentId).then(function(deviceComponents) {
 
 **Example**  
 ```js
-agile.device.connect(deviceId).then(function() {
+agile.device.connect('bleB0B448BE5084').then(function() {
   console.log('Connected!');
 });
 ```
@@ -323,13 +358,13 @@ agile.device.connect(deviceId).then(function() {
 
 **Example**  
 ```js
-agile.device.disconnect(deviceId).then(function() {
+agile.device.disconnect('bleB0B448BE5084').then(function() {
   console.log('Disconnected!');
 });
 ```
 <a name="agile.device.execute"></a>
 
-#### device.execute(id, command) ⇒ <code>Promise</code>
+#### device.execute(deviceId, command) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[device](#agile.device)</code>  
 **Summary**: Perform an action on the device  
 **Access:** public  
@@ -337,13 +372,13 @@ agile.device.disconnect(deviceId).then(function() {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| id | <code>String</code> | Agile device Id |
+| deviceId | <code>String</code> | Agile device Id |
 | command | <code>String</code> | Operation name to be performed |
 
 **Example**  
 ```js
-agile.device.connect(id, command).then(function() {
-  console.log('Connected!');
+agile.device.execute('bleB0B448BE5084', command).then(function() {
+  console.log(`executed ${command}!``);
 });
 ```
 <a name="agile.device.lastUpdate"></a>
@@ -361,13 +396,13 @@ agile.device.connect(id, command).then(function() {
 
 **Example**  
 ```js
-agile.device.lastUpdate('123', 'Temperature').then(function(temperatureReading) {
+agile.device.lastUpdate('bleB0B448BE5084', 'Temperature').then(function(temperatureReading) {
  console.log(temperatureReading);
 });
 ```
 **Example**  
 ```js
-agile.device.lastUpdate(deviceId).then(function(componentsReading) {
+agile.device.lastUpdate('bleB0B448BE5084').then(function(componentsReading) {
  console.log(componentsReading);
 });
 ```
@@ -386,7 +421,7 @@ agile.device.lastUpdate(deviceId).then(function(componentsReading) {
 
 **Example**  
 ```js
-agile.device.execute(deviceId, componentId).then(function(stream) {
+agile.device.subscribe('bleB0B448BE5084', 'Temperature').then(function(stream) {
   stream.onerror = () => {
    console.log('Connection Error');
  };
@@ -408,7 +443,7 @@ agile.device.execute(deviceId, componentId).then(function(stream) {
 ```
 <a name="agile.device.unsubscribe"></a>
 
-#### device.unsubscribe(deviceId, [componentId]) ⇒ <code>Promise</code>
+#### device.unsubscribe(deviceId, componentId) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[device](#agile.device)</code>  
 **Summary**: Unsubscribe from a data stream  
 **Access:** public  
@@ -417,11 +452,11 @@ agile.device.execute(deviceId, componentId).then(function(stream) {
 | Param | Type | Description |
 | --- | --- | --- |
 | deviceId | <code>String</code> | Agile device Id |
-| [componentId] | <code>String</code> | Agile component name, like a sensor |
+| componentId | <code>String</code> | Agile component name, like a sensor |
 
 **Example**  
 ```js
-agile.device.get(deviceId).then(function(deviceComponents) {
- console.log(deviceComponents);
+agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
+ console.log('Unsubscribed!');
 });
 ```
