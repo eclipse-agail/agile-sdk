@@ -75,7 +75,7 @@ const protocolManager = (base) => {
     * @function
     * @memberof agile.protocolManager
     *
-    * @fulfil {Object[]} - devices
+    * @fulfil {Array} - devices
     * @returns {Promise}
     *
     * @example

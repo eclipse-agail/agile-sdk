@@ -17,7 +17,7 @@ const device = (base, wsBase) => {
     * @fulfil {String} - status
     * @returns {Promise}
     * @example
-    * agile.device.status(deviceId).then(function(status) {
+    * agile.device.status('bleB0B448BE5084').then(function(status) {
     *  console.log(status);
     * });
     **/
@@ -38,12 +38,12 @@ const device = (base, wsBase) => {
     * @fulfil {Object|Array} Single Component readings returned as object, Device readings returned as Array of Objects.
     * @returns {Promise}
     * @example
-    * agile.device.get(deviceId).then(function(deviceComponents) {
+    * agile.device.get('bleB0B448BE5084').then(function(deviceComponents) {
     *   console.log(deviceComponents);
     * });
     * @example
-    * agile.device.get(deviceId, componentId).then(function(deviceComponents) {
-    *   console.log(deviceComponents);
+    * agile.device.get('bleB0B448BE5084', 'Temperature').then(function(deviceComponent) {
+    *   console.log(deviceComponent);
     * });
     **/
     get: (deviceId, componentId) => {
@@ -68,7 +68,7 @@ const device = (base, wsBase) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.device.connect(deviceId).then(function() {
+    * agile.device.connect('bleB0B448BE5084').then(function() {
     *   console.log('Connected!');
     * });
     **/
@@ -88,7 +88,7 @@ const device = (base, wsBase) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.device.disconnect(deviceId).then(function() {
+    * agile.device.disconnect('bleB0B448BE5084').then(function() {
     *   console.log('Disconnected!');
     * });
     **/
@@ -104,18 +104,18 @@ const device = (base, wsBase) => {
     * @public
     * @function
     * @memberof agile.device
-    * @param {String} id - Agile device Id
+    * @param {String} deviceId - Agile device Id
     * @param {String} command - Operation name to be performed
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.device.connect(id, command).then(function() {
-    *   console.log('Connected!');
+    * agile.device.execute('bleB0B448BE5084', command).then(function() {
+    *   console.log(`executed ${command}!``);
     * });
     **/
-    execute: (id, command) => axios({
+    execute: (deviceId, command) => axios({
       method: 'GET',
-      url: `${base}/${id}/execute/${command}`
+      url: `${base}/${deviceId}/execute/${command}`
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -130,12 +130,12 @@ const device = (base, wsBase) => {
     * @fulfil {Object|Array} Single Component readings returned as object, Device readings returned as Array of Objects.
     * @returns {Promise}
     * @example
-    * agile.device.lastUpdate('123', 'Temperature').then(function(temperatureReading) {
+    * agile.device.lastUpdate('bleB0B448BE5084', 'Temperature').then(function(temperatureReading) {
     *  console.log(temperatureReading);
     * });
 
     * @example
-    * agile.device.lastUpdate(deviceId).then(function(componentsReading) {
+    * agile.device.lastUpdate('bleB0B448BE5084').then(function(componentsReading) {
     *  console.log(componentsReading);
     * });
     **/
@@ -160,10 +160,10 @@ const device = (base, wsBase) => {
     * @memberof agile.device
     * @param {String} deviceId - Agile device Id
     * @param {String} componentId - Operation name to be performed
-    * @fulfil {Object} - stream - https://www.w3.org/TR/websockets/
+    * @fulfil {Object} - websocket instance - https://www.w3.org/TR/websockets/
     * @returns {Promise}
     * @example
-    * agile.device.execute(deviceId, componentId).then(function(stream) {
+    * agile.device.subscribe('bleB0B448BE5084', 'Temperature').then(function(stream) {
     *   stream.onerror = () => {
     *    console.log('Connection Error');
     *  };
@@ -189,18 +189,18 @@ const device = (base, wsBase) => {
       });
     },
     /**
-    * @summary Read values of all components from the device
-    * @name get
+    * @summary Unsubscribe from a data stream
+    * @name unsubscribe
     * @public
     * @function
     * @memberof agile.device
     * @param {String} deviceId - Agile device Id
-    * @param {String} [componentId] - Agile component name, like a sensor
-    * @fulfil {Object|Array} Single Component readings returned as object, Device readings returned as Array of Objects.
+    * @param {String} componentId - Agile component name, like a sensor
+    * @fulfil {undefined}
     * @returns {Promise}
     * @example
-    * agile.device.get(deviceId).then(function(deviceComponents) {
-    *  console.log(deviceComponents);
+    * agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
+    *  console.log('Unsubscribed!');
     * });
     **/
     unsubscribe: (deviceId, componentId) => axios({
