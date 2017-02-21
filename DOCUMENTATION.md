@@ -31,8 +31,8 @@ var agile = require('agile-sdk')('http://agile-core:8080')
     * [.deviceManager](#agile.deviceManager) : <code>object</code>
         * [.get([deviceId])](#agile.deviceManager.get) ⇒ <code>Promise</code>
         * [.delete(deviceId)](#agile.deviceManager.delete) ⇒ <code>Promise</code>
-        * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
-        * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
+        * [.create(deviceOverview, type)](#agile.deviceManager.create) ⇒ <code>Promise</code>
+        * [.typeof(deviceOverview)](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
     * [.device](#agile.device) : <code>object</code>
         * [.status(deviceId)](#agile.device.status) ⇒ <code>Promise</code>
         * [.get(deviceId, [componentId])](#agile.device.get) ⇒ <code>Promise</code>
@@ -206,8 +206,8 @@ agile.protocolManager.devices().then(function(devices) {
 * [.deviceManager](#agile.deviceManager) : <code>object</code>
     * [.get([deviceId])](#agile.deviceManager.get) ⇒ <code>Promise</code>
     * [.delete(deviceId)](#agile.deviceManager.delete) ⇒ <code>Promise</code>
-    * [.create(deviceOverview, string)](#agile.deviceManager.create) ⇒ <code>Promise</code>
-    * [.typeof()](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
+    * [.create(deviceOverview, type)](#agile.deviceManager.create) ⇒ <code>Promise</code>
+    * [.typeof(deviceOverview)](#agile.deviceManager.typeof) ⇒ <code>Promise</code>
 
 <a name="agile.deviceManager.get"></a>
 
@@ -247,7 +247,7 @@ agile.deviceManager.delete('bleB0B448BE5084').then(function() {
 ```
 <a name="agile.deviceManager.create"></a>
 
-#### deviceManager.create(deviceOverview, string) ⇒ <code>Promise</code>
+#### deviceManager.create(deviceOverview, type) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
 **Summary**: Register a new device based on information from ProtocolManager and device type  
 **Access:** public  
@@ -256,7 +256,7 @@ agile.deviceManager.delete('bleB0B448BE5084').then(function() {
 | Param | Type |
 | --- | --- |
 | deviceOverview | <code>Object</code> | 
-| string | <code>type</code> | 
+| type | <code>string</code> | 
 
 **Example**  
 ```js
@@ -274,15 +274,15 @@ agile.deviceManager.create(deviceOverview, type).then(function(newDevice) {
 ```
 <a name="agile.deviceManager.typeof"></a>
 
-#### deviceManager.typeof() ⇒ <code>Promise</code>
+#### deviceManager.typeof(deviceOverview) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
 **Summary**: Get matching types for a device overview  
 **Access:** public  
 **Fulfil**: <code>Array</code> - deviceTypes  
 
-| Type | Description |
+| Param | Type |
 | --- | --- |
-| <code>Object</code> | deviceOverview |
+| deviceOverview | <code>Object</code> | 
 
 **Example**  
 ```js

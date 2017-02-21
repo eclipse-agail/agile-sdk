@@ -33,7 +33,7 @@ It's available in node.js and the browser.
 var agile = require('agile-sdk')('http://agile.local:8080')
 ```
 
-For convenience it's shipped with a [browser bundle](dist/bundle.js) too with agileSDK expose as a global constant eg.
+For convenience it's shipped with a browser bundle too with agileSDK expose as a global constant eg.
 
 ``` html
 <script src="node_modules/agile-sdk/dist/bundle.js"></script>
