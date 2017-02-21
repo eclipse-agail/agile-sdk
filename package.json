@@ -10,13 +10,13 @@
     "docs": "jsdoc2md 'src/**/*.js' > DOCUMENTATION.md",
     "build": "babel src --out-dir dist --copy-files",
     "version": "versionist",
-    "prepublish": "npm run build && npm run version"
+    "prepublish": "npm run build"
   },
   "keywords": [
     "iot"
   ],
   "author": "craig-mulligan",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "0.15.3",
     "url-parse": "1.1.7",
