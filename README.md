@@ -27,14 +27,33 @@ Documentation
 
 The module exports a single factory function that takes a your Agile API hostname as a single argument.
 
+It's available in node.js and the browser.
+
 ``` js
 var agile = require('agile-sdk')('http://agile.local:8080')
+```
+
+For convenience it's shipped with a [browser bundle](dist/bundle.js) too with agileSDK expose as a global constant eg.
+
+``` html
+<script src="node_modules/agile-sdk/dist/bundle.js"></script>
+<script>
+var agile = agileSDK('http://agile.local:8080');
+
+agile.protocolManager.discovery.start()
+.then(function() {
+  console.log('started!')
+})
+.catch(function(err) {
+  console.log(err)
+});
+</script>
 ```
 
 Here a example of reading data from a device:
 
 ``` js
-import agileSDK from './src';
+import agileSDK from 'agile-sdk';
 
 const agile = agileSDK('http://agile.local:8080');
 const deviceId = 'bleB0B448BE5084';

@@ -16,7 +16,7 @@ import parseUrl from 'url-parse';
   * @example
   * var agile = require('agile-sdk')('http://agile-core:8080')
 */
-export default (base) => {
+const agileSDK = (base) => {
   // parse url to remove any irregularites
   const parsed = parseUrl(base);
   const apiBase = `${parsed.origin}/api`;
@@ -44,3 +44,5 @@ export default (base) => {
     protocol: protocol(apiBase)
   });
 };
+
+module.exports = agileSDK;

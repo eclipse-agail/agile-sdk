@@ -57,7 +57,7 @@ const deviceManager = (base) => {
     * @function
     * @memberof agile.deviceManager
     * @param {Object} deviceOverview
-    * @param {type} string
+    * @param {string} type
     * @fulfil {Object} - device
     * @returns {Promise}
     * @example
@@ -89,8 +89,9 @@ const deviceManager = (base) => {
     * @public
     * @function
     * @memberof agile.deviceManager
+    *
+    * @param {Object} deviceOverview
     * @fulfil {Array} - deviceTypes
-    * @param {Object} - deviceOverview
     * @returns {Promise}
     * @example
     * const deviceOverview = {
