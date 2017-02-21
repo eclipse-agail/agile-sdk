@@ -21,9 +21,9 @@ agile('http://agile-core:8080')
 * [agile](#agile) ⇒ <code>Object</code>
     * [.protocolManager](#agile.protocolManager) : <code>object</code>
         * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
-            * [.start()](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
-            * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
-            * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
+            * [.start([protocolId])](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
+            * [.stop([protocolId])](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
+            * [.status([protocolId])](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
         * [.get()](#agile.protocolManager.get) ⇒ <code>Promise</code>
         * [.delete(protocolId)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
         * [.create(protocolId)](#agile.protocolManager.create) ⇒ <code>Promise</code>
@@ -55,9 +55,9 @@ agile('http://agile-core:8080')
 
 * [.protocolManager](#agile.protocolManager) : <code>object</code>
     * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
-        * [.start()](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
-        * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
-        * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
+        * [.start([protocolId])](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
+        * [.stop([protocolId])](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
+        * [.status([protocolId])](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
     * [.get()](#agile.protocolManager.get) ⇒ <code>Promise</code>
     * [.delete(protocolId)](#agile.protocolManager.delete) ⇒ <code>Promise</code>
     * [.create(protocolId)](#agile.protocolManager.create) ⇒ <code>Promise</code>
@@ -69,46 +69,70 @@ agile('http://agile-core:8080')
 **Kind**: static namespace of <code>[protocolManager](#agile.protocolManager)</code>  
 
 * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
-    * [.start()](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
-    * [.stop()](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
-    * [.status()](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
+    * [.start([protocolId])](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
+    * [.stop([protocolId])](#agile.protocolManager.discovery.stop) ⇒ <code>Promise</code>
+    * [.status([protocolId])](#agile.protocolManager.discovery.status) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager.discovery.start"></a>
 
-##### discovery.start() ⇒ <code>Promise</code>
+##### discovery.start([protocolId]) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
-**Summary**: Start a device discovery on all available protocols  
+**Summary**: Start device discovery on all or single protocol  
 **Access:** public  
 **Fulfil**: <code>null</code>  
+
+| Param | Description |
+| --- | --- |
+| [protocolId] | Agile protocol Id |
+
 **Example**  
 ```js
 agile.protocolManager.discovery.start().then(function() {
-  console.log('protocolManager discovery is on');
+  console.log('All protocols discovery is on');
+});
+agile.protocolManager.discovery.start('Bluetooth LE').then(function() {
+  console.log('Bluetooth LE protocols discovery is on');
 });
 ```
 <a name="agile.protocolManager.discovery.stop"></a>
 
-##### discovery.stop() ⇒ <code>Promise</code>
+##### discovery.stop([protocolId]) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
-**Summary**: Stop a device discovery on all available protocols  
+**Summary**: Stop device discovery on all or single protocol  
 **Access:** public  
 **Fulfil**: <code>null</code>  
+
+| Param | Description |
+| --- | --- |
+| [protocolId] | Agile protocol Id |
+
 **Example**  
 ```js
 agile.protocolManager.discovery.stop().then(function() {
-  console.log('protocolManager discovery is off');
+  console.log('All protocols discovery is off');
+});
+agile.protocolManager.discovery.stop('Bluetooth LE').then(function() {
+  console.log('Bluetooth LE discovery is off');
 });
 ```
 <a name="agile.protocolManager.discovery.status"></a>
 
-##### discovery.status() ⇒ <code>Promise</code>
+##### discovery.status([protocolId]) ⇒ <code>Promise</code>
 **Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
-**Summary**: Return the status of discovery on the available protocols  
+**Summary**: Return the status of discovery on the all or single protocol  
 **Access:** public  
 **Fulfil**: <code>Object</code>  
+
+| Param | Description |
+| --- | --- |
+| [protocolId] | Agile protocol Id |
+
 **Example**  
 ```js
 agile.protocolManager.discovery.status().then(function(status) {
+  console.log(status);
+});
+agile.protocolManager.discovery.status('Bluetooth LE').then(function(status) {
   console.log(status);
 });
 ```
@@ -491,7 +515,7 @@ agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
 
 **Example**  
 ```js
-agile.protocol.disconnect(deviceId, componentId).then(function() {
+agile.protocol.disconnect('Bluetooth LE', 'bleB0B448BE5084').then(function() {
  console.log('Disconnected!');
 });
 ```
@@ -510,7 +534,7 @@ agile.protocol.disconnect(deviceId, componentId).then(function() {
 
 **Example**  
 ```js
-agile.protocol.connect(deviceId, componentId).then(function() {
+agile.protocol.connect('Bluetooth LE', 'bleB0B448BE5084').then(function() {
  console.log('Connected!');
 });
 ```
@@ -529,7 +553,7 @@ agile.protocol.connect(deviceId, componentId).then(function() {
 
 **Example**  
 ```js
-agile.protocol.read(deviceId, componentId).then(function(data) {
+agile.protocol.read('Bluetooth LE', 'bleB0B448BE5084').then(function(data) {
  console.log(data);
 });
 ```
@@ -549,7 +573,7 @@ agile.protocol.read(deviceId, componentId).then(function(data) {
 
 **Example**  
 ```js
-agile.protocol.write(deviceId, componentId).then(function() {
+agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
  console.log('wrote data!');
 });
 ```

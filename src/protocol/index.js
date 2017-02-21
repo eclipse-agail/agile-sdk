@@ -16,7 +16,7 @@ const protocol = (base) => {
     * @returns {Promise}
     *
     * @example
-    * agile.protocol.disconnect(deviceId, componentId).then(function() {
+    * agile.protocol.disconnect('Bluetooth LE', 'bleB0B448BE5084').then(function() {
     *  console.log('Disconnected!');
     * });
     **/
@@ -38,7 +38,7 @@ const protocol = (base) => {
     * @returns {Promise}
     *
     * @example
-    * agile.protocol.connect(deviceId, componentId).then(function() {
+    * agile.protocol.connect('Bluetooth LE', 'bleB0B448BE5084').then(function() {
     *  console.log('Connected!');
     * });
     **/
@@ -60,7 +60,7 @@ const protocol = (base) => {
     * @returns {Promise}
     *
     * @example
-    * agile.protocol.read(deviceId, componentId).then(function(data) {
+    * agile.protocol.read('Bluetooth LE', 'bleB0B448BE5084').then(function(data) {
     *  console.log(data);
     * });
     **/
@@ -82,13 +82,14 @@ const protocol = (base) => {
     * @returns {Promise}
     *
     * @example
-    * agile.protocol.write(deviceId, componentId).then(function() {
+    * agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
     *  console.log('wrote data!');
     * });
     **/
-    write: (protocolId, deviceId) => axios({
+    write: (protocolId, deviceId, data) => axios({
       method: 'POST',
-      url: `${base}/${protocolId}/${deviceId}`
+      url: `${base}/${protocolId}/${deviceId}`,
+      data: data
     })
     .then(res => (res.data))
     .catch(errorHandler)
