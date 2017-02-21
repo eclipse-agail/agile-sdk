@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { errorHandler, getWS } from '../utils';
-
-const WS = getWS();
+import { errorHandler } from '../utils';
+const WS = require('websocket').w3cwebsocket;
 
 const device = (base, wsBase) => {
   base = `${base}/device`;
