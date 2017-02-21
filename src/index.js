@@ -14,7 +14,7 @@ import parseUrl from 'url-parse';
   * @param {string} - agile-core REST API endpoint
   * @returns {Object}
   * @example
-  * agile('http://agile-core:8080')
+  * var agile = require('agile-sdk')('http://agile-core:8080')
 */
 export default (base) => {
   // parse url to remove any irregularites

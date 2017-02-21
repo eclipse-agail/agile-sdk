@@ -15,7 +15,7 @@ If you feel something is missing, not clear or could be improved, please don't h
 
 **Example**  
 ```js
-agile('http://agile-core:8080')
+var agile = require('agile-sdk')('http://agile-core:8080')
 ```
 
 * [agile](#agile) ⇒ <code>Object</code>
