@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "0.15.3",
+    "qs": "^6.4.0",
     "url-parse": "1.1.7",
     "websocket": "1.0.24"
   },

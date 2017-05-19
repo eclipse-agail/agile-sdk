@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { errorHandler } from '../utils';
+import parseUrl from 'url-parse';
 
 const idm = (base, token) => {
   base = `${base}`;
@@ -25,20 +26,24 @@ const idm = (base, token) => {
     .then(res => (res.data))
     .catch(errorHandler),
     /**
-    * @summary List all groups
-    * @name getGroups
+    * @summary Show information for a particular user
+    * @name getuser
     * @public
     * @function
-    * @memberof agile.idm
-    * @fulfil {Array} all groups
+    * @memberof agile.idm.user
+    * @param {String} user_name user name
+    * @param {String} auth_type authentication type
+    * @fulfil {Object} user found
     * @returns {Promise}
     * @example
-    * agile.idm.getGroups().then(function(groups) {
-    *   console.log(groups);
+    * agile.idm.user.getuser("alice","agile-local").then(function(user) {
+    *   console.log(user);
     * });
     **/
-    getGroups: () => {
-      let url = `${base}/api/v1/group`;
+    getUser: (user_name, auth_type) => {
+      var parsed = parseUrl(`${base}/api/v1/user/`);
+      parsed.set("query",{'auth_type': auth_type, 'user_name': user_name});
+      let url = parsed.toString();
       return axios({
         method: 'GET',
         url: url,
@@ -48,160 +53,69 @@ const idm = (base, token) => {
       .catch(errorHandler);
     },
     /**
-    * @summary Create a group onwned by the authenticated user
-    * @name createGroup
+    * @summary Create user
+    * @name createUser
     * @public
     * @function
-    * @memberof agile.idm
-    * @param {String} groupName - Name of the group
-    * @fulfil {Object} group created
+    * @memberof agile.idm.user
+    * @param {String} user_name user name
+    * @param {String} auth_type authentication type
+    * @param [Object] options continaing  role  of the user as "role" and password as "password"
+    * @fulfil {Object} user created
     * @returns {Promise}
     * @example
-    * agile.device.createGroup('ble-devices').then(function(group) {
-    *   console.log('group created!'+group);
+    * agile.idm.user.createUser('bob','agile-local',{"role":"admin", "password":"secret"}).then(function(user) {
+    *   console.log('user created!'+user);
     * });
     **/
-    createGroup: (name) => axios({
-      method: 'POST',
-      url: `${base}/api/v1/group/`,
-      headers: {"Authorization" : `bearer ${token}`},
-      data: {"group_name" : name}
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
-    /**
-    * @summary Delete a group
-    * @name deleteGroup
-    * @public
-    * @function
-    * @memberof agile.idm
-    * @param {String} owner - Owner of the group
-    * @param {String} groupName - Name of the group
-    * @fulfil {Undefined}
-    * @returns {Promise}
-    * @example
-    * agile.idm.deleteGroup('my-group').then(function() {
-    *   console.log('group removed!');
-    * });
-    **/
-    deleteGroup: (owner, name) => axios({
-      method: 'DELETE',
-      url: `${base}/api/v1/user/${owner}/group/${name}`,
-      headers: {"Authorization" : `bearer ${token}`}
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
-    /**
-    * @summary Perform an action on the device
-    * @name execute
-    * @public
-    * @function
-    * @memberof agile.device
-    * @param {String} deviceId - Agile device Id
-    * @param {String} command - Operation name to be performed
-    * @fulfil {Undefined}
-    * @returns {Promise}
-    * @example
-    * agile.device.execute('bleB0B448BE5084', command).then(function() {
-    *   console.log(`executed ${command}!``);
-    * });
-    **/
-    execute: (deviceId, command) => axios({
-      method: 'GET',
-      url: `${base}/${deviceId}/execute/${command}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
-    /**
-    * @summary Get the last record fetched from the device or component
-    * @name lastUpdate
-    * @public
-    * @function
-    * @memberof agile.device
-    * @param {String} deviceId - Agile device Id
-    * @param {String} [componentId] - Agile component name, like a sensor
-    * @fulfil {Object|Array} Single Component readings returned as object, Device readings returned as Array of Objects.
-    * @returns {Promise}
-    * @example
-    * agile.device.lastUpdate('bleB0B448BE5084', 'Temperature').then(function(temperatureReading) {
-    *  console.log(temperatureReading);
-    * });
-
-    * @example
-    * agile.device.lastUpdate('bleB0B448BE5084').then(function(componentsReading) {
-    *  console.log(componentsReading);
-    * });
-    **/
-    lastUpdate: (deviceId, componentId) => {
-      let url = `${base}/${deviceId}/lastUpdate`;
-      if (componentId) {
-        url = `${base}/${deviceId}/${componentId}/lastUpdate`;
+    createUser: (user_name, auth_type, options) => {
+      var user = {
+        "auth_type": auth_type,
+        "user_name": user_name
+      };
+      if(options && options.role){
+        user.role = options.role;
       }
-
+      if(options && options.password){
+        user.password = options.password;
+      }
       return axios({
-        method: 'GET',
-        url: url
+        method: 'POST',
+        url: `${base}/api/v1/user/`,
+        headers: {"Authorization" : `bearer ${token}`},
+        data: user
       })
       .then(res => (res.data))
       .catch(errorHandler);
     },
     /**
-    * @summary Enable a subscription to a data stream. Asynchronous data updates will be delivered via websocket.
-    * @name subscribe
+    * @summary Delete a user
+    * @name deleteUser
     * @public
     * @function
-    * @memberof agile.device
-    * @param {String} deviceId - Agile device Id
-    * @param {String} componentId - Operation name to be performed
-    * @fulfil {Object} - websocket instance - https://www.w3.org/TR/websockets/
+    * @memberof agile.idm.user
+    * @param {String} user_name user name
+    * @param {String} auth_type authentication type
+    * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.device.subscribe('bleB0B448BE5084', 'Temperature').then(function(stream) {
-    *   stream.onerror = () => {
-    *    console.log('Connection Error');
-    *  };
-    *
-    *  stream.onopen = () => {
-    *    console.log('WebSocket Client Connected');
-    *  };
-    *
-    *  stream.onclose = () => {
-    *    console.log('echo-protocol Client Closed');
-    *  };
-    *
-    *  stream.onmessage = (e) => {
-    *    if (typeof e.data === 'string') {
-    *      console.log("Received: '" + e.data + "'");
-    *    }
-    *  };
+    * agile.idm.user.deleteUser('bob','agile-local').then(function() {
+    *   console.log('user removed!');
     * });
     **/
-    subscribe: (deviceId, componentId) => {
-      return new Promise(function (resolve, reject) {
-        resolve(new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`));
-      });
-    },
-    /**
-    * @summary Unsubscribe from a data stream
-    * @name unsubscribe
-    * @public
-    * @function
-    * @memberof agile.device
-    * @param {String} deviceId - Agile device Id
-    * @param {String} componentId - Agile component name, like a sensor
-    * @fulfil {undefined}
-    * @returns {Promise}
-    * @example
-    * agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
-    *  console.log('Unsubscribed!');
-    * });
-    **/
-    unsubscribe: (deviceId, componentId) => axios({
-      method: 'DELETE',
-      url: `${base}/${deviceId}/${componentId}/subscribe`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler)
+    deleteUser: (user_name, auth_type) => {
+      var parsed = parseUrl(`${base}/api/v1/user/`);
+      parsed.set("query",{'auth_type': auth_type, 'user_name': user_name});
+      var url = parsed.toString();
+      return axios({
+        method: 'DELETE',
+        url: url,
+        headers: {"Authorization":`bearer ${token}`}
+      })
+      .then(res => (res))
+      .catch(errorHandler);
+    }
+
   });
 };
 
