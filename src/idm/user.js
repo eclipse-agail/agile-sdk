@@ -10,11 +10,11 @@ const idm = (base, token) => {
     * @name getUserInfo
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.user
     * @fulfil {Object} userInfo - object with user information
     * @returns {Promise}
     * @example
-    * agile.id.getuserInfo().then(function(info) {
+    * agile.idm.user.getuserInfo().then(function(info) {
     *  console.log(info);
     * });
     **/

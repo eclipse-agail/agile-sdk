@@ -9,7 +9,7 @@ const entity = (base, token) => {
     * @name getEntitiesByType
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.entity
     * @param {String} entityType - type of entity
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
@@ -33,7 +33,7 @@ const entity = (base, token) => {
     * @name getEntitiesByAttributeValue
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.entity
     * @param {Array} constraints- contains objects containing objects with the property  "attribute_type" to specify the attribute type and with the property "attribute_value" to sepcify the expected attribute value
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
@@ -58,7 +58,7 @@ const entity = (base, token) => {
     * @name getEntity
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.entity
     * @param {String} entityId - id of entity
     * @param {String} entityType - type of entity
     * @fulfil {Object} entity entity
@@ -80,7 +80,7 @@ const entity = (base, token) => {
         * @name createEntity
         * @public
         * @function
-        * @memberof agile.idm
+        * @memberof agile.idm.entity
         * @param {String} entityId - id of entity
         * @param {String} entityType - type of entity
         * @param {object} entity - An object containing the entity
@@ -104,7 +104,7 @@ const entity = (base, token) => {
     * @name deleteEntity
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.entity
     * @param {String} entityId - id of entity
     * @param {String} entityType - type of entity
     * @fulfil {Undefined}
@@ -126,7 +126,7 @@ const entity = (base, token) => {
     * @name setEntityAttribute
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.entity
     * @param {String} entityId - id of entity
     * @param {String} entityType - type of entity
     * @param {String} attributeName- name of the attribute
@@ -151,7 +151,7 @@ const entity = (base, token) => {
     * @name deleteEntityAttribute
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.entity
     * @param {String} entityId - id of entity
     * @param {String} entityType - type of entity
     * @param {String} attributeName- name of the attribute

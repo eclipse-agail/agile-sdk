@@ -12,10 +12,12 @@ If you feel something is missing, not clear or could be improved, please don't h
 | Type | Description |
 | --- | --- |
 | <code>string</code> | agile-core REST API endpoint |
+| <code>string</code> | agile-idm REST API endpoint |
+| <code>string</code> | agile-idm token |
 
 **Example**  
 ```js
-var agile = require('agile-sdk')('http://agile-core:8080')
+var agile = require('agile-sdk')('http://agile-core:8080','zIOycOqbEQh4ayw7lGAm9ILBIr')
 ```
 
 * [agile](#agile) ⇒ <code>Object</code>
@@ -47,11 +49,33 @@ var agile = require('agile-sdk')('http://agile-core:8080')
         * [.connect(protocolId, deviceId)](#agile.protocol.connect) ⇒ <code>Promise</code>
         * [.read(protocolId, deviceId)](#agile.protocol.read) ⇒ <code>Promise</code>
         * [.write(protocolId, deviceId, data)](#agile.protocol.write) ⇒ <code>Promise</code>
+    * [.idm](#agile.idm) : <code>object</code>
+        * [.group](#agile.idm.group) : <code>object</code>
+            * [.getGroups()](#agile.idm.group.getGroups) ⇒ <code>Promise</code>
+            * [.createGroup(groupName)](#agile.idm.group.createGroup) ⇒ <code>Promise</code>
+            * [.deleteGroup(owner, groupName)](#agile.idm.group.deleteGroup) ⇒ <code>Promise</code>
+            * [.addEntityToGroup(owner, groupName, entityId, entityType)](#agile.idm.group.addEntityToGroup) ⇒ <code>Promise</code>
+            * [.removeEntityFromGroup(owner, groupName, entityId, entityType)](#agile.idm.group.removeEntityFromGroup) ⇒ <code>Promise</code>
+        * [.user](#agile.idm.user) : <code>object</code>
+            * [.getUserInfo()](#agile.idm.user.getUserInfo) ⇒ <code>Promise</code>
+            * [.getuser(user_name, auth_type)](#agile.idm.user.getuser) ⇒ <code>Promise</code>
+            * [.createUser(user_name, auth_type, [Object])](#agile.idm.user.createUser) ⇒ <code>Promise</code>
+            * [.deleteUser(user_name, auth_type)](#agile.idm.user.deleteUser) ⇒ <code>Promise</code>
+        * [.entity](#agile.idm.entity) : <code>object</code>
+            * [.getEntitiesByType(entityType)](#agile.idm.entity.getEntitiesByType) ⇒ <code>Promise</code>
+            * [.getEntitiesByAttributeValue(constraints-)](#agile.idm.entity.getEntitiesByAttributeValue) ⇒ <code>Promise</code>
+            * [.getEntity(entityId, entityType)](#agile.idm.entity.getEntity) ⇒ <code>Promise</code>
+            * [.createEntity(entityId, entityType, entity)](#agile.idm.entity.createEntity) ⇒ <code>Promise</code>
+            * [.deleteEntity(entityId, entityType)](#agile.idm.entity.deleteEntity) ⇒ <code>Promise</code>
+            * [.setEntityAttribute(entityId, entityType, attributeName-, attribute)](#agile.idm.entity.setEntityAttribute) ⇒ <code>Promise</code>
+            * [.deleteEntityAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteEntityAttribute) ⇒ <code>Promise</code>
+        * [.authentication](#agile.idm.authentication) : <code>object</code>
+            * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
 ### agile.protocolManager : <code>object</code>
-**Kind**: static namespace of <code>[agile](#agile)</code>  
+**Kind**: static namespace of [<code>agile</code>](#agile)  
 
 * [.protocolManager](#agile.protocolManager) : <code>object</code>
     * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
@@ -66,7 +90,7 @@ var agile = require('agile-sdk')('http://agile-core:8080')
 <a name="agile.protocolManager.discovery"></a>
 
 #### protocolManager.discovery : <code>object</code>
-**Kind**: static namespace of <code>[protocolManager](#agile.protocolManager)</code>  
+**Kind**: static namespace of [<code>protocolManager</code>](#agile.protocolManager)  
 
 * [.discovery](#agile.protocolManager.discovery) : <code>object</code>
     * [.start([protocolId])](#agile.protocolManager.discovery.start) ⇒ <code>Promise</code>
@@ -76,9 +100,9 @@ var agile = require('agile-sdk')('http://agile-core:8080')
 <a name="agile.protocolManager.discovery.start"></a>
 
 ##### discovery.start([protocolId]) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
+**Kind**: static method of [<code>discovery</code>](#agile.protocolManager.discovery)  
 **Summary**: Start device discovery on all or single protocol  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>null</code>  
 
 | Param | Description |
@@ -97,9 +121,9 @@ agile.protocolManager.discovery.start('Bluetooth LE').then(function() {
 <a name="agile.protocolManager.discovery.stop"></a>
 
 ##### discovery.stop([protocolId]) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
+**Kind**: static method of [<code>discovery</code>](#agile.protocolManager.discovery)  
 **Summary**: Stop device discovery on all or single protocol  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>null</code>  
 
 | Param | Description |
@@ -118,9 +142,9 @@ agile.protocolManager.discovery.stop('Bluetooth LE').then(function() {
 <a name="agile.protocolManager.discovery.status"></a>
 
 ##### discovery.status([protocolId]) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[discovery](#agile.protocolManager.discovery)</code>  
+**Kind**: static method of [<code>discovery</code>](#agile.protocolManager.discovery)  
 **Summary**: Return the status of discovery on the all or single protocol  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Object</code>  
 
 | Param | Description |
@@ -139,9 +163,9 @@ agile.protocolManager.discovery.status('Bluetooth LE').then(function(status) {
 <a name="agile.protocolManager.get"></a>
 
 #### protocolManager.get() ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocolManager](#agile.protocolManager)</code>  
+**Kind**: static method of [<code>protocolManager</code>](#agile.protocolManager)  
 **Summary**: Get the list of registered protocols  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Array</code> - protocols  
 **Example**  
 ```js
@@ -152,9 +176,9 @@ agile.protocolManager.protocols.get().then(function(protocols) {
 <a name="agile.protocolManager.delete"></a>
 
 #### protocolManager.delete(protocolId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocolManager](#agile.protocolManager)</code>  
+**Kind**: static method of [<code>protocolManager</code>](#agile.protocolManager)  
 **Summary**: Unregister a Dbus Protocol object reference  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>null</code>  
 
 | Param | Type | Description |
@@ -170,9 +194,9 @@ agile.protocolManager.protocols.delete(protocolId).then(function() {
 <a name="agile.protocolManager.create"></a>
 
 #### protocolManager.create(protocolId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocolManager](#agile.protocolManager)</code>  
+**Kind**: static method of [<code>protocolManager</code>](#agile.protocolManager)  
 **Summary**: Register a new Dbus object implementing the protocol API  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>null</code>  
 
 | Param | Type | Description |
@@ -188,9 +212,9 @@ agile.protocolManager.protocols.create(protocolId).then(function() {
 <a name="agile.protocolManager.devices"></a>
 
 #### protocolManager.devices() ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocolManager](#agile.protocolManager)</code>  
+**Kind**: static method of [<code>protocolManager</code>](#agile.protocolManager)  
 **Summary**: List all discovered devices on all available protocols  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Array</code> - devices  
 **Example**  
 ```js
@@ -201,7 +225,7 @@ agile.protocolManager.devices().then(function(devices) {
 <a name="agile.deviceManager"></a>
 
 ### agile.deviceManager : <code>object</code>
-**Kind**: static namespace of <code>[agile](#agile)</code>  
+**Kind**: static namespace of [<code>agile</code>](#agile)  
 
 * [.deviceManager](#agile.deviceManager) : <code>object</code>
     * [.get([deviceId])](#agile.deviceManager.get) ⇒ <code>Promise</code>
@@ -212,9 +236,9 @@ agile.protocolManager.devices().then(function(devices) {
 <a name="agile.deviceManager.get"></a>
 
 #### deviceManager.get([deviceId]) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
+**Kind**: static method of [<code>deviceManager</code>](#agile.deviceManager)  
 **Summary**: Get all or single device definition  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Array</code> - devices  
 
 | Param | Type | Description |
@@ -230,9 +254,9 @@ agile.deviceManager.get('bleB0B448BE5084').then(function(device) {
 <a name="agile.deviceManager.delete"></a>
 
 #### deviceManager.delete(deviceId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
+**Kind**: static method of [<code>deviceManager</code>](#agile.deviceManager)  
 **Summary**: Delete a device definition and unregister it  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>undefined</code>  
 
 | Param | Type | Description |
@@ -248,9 +272,9 @@ agile.deviceManager.delete('bleB0B448BE5084').then(function() {
 <a name="agile.deviceManager.create"></a>
 
 #### deviceManager.create(deviceOverview, type) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
+**Kind**: static method of [<code>deviceManager</code>](#agile.deviceManager)  
 **Summary**: Register a new device based on information from ProtocolManager and device type  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Object</code> - device  
 
 | Param | Type |
@@ -275,9 +299,9 @@ agile.deviceManager.create(deviceOverview, type).then(function(newDevice) {
 <a name="agile.deviceManager.typeof"></a>
 
 #### deviceManager.typeof(deviceOverview) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[deviceManager](#agile.deviceManager)</code>  
+**Kind**: static method of [<code>deviceManager</code>](#agile.deviceManager)  
 **Summary**: Get matching types for a device overview  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Array</code> - deviceTypes  
 
 | Param | Type |
@@ -300,7 +324,7 @@ agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
 <a name="agile.device"></a>
 
 ### agile.device : <code>object</code>
-**Kind**: static namespace of <code>[agile](#agile)</code>  
+**Kind**: static namespace of [<code>agile</code>](#agile)  
 
 * [.device](#agile.device) : <code>object</code>
     * [.status(deviceId)](#agile.device.status) ⇒ <code>Promise</code>
@@ -315,9 +339,9 @@ agile.deviceManager.typeof(deviceOverview).then(function(deviceTypes) {
 <a name="agile.device.status"></a>
 
 #### device.status(deviceId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Get the device status  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>String</code> - status  
 
 | Param | Type | Description |
@@ -333,9 +357,9 @@ agile.device.status('bleB0B448BE5084').then(function(status) {
 <a name="agile.device.get"></a>
 
 #### device.get(deviceId, [componentId]) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Read values of all components from the device  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Object\|Array</code> Single Component readings returned as object, Device readings returned as Array of Objects.  
 
 | Param | Type | Description |
@@ -358,9 +382,9 @@ agile.device.get('bleB0B448BE5084', 'Temperature').then(function(deviceComponent
 <a name="agile.device.connect"></a>
 
 #### device.connect(deviceId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Connect the device at protocol level  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Undefined</code>  
 
 | Param | Type | Description |
@@ -376,9 +400,9 @@ agile.device.connect('bleB0B448BE5084').then(function() {
 <a name="agile.device.disconnect"></a>
 
 #### device.disconnect(deviceId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Disconnect device at protocol level  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Undefined</code>  
 
 | Param | Type | Description |
@@ -394,9 +418,9 @@ agile.device.disconnect('bleB0B448BE5084').then(function() {
 <a name="agile.device.execute"></a>
 
 #### device.execute(deviceId, command) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Perform an action on the device  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Undefined</code>  
 
 | Param | Type | Description |
@@ -413,9 +437,9 @@ agile.device.execute('bleB0B448BE5084', command).then(function() {
 <a name="agile.device.lastUpdate"></a>
 
 #### device.lastUpdate(deviceId, [componentId]) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Get the last record fetched from the device or component  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Object\|Array</code> Single Component readings returned as object, Device readings returned as Array of Objects.  
 
 | Param | Type | Description |
@@ -438,9 +462,9 @@ agile.device.lastUpdate('bleB0B448BE5084').then(function(componentsReading) {
 <a name="agile.device.subscribe"></a>
 
 #### device.subscribe(deviceId, componentId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Enable a subscription to a data stream. Asynchronous data updates will be delivered via websocket.  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Object</code> - websocket instance - https://www.w3.org/TR/websockets/  
 
 | Param | Type | Description |
@@ -473,9 +497,9 @@ agile.device.subscribe('bleB0B448BE5084', 'Temperature').then(function(stream) {
 <a name="agile.device.unsubscribe"></a>
 
 #### device.unsubscribe(deviceId, componentId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[device](#agile.device)</code>  
+**Kind**: static method of [<code>device</code>](#agile.device)  
 **Summary**: Unsubscribe from a data stream  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>undefined</code>  
 
 | Param | Type | Description |
@@ -492,7 +516,7 @@ agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
 <a name="agile.protocol"></a>
 
 ### agile.protocol : <code>object</code>
-**Kind**: static namespace of <code>[agile](#agile)</code>  
+**Kind**: static namespace of [<code>agile</code>](#agile)  
 
 * [.protocol](#agile.protocol) : <code>object</code>
     * [.disconnect(protocolId, deviceId)](#agile.protocol.disconnect) ⇒ <code>Promise</code>
@@ -503,9 +527,9 @@ agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
 <a name="agile.protocol.disconnect"></a>
 
 #### protocol.disconnect(protocolId, deviceId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#agile.protocol)  
 **Summary**: Disconnect from the device  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Undefined</code>  
 
 | Param | Type | Description |
@@ -522,9 +546,9 @@ agile.protocol.disconnect('Bluetooth LE', 'bleB0B448BE5084').then(function() {
 <a name="agile.protocol.connect"></a>
 
 #### protocol.connect(protocolId, deviceId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#agile.protocol)  
 **Summary**: Connect to the device  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Undefined</code>  
 
 | Param | Type | Description |
@@ -541,9 +565,9 @@ agile.protocol.connect('Bluetooth LE', 'bleB0B448BE5084').then(function() {
 <a name="agile.protocol.read"></a>
 
 #### protocol.read(protocolId, deviceId) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#agile.protocol)  
 **Summary**: Call a read via protocol  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Object</code>  
 
 | Param | Type | Description |
@@ -560,9 +584,9 @@ agile.protocol.read('Bluetooth LE', 'bleB0B448BE5084').then(function(data) {
 <a name="agile.protocol.write"></a>
 
 #### protocol.write(protocolId, deviceId, data) ⇒ <code>Promise</code>
-**Kind**: static method of <code>[protocol](#agile.protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#agile.protocol)  
 **Summary**: Call a write via protocol  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Undefined</code>  
 
 | Param | Type | Description |
@@ -575,5 +599,392 @@ agile.protocol.read('Bluetooth LE', 'bleB0B448BE5084').then(function(data) {
 ```js
 agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
  console.log('wrote data!');
+});
+```
+<a name="agile.idm"></a>
+
+### agile.idm : <code>object</code>
+**Kind**: static namespace of [<code>agile</code>](#agile)  
+
+* [.idm](#agile.idm) : <code>object</code>
+    * [.group](#agile.idm.group) : <code>object</code>
+        * [.getGroups()](#agile.idm.group.getGroups) ⇒ <code>Promise</code>
+        * [.createGroup(groupName)](#agile.idm.group.createGroup) ⇒ <code>Promise</code>
+        * [.deleteGroup(owner, groupName)](#agile.idm.group.deleteGroup) ⇒ <code>Promise</code>
+        * [.addEntityToGroup(owner, groupName, entityId, entityType)](#agile.idm.group.addEntityToGroup) ⇒ <code>Promise</code>
+        * [.removeEntityFromGroup(owner, groupName, entityId, entityType)](#agile.idm.group.removeEntityFromGroup) ⇒ <code>Promise</code>
+    * [.user](#agile.idm.user) : <code>object</code>
+        * [.getUserInfo()](#agile.idm.user.getUserInfo) ⇒ <code>Promise</code>
+        * [.getuser(user_name, auth_type)](#agile.idm.user.getuser) ⇒ <code>Promise</code>
+        * [.createUser(user_name, auth_type, [Object])](#agile.idm.user.createUser) ⇒ <code>Promise</code>
+        * [.deleteUser(user_name, auth_type)](#agile.idm.user.deleteUser) ⇒ <code>Promise</code>
+    * [.entity](#agile.idm.entity) : <code>object</code>
+        * [.getEntitiesByType(entityType)](#agile.idm.entity.getEntitiesByType) ⇒ <code>Promise</code>
+        * [.getEntitiesByAttributeValue(constraints-)](#agile.idm.entity.getEntitiesByAttributeValue) ⇒ <code>Promise</code>
+        * [.getEntity(entityId, entityType)](#agile.idm.entity.getEntity) ⇒ <code>Promise</code>
+        * [.createEntity(entityId, entityType, entity)](#agile.idm.entity.createEntity) ⇒ <code>Promise</code>
+        * [.deleteEntity(entityId, entityType)](#agile.idm.entity.deleteEntity) ⇒ <code>Promise</code>
+        * [.setEntityAttribute(entityId, entityType, attributeName-, attribute)](#agile.idm.entity.setEntityAttribute) ⇒ <code>Promise</code>
+        * [.deleteEntityAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteEntityAttribute) ⇒ <code>Promise</code>
+    * [.authentication](#agile.idm.authentication) : <code>object</code>
+        * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
+
+<a name="agile.idm.group"></a>
+
+#### idm.group : <code>object</code>
+**Kind**: static namespace of [<code>idm</code>](#agile.idm)  
+
+* [.group](#agile.idm.group) : <code>object</code>
+    * [.getGroups()](#agile.idm.group.getGroups) ⇒ <code>Promise</code>
+    * [.createGroup(groupName)](#agile.idm.group.createGroup) ⇒ <code>Promise</code>
+    * [.deleteGroup(owner, groupName)](#agile.idm.group.deleteGroup) ⇒ <code>Promise</code>
+    * [.addEntityToGroup(owner, groupName, entityId, entityType)](#agile.idm.group.addEntityToGroup) ⇒ <code>Promise</code>
+    * [.removeEntityFromGroup(owner, groupName, entityId, entityType)](#agile.idm.group.removeEntityFromGroup) ⇒ <code>Promise</code>
+
+<a name="agile.idm.group.getGroups"></a>
+
+##### group.getGroups() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>group</code>](#agile.idm.group)  
+**Summary**: List all groups  
+**Access**: public  
+**Fulfil**: <code>Array</code> all groups  
+**Example**  
+```js
+agile.idm.group.getGroups().then(function(groups) {
+  console.log(groups);
+});
+```
+<a name="agile.idm.group.createGroup"></a>
+
+##### group.createGroup(groupName) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>group</code>](#agile.idm.group)  
+**Summary**: Create a group onwned by the authenticated user  
+**Access**: public  
+**Fulfil**: <code>Object</code> group created  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| groupName | <code>String</code> | Name of the group |
+
+**Example**  
+```js
+agile.idm.group.createGroup('ble-devices').then(function(group) {
+  console.log('group created!'+group);
+});
+```
+<a name="agile.idm.group.deleteGroup"></a>
+
+##### group.deleteGroup(owner, groupName) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>group</code>](#agile.idm.group)  
+**Summary**: Delete a group  
+**Access**: public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| owner | <code>String</code> | Owner of the group |
+| groupName | <code>String</code> | Name of the group |
+
+**Example**  
+```js
+agile.idm.group.deleteGroup('agile!@!agile-local','my-group').then(function() {
+  console.log('group removed!');
+});
+```
+<a name="agile.idm.group.addEntityToGroup"></a>
+
+##### group.addEntityToGroup(owner, groupName, entityId, entityType) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>group</code>](#agile.idm.group)  
+**Summary**: Add entity to a group  
+**Access**: public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| owner | <code>String</code> | Owner of the group |
+| groupName | <code>String</code> | Name of the group |
+| entityId | <code>String</code> | id of the entity |
+| entityType | <code>String</code> | Type of the entity |
+
+**Example**  
+```js
+agile.idm.group.addEntityToGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
+  console.log('entity updated !'+updated);
+});
+```
+<a name="agile.idm.group.removeEntityFromGroup"></a>
+
+##### group.removeEntityFromGroup(owner, groupName, entityId, entityType) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>group</code>](#agile.idm.group)  
+**Summary**: Remove entity from a group  
+**Access**: public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| owner | <code>String</code> | Owner of the group |
+| groupName | <code>String</code> | Name of the group |
+| entityId | <code>String</code> | id of the entity |
+| entityType | <code>String</code> | Type of the entity |
+
+**Example**  
+```js
+agile.idm.group.removeEntityFromGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
+  console.log('entity updated !'+updated);
+});
+```
+<a name="agile.idm.user"></a>
+
+#### idm.user : <code>object</code>
+**Kind**: static namespace of [<code>idm</code>](#agile.idm)  
+
+* [.user](#agile.idm.user) : <code>object</code>
+    * [.getUserInfo()](#agile.idm.user.getUserInfo) ⇒ <code>Promise</code>
+    * [.getuser(user_name, auth_type)](#agile.idm.user.getuser) ⇒ <code>Promise</code>
+    * [.createUser(user_name, auth_type, [Object])](#agile.idm.user.createUser) ⇒ <code>Promise</code>
+    * [.deleteUser(user_name, auth_type)](#agile.idm.user.deleteUser) ⇒ <code>Promise</code>
+
+<a name="agile.idm.user.getUserInfo"></a>
+
+##### user.getUserInfo() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>user</code>](#agile.idm.user)  
+**Summary**: Get the user information  
+**Access**: public  
+**Fulfil**: <code>Object</code> userInfo - object with user information  
+**Example**  
+```js
+agile.idm.user.getuserInfo().then(function(info) {
+ console.log(info);
+});
+```
+<a name="agile.idm.user.getuser"></a>
+
+##### user.getuser(user_name, auth_type) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>user</code>](#agile.idm.user)  
+**Summary**: Show information for a particular user  
+**Access**: public  
+**Fulfil**: <code>Object</code> user found  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user_name | <code>String</code> | user name |
+| auth_type | <code>String</code> | authentication type |
+
+**Example**  
+```js
+agile.idm.user.getuser("alice","agile-local").then(function(user) {
+  console.log(user);
+});
+```
+<a name="agile.idm.user.createUser"></a>
+
+##### user.createUser(user_name, auth_type, [Object]) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>user</code>](#agile.idm.user)  
+**Summary**: Create user  
+**Access**: public  
+**Fulfil**: <code>Object</code> user created  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user_name | <code>String</code> | user name |
+| auth_type | <code>String</code> | authentication type |
+| [Object] |  | options continaing  role  of the user as "role" and password as "password" |
+
+**Example**  
+```js
+agile.idm.user.createUser('bob','agile-local',{"role":"admin", "password":"secret"}).then(function(user) {
+  console.log('user created!'+user);
+});
+```
+<a name="agile.idm.user.deleteUser"></a>
+
+##### user.deleteUser(user_name, auth_type) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>user</code>](#agile.idm.user)  
+**Summary**: Delete a user  
+**Access**: public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user_name | <code>String</code> | user name |
+| auth_type | <code>String</code> | authentication type |
+
+**Example**  
+```js
+agile.idm.user.deleteUser('bob','agile-local').then(function() {
+  console.log('user removed!');
+});
+```
+<a name="agile.idm.entity"></a>
+
+#### idm.entity : <code>object</code>
+**Kind**: static namespace of [<code>idm</code>](#agile.idm)  
+
+* [.entity](#agile.idm.entity) : <code>object</code>
+    * [.getEntitiesByType(entityType)](#agile.idm.entity.getEntitiesByType) ⇒ <code>Promise</code>
+    * [.getEntitiesByAttributeValue(constraints-)](#agile.idm.entity.getEntitiesByAttributeValue) ⇒ <code>Promise</code>
+    * [.getEntity(entityId, entityType)](#agile.idm.entity.getEntity) ⇒ <code>Promise</code>
+    * [.createEntity(entityId, entityType, entity)](#agile.idm.entity.createEntity) ⇒ <code>Promise</code>
+    * [.deleteEntity(entityId, entityType)](#agile.idm.entity.deleteEntity) ⇒ <code>Promise</code>
+    * [.setEntityAttribute(entityId, entityType, attributeName-, attribute)](#agile.idm.entity.setEntityAttribute) ⇒ <code>Promise</code>
+    * [.deleteEntityAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteEntityAttribute) ⇒ <code>Promise</code>
+
+<a name="agile.idm.entity.getEntitiesByType"></a>
+
+##### entity.getEntitiesByType(entityType) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: List all entities by type  
+**Access**: public  
+**Fulfil**: <code>Array</code> all entities with a given type  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| entityType | <code>String</code> | type of entity |
+
+**Example**  
+```js
+agile.idm.entity.getEntitiesByType("sensor").then(function(entities) {
+  console.log(entities);
+});
+```
+<a name="agile.idm.entity.getEntitiesByAttributeValue"></a>
+
+##### entity.getEntitiesByAttributeValue(constraints-) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: List all entities which have a particular attribute value  
+**Access**: public  
+**Fulfil**: <code>Array</code> all entities with a given type  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| constraints- | <code>Array</code> | contains objects containing objects with the property  "attribute_type" to specify the attribute type and with the property "attribute_value" to sepcify the expected attribute value |
+
+**Example**  
+```js
+agile.idm.entity.getEntitiesByAttributeValue([{attribute_typeattribute_type:"credentials.dropbox","attribute_value":"expected attribute value for dropbox credentials"}]).then(function(entities) {
+  console.log(entities);
+});
+```
+<a name="agile.idm.entity.getEntity"></a>
+
+##### entity.getEntity(entityId, entityType) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: get Entity by entity id and type  
+**Access**: public  
+**Fulfil**: <code>Object</code> entity entity  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| entityId | <code>String</code> | id of entity |
+| entityType | <code>String</code> | type of entity |
+
+**Example**  
+```js
+agile.idm.entity.getEntity('1','/sensor').then(function(result) {
+  console.log('entity created!'+result);
+});
+```
+<a name="agile.idm.entity.createEntity"></a>
+
+##### entity.createEntity(entityId, entityType, entity) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: Create a group onwned by the authenticated user  
+**Access**: public  
+**Fulfil**: <code>Object</code> entity created  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| entityId | <code>String</code> | id of entity |
+| entityType | <code>String</code> | type of entity |
+| entity | <code>object</code> | An object containing the entity |
+
+**Example**  
+```js
+agile.idm.entity.createEntity('1','/sensor',{"name":"entity's name"}).then(function(result) {
+  console.log('entity created!'+result);
+});
+```
+<a name="agile.idm.entity.deleteEntity"></a>
+
+##### entity.deleteEntity(entityId, entityType) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: Delete entity  
+**Access**: public  
+**Fulfil**: <code>Undefined</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| entityId | <code>String</code> | id of entity |
+| entityType | <code>String</code> | type of entity |
+
+**Example**  
+```js
+agile.idm.entity.deleteEntity('1','/sensor').then(function() {
+  console.log('group removed!');
+});
+```
+<a name="agile.idm.entity.setEntityAttribute"></a>
+
+##### entity.setEntityAttribute(entityId, entityType, attributeName-, attribute) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: Set Entity's attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> entity created  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| entityId | <code>String</code> | id of entity |
+| entityType | <code>String</code> | type of entity |
+| attributeName- | <code>String</code> | name of the attribute |
+| attribute | <code>Object</code> \| <code>String</code> | An object or a String containing the entity's attribute value |
+
+**Example**  
+```js
+agile.idm.entity.setEntityAttribute('1','/sensor',"credentials",{"dropbox":"entity's credentials for drop"}).then(function(result) {
+  console.log('entity created!'+result);
+});
+```
+<a name="agile.idm.entity.deleteEntityAttribute"></a>
+
+##### entity.deleteEntityAttribute(entityId, entityType, attributeName-) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: Delete Entity's attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> entity updated entity  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| entityId | <code>String</code> | id of entity |
+| entityType | <code>String</code> | type of entity |
+| attributeName- | <code>String</code> | name of the attribute |
+
+**Example**  
+```js
+agile.idm.entity.deleteEntityAttribute('1','/sensor',"credentials").then(function(result) {
+  console.log('entity updated!'+result);
+});
+```
+<a name="agile.idm.authentication"></a>
+
+#### idm.authentication : <code>object</code>
+**Kind**: static namespace of [<code>idm</code>](#agile.idm)  
+<a name="agile.idm.authentication.authenticateClient"></a>
+
+##### authentication.authenticateClient(client, secret) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>authentication</code>](#agile.idm.authentication)  
+**Summary**: Authenticate a client with client secret and client name. This call only works from server-side JS. See https://github.com/mzabriskie/axios/issues/362  
+**Access**: public  
+**Fulfil**: <code>Object</code> Authentication information including token_type and access_token  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| client | <code>String</code> | client name |
+| secret | <code>String</code> | client secret |
+
+**Example**  
+```js
+agile.idm.authentication.authenticateClient("client_name","credentials").then(function(result) {
+  console.log(credentials.access_token);
+  console.log(credentials.token_type);
 });
 ```

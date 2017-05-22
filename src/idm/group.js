@@ -9,11 +9,11 @@ const group = (base, token) => {
     * @name getGroups
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.group
     * @fulfil {Array} all groups
     * @returns {Promise}
     * @example
-    * agile.idm.getGroups().then(function(groups) {
+    * agile.idm.group.getGroups().then(function(groups) {
     *   console.log(groups);
     * });
     **/
@@ -32,12 +32,12 @@ const group = (base, token) => {
     * @name createGroup
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.group
     * @param {String} groupName - Name of the group
     * @fulfil {Object} group created
     * @returns {Promise}
     * @example
-    * agile.device.createGroup('ble-devices').then(function(group) {
+    * agile.idm.group.createGroup('ble-devices').then(function(group) {
     *   console.log('group created!'+group);
     * });
     **/
@@ -54,13 +54,13 @@ const group = (base, token) => {
     * @name deleteGroup
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.group
     * @param {String} owner - Owner of the group
     * @param {String} groupName - Name of the group
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.deleteGroup('agile!@!agile-local','my-group').then(function() {
+    * agile.idm.group.deleteGroup('agile!@!agile-local','my-group').then(function() {
     *   console.log('group removed!');
     * });
     **/
@@ -76,7 +76,7 @@ const group = (base, token) => {
     * @name addEntityToGroup
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.group
     * @param {String} owner - Owner of the group
     * @param {String} groupName - Name of the group
     * @param {String} entityId - id of the entity
@@ -84,7 +84,7 @@ const group = (base, token) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.addEntityToGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
+    * agile.idm.group.addEntityToGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
     *   console.log('entity updated !'+updated);
     * });
     **/
@@ -100,7 +100,7 @@ const group = (base, token) => {
     * @name removeEntityFromGroup
     * @public
     * @function
-    * @memberof agile.idm
+    * @memberof agile.idm.group
     * @param {String} owner - Owner of the group
     * @param {String} groupName - Name of the group
     * @param {String} entityId - id of the entity
@@ -108,7 +108,7 @@ const group = (base, token) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.removeEntityFromGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
+    * agile.idm.group.removeEntityFromGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
     *   console.log('entity updated !'+updated);
     * });
     **/
