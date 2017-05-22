@@ -17,7 +17,7 @@ import parseUrl from 'url-parse';
   * @param {string} - agile-idm token
   * @returns {Object}
   * @example
-  * var agile = require('agile-sdk')('http://agile-core:8080','zIOycOqbEQh4ayw7lGAm9ILBIr')
+  * var agile = require('agile-sdk')('http://agile-core:8080','http://agile-core:3000','zIOycOqbEQh4ayw7lGAm9ILBIr')
 */
 const agileSDK = (base,idmBase, token) => {
   // parse url to remove any irregularites
