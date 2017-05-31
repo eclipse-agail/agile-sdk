@@ -730,7 +730,7 @@ agile.idm.group.addEntity({
 
 **Example**  
 ```js
-agile.idm.group.removeEntity('{
+agile.idm.group.removeEntity({
           owner: 'agile!@!agile-local',
           name: 'my-group',
           entity_id: '1',
