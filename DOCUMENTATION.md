@@ -53,24 +53,24 @@ var agile = require('agile-sdk')({
         * [.write(protocolId, deviceId, data)](#agile.protocol.write) ⇒ <code>Promise</code>
     * [.idm](#agile.idm) : <code>object</code>
         * [.group](#agile.idm.group) : <code>object</code>
-            * [.getGroups()](#agile.idm.group.getGroups) ⇒ <code>Promise</code>
-            * [.createGroup(groupName)](#agile.idm.group.createGroup) ⇒ <code>Promise</code>
-            * [.deleteGroup(owner, groupName)](#agile.idm.group.deleteGroup) ⇒ <code>Promise</code>
-            * [.addEntityToGroup(containing)](#agile.idm.group.addEntityToGroup) ⇒ <code>Promise</code>
-            * [.removeEntityFromGroup(containing)](#agile.idm.group.removeEntityFromGroup) ⇒ <code>Promise</code>
+            * [.get()](#agile.idm.group.get) ⇒ <code>Promise</code>
+            * [.create(groupName)](#agile.idm.group.create) ⇒ <code>Promise</code>
+            * [.delete(owner, groupName)](#agile.idm.group.delete) ⇒ <code>Promise</code>
+            * [.addEntity(containing)](#agile.idm.group.addEntity) ⇒ <code>Promise</code>
+            * [.removeEntity(containing)](#agile.idm.group.removeEntity) ⇒ <code>Promise</code>
         * [.user](#agile.idm.user) : <code>object</code>
-            * [.getUserInfo()](#agile.idm.user.getUserInfo) ⇒ <code>Promise</code>
-            * [.getuser(user_name, auth_type)](#agile.idm.user.getuser) ⇒ <code>Promise</code>
-            * [.createUser(including, auth_type, [Object])](#agile.idm.user.createUser) ⇒ <code>Promise</code>
-            * [.deleteUser(user_name, auth_type)](#agile.idm.user.deleteUser) ⇒ <code>Promise</code>
+            * [.getCurrentUserInfo()](#agile.idm.user.getCurrentUserInfo) ⇒ <code>Promise</code>
+            * [.get(user_name, auth_type)](#agile.idm.user.get) ⇒ <code>Promise</code>
+            * [.create(including, auth_type, [Object])](#agile.idm.user.create) ⇒ <code>Promise</code>
+            * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
         * [.entity](#agile.idm.entity) : <code>object</code>
-            * [.getEntitiesByType(entityType)](#agile.idm.entity.getEntitiesByType) ⇒ <code>Promise</code>
-            * [.getEntitiesByAttributeValue(constraints-)](#agile.idm.entity.getEntitiesByAttributeValue) ⇒ <code>Promise</code>
-            * [.getEntity(entityId, entityType)](#agile.idm.entity.getEntity) ⇒ <code>Promise</code>
-            * [.createEntity(entityId, entityType, entity)](#agile.idm.entity.createEntity) ⇒ <code>Promise</code>
-            * [.deleteEntity(entityId, entityType)](#agile.idm.entity.deleteEntity) ⇒ <code>Promise</code>
-            * [.setEntityAttribute(with)](#agile.idm.entity.setEntityAttribute) ⇒ <code>Promise</code>
-            * [.deleteEntityAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteEntityAttribute) ⇒ <code>Promise</code>
+            * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
+            * [.getByAttributeValue(constraints-)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
+            * [.get(entityId, entityType)](#agile.idm.entity.get) ⇒ <code>Promise</code>
+            * [.create(entityId, entityType, entity)](#agile.idm.entity.create) ⇒ <code>Promise</code>
+            * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
+            * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
+            * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
         * [.authentication](#agile.idm.authentication) : <code>object</code>
             * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
 
@@ -610,24 +610,24 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
 
 * [.idm](#agile.idm) : <code>object</code>
     * [.group](#agile.idm.group) : <code>object</code>
-        * [.getGroups()](#agile.idm.group.getGroups) ⇒ <code>Promise</code>
-        * [.createGroup(groupName)](#agile.idm.group.createGroup) ⇒ <code>Promise</code>
-        * [.deleteGroup(owner, groupName)](#agile.idm.group.deleteGroup) ⇒ <code>Promise</code>
-        * [.addEntityToGroup(containing)](#agile.idm.group.addEntityToGroup) ⇒ <code>Promise</code>
-        * [.removeEntityFromGroup(containing)](#agile.idm.group.removeEntityFromGroup) ⇒ <code>Promise</code>
+        * [.get()](#agile.idm.group.get) ⇒ <code>Promise</code>
+        * [.create(groupName)](#agile.idm.group.create) ⇒ <code>Promise</code>
+        * [.delete(owner, groupName)](#agile.idm.group.delete) ⇒ <code>Promise</code>
+        * [.addEntity(containing)](#agile.idm.group.addEntity) ⇒ <code>Promise</code>
+        * [.removeEntity(containing)](#agile.idm.group.removeEntity) ⇒ <code>Promise</code>
     * [.user](#agile.idm.user) : <code>object</code>
-        * [.getUserInfo()](#agile.idm.user.getUserInfo) ⇒ <code>Promise</code>
-        * [.getuser(user_name, auth_type)](#agile.idm.user.getuser) ⇒ <code>Promise</code>
-        * [.createUser(including, auth_type, [Object])](#agile.idm.user.createUser) ⇒ <code>Promise</code>
-        * [.deleteUser(user_name, auth_type)](#agile.idm.user.deleteUser) ⇒ <code>Promise</code>
+        * [.getCurrentUserInfo()](#agile.idm.user.getCurrentUserInfo) ⇒ <code>Promise</code>
+        * [.get(user_name, auth_type)](#agile.idm.user.get) ⇒ <code>Promise</code>
+        * [.create(including, auth_type, [Object])](#agile.idm.user.create) ⇒ <code>Promise</code>
+        * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
     * [.entity](#agile.idm.entity) : <code>object</code>
-        * [.getEntitiesByType(entityType)](#agile.idm.entity.getEntitiesByType) ⇒ <code>Promise</code>
-        * [.getEntitiesByAttributeValue(constraints-)](#agile.idm.entity.getEntitiesByAttributeValue) ⇒ <code>Promise</code>
-        * [.getEntity(entityId, entityType)](#agile.idm.entity.getEntity) ⇒ <code>Promise</code>
-        * [.createEntity(entityId, entityType, entity)](#agile.idm.entity.createEntity) ⇒ <code>Promise</code>
-        * [.deleteEntity(entityId, entityType)](#agile.idm.entity.deleteEntity) ⇒ <code>Promise</code>
-        * [.setEntityAttribute(with)](#agile.idm.entity.setEntityAttribute) ⇒ <code>Promise</code>
-        * [.deleteEntityAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteEntityAttribute) ⇒ <code>Promise</code>
+        * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
+        * [.getByAttributeValue(constraints-)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
+        * [.get(entityId, entityType)](#agile.idm.entity.get) ⇒ <code>Promise</code>
+        * [.create(entityId, entityType, entity)](#agile.idm.entity.create) ⇒ <code>Promise</code>
+        * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
+        * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
+        * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
     * [.authentication](#agile.idm.authentication) : <code>object</code>
         * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
 
@@ -637,28 +637,28 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
 **Kind**: static namespace of [<code>idm</code>](#agile.idm)  
 
 * [.group](#agile.idm.group) : <code>object</code>
-    * [.getGroups()](#agile.idm.group.getGroups) ⇒ <code>Promise</code>
-    * [.createGroup(groupName)](#agile.idm.group.createGroup) ⇒ <code>Promise</code>
-    * [.deleteGroup(owner, groupName)](#agile.idm.group.deleteGroup) ⇒ <code>Promise</code>
-    * [.addEntityToGroup(containing)](#agile.idm.group.addEntityToGroup) ⇒ <code>Promise</code>
-    * [.removeEntityFromGroup(containing)](#agile.idm.group.removeEntityFromGroup) ⇒ <code>Promise</code>
+    * [.get()](#agile.idm.group.get) ⇒ <code>Promise</code>
+    * [.create(groupName)](#agile.idm.group.create) ⇒ <code>Promise</code>
+    * [.delete(owner, groupName)](#agile.idm.group.delete) ⇒ <code>Promise</code>
+    * [.addEntity(containing)](#agile.idm.group.addEntity) ⇒ <code>Promise</code>
+    * [.removeEntity(containing)](#agile.idm.group.removeEntity) ⇒ <code>Promise</code>
 
-<a name="agile.idm.group.getGroups"></a>
+<a name="agile.idm.group.get"></a>
 
-##### group.getGroups() ⇒ <code>Promise</code>
+##### group.get() ⇒ <code>Promise</code>
 **Kind**: static method of [<code>group</code>](#agile.idm.group)  
 **Summary**: List all groups  
 **Access**: public  
 **Fulfil**: <code>Array</code> all groups  
 **Example**  
 ```js
-agile.idm.group.getGroups().then(function(groups) {
+agile.idm.group.get().then(function(groups) {
   console.log(groups);
 });
 ```
-<a name="agile.idm.group.createGroup"></a>
+<a name="agile.idm.group.create"></a>
 
-##### group.createGroup(groupName) ⇒ <code>Promise</code>
+##### group.create(groupName) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>group</code>](#agile.idm.group)  
 **Summary**: Create a group onwned by the authenticated user  
 **Access**: public  
@@ -670,13 +670,13 @@ agile.idm.group.getGroups().then(function(groups) {
 
 **Example**  
 ```js
-agile.idm.group.createGroup('ble-devices').then(function(group) {
+agile.idm.group.create('ble-devices').then(function(group) {
   console.log('group created!'+group);
 });
 ```
-<a name="agile.idm.group.deleteGroup"></a>
+<a name="agile.idm.group.delete"></a>
 
-##### group.deleteGroup(owner, groupName) ⇒ <code>Promise</code>
+##### group.delete(owner, groupName) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>group</code>](#agile.idm.group)  
 **Summary**: Delete a group  
 **Access**: public  
@@ -689,13 +689,13 @@ agile.idm.group.createGroup('ble-devices').then(function(group) {
 
 **Example**  
 ```js
-agile.idm.group.deleteGroup('agile!@!agile-local','my-group').then(function() {
+agile.idm.group.delete('agile!@!agile-local','my-group').then(function() {
   console.log('group removed!');
 });
 ```
-<a name="agile.idm.group.addEntityToGroup"></a>
+<a name="agile.idm.group.addEntity"></a>
 
-##### group.addEntityToGroup(containing) ⇒ <code>Promise</code>
+##### group.addEntity(containing) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>group</code>](#agile.idm.group)  
 **Summary**: Add entity to a group  
 **Access**: public  
@@ -716,9 +716,9 @@ agile.idm.group.addEntity({
   console.log('entity updated !'+updated);
 });
 ```
-<a name="agile.idm.group.removeEntityFromGroup"></a>
+<a name="agile.idm.group.removeEntity"></a>
 
-##### group.removeEntityFromGroup(containing) ⇒ <code>Promise</code>
+##### group.removeEntity(containing) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>group</code>](#agile.idm.group)  
 **Summary**: Remove entity from a group  
 **Access**: public  
@@ -745,14 +745,14 @@ agile.idm.group.removeEntity('{
 **Kind**: static namespace of [<code>idm</code>](#agile.idm)  
 
 * [.user](#agile.idm.user) : <code>object</code>
-    * [.getUserInfo()](#agile.idm.user.getUserInfo) ⇒ <code>Promise</code>
-    * [.getuser(user_name, auth_type)](#agile.idm.user.getuser) ⇒ <code>Promise</code>
-    * [.createUser(including, auth_type, [Object])](#agile.idm.user.createUser) ⇒ <code>Promise</code>
-    * [.deleteUser(user_name, auth_type)](#agile.idm.user.deleteUser) ⇒ <code>Promise</code>
+    * [.getCurrentUserInfo()](#agile.idm.user.getCurrentUserInfo) ⇒ <code>Promise</code>
+    * [.get(user_name, auth_type)](#agile.idm.user.get) ⇒ <code>Promise</code>
+    * [.create(including, auth_type, [Object])](#agile.idm.user.create) ⇒ <code>Promise</code>
+    * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
 
-<a name="agile.idm.user.getUserInfo"></a>
+<a name="agile.idm.user.getCurrentUserInfo"></a>
 
-##### user.getUserInfo() ⇒ <code>Promise</code>
+##### user.getCurrentUserInfo() ⇒ <code>Promise</code>
 **Kind**: static method of [<code>user</code>](#agile.idm.user)  
 **Summary**: Get the user information for the user currnelty logged in, i.e. token provided when agileSDK was created  
 **Access**: public  
@@ -763,9 +763,9 @@ agile.idm.user.getCurrentUserInfo().then(function(info) {
  console.log(info);
 });
 ```
-<a name="agile.idm.user.getuser"></a>
+<a name="agile.idm.user.get"></a>
 
-##### user.getuser(user_name, auth_type) ⇒ <code>Promise</code>
+##### user.get(user_name, auth_type) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>user</code>](#agile.idm.user)  
 **Summary**: Show information for a particular user by username and authentication type  
 **Access**: public  
@@ -778,13 +778,13 @@ agile.idm.user.getCurrentUserInfo().then(function(info) {
 
 **Example**  
 ```js
-agile.idm.user.getuser("alice","agile-local").then(function(user) {
+agile.idm.user.get("alice","agile-local").then(function(user) {
   console.log(user);
 });
 ```
-<a name="agile.idm.user.createUser"></a>
+<a name="agile.idm.user.create"></a>
 
-##### user.createUser(including, auth_type, [Object]) ⇒ <code>Promise</code>
+##### user.create(including, auth_type, [Object]) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>user</code>](#agile.idm.user)  
 **Summary**: Create user  
 **Access**: public  
@@ -802,9 +802,9 @@ agile.idm.user.create('bob','agile-local',{"role":"admin", "password":"secret"})
   console.log('user created!'+user);
 });
 ```
-<a name="agile.idm.user.deleteUser"></a>
+<a name="agile.idm.user.delete"></a>
 
-##### user.deleteUser(user_name, auth_type) ⇒ <code>Promise</code>
+##### user.delete(user_name, auth_type) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>user</code>](#agile.idm.user)  
 **Summary**: Delete a user  
 **Access**: public  
@@ -827,17 +827,17 @@ agile.idm.user.delete('bob','agile-local').then(function() {
 **Kind**: static namespace of [<code>idm</code>](#agile.idm)  
 
 * [.entity](#agile.idm.entity) : <code>object</code>
-    * [.getEntitiesByType(entityType)](#agile.idm.entity.getEntitiesByType) ⇒ <code>Promise</code>
-    * [.getEntitiesByAttributeValue(constraints-)](#agile.idm.entity.getEntitiesByAttributeValue) ⇒ <code>Promise</code>
-    * [.getEntity(entityId, entityType)](#agile.idm.entity.getEntity) ⇒ <code>Promise</code>
-    * [.createEntity(entityId, entityType, entity)](#agile.idm.entity.createEntity) ⇒ <code>Promise</code>
-    * [.deleteEntity(entityId, entityType)](#agile.idm.entity.deleteEntity) ⇒ <code>Promise</code>
-    * [.setEntityAttribute(with)](#agile.idm.entity.setEntityAttribute) ⇒ <code>Promise</code>
-    * [.deleteEntityAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteEntityAttribute) ⇒ <code>Promise</code>
+    * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
+    * [.getByAttributeValue(constraints-)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
+    * [.get(entityId, entityType)](#agile.idm.entity.get) ⇒ <code>Promise</code>
+    * [.create(entityId, entityType, entity)](#agile.idm.entity.create) ⇒ <code>Promise</code>
+    * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
+    * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
+    * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
 
-<a name="agile.idm.entity.getEntitiesByType"></a>
+<a name="agile.idm.entity.getByType"></a>
 
-##### entity.getEntitiesByType(entityType) ⇒ <code>Promise</code>
+##### entity.getByType(entityType) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: List all entities by type  
 **Access**: public  
@@ -853,9 +853,9 @@ agile.idm.entity.getByType("sensor").then(function(entities) {
   console.log(entities);
 });
 ```
-<a name="agile.idm.entity.getEntitiesByAttributeValue"></a>
+<a name="agile.idm.entity.getByAttributeValue"></a>
 
-##### entity.getEntitiesByAttributeValue(constraints-) ⇒ <code>Promise</code>
+##### entity.getByAttributeValue(constraints-) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: List all entities which have a particular attribute value  
 **Access**: public  
@@ -871,9 +871,9 @@ agile.idm.entity.getByAttributeValue([{attribute_typeattribute_type:"credentials
   console.log(entities);
 });
 ```
-<a name="agile.idm.entity.getEntity"></a>
+<a name="agile.idm.entity.get"></a>
 
-##### entity.getEntity(entityId, entityType) ⇒ <code>Promise</code>
+##### entity.get(entityId, entityType) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: get Entity by entity id and type  
 **Access**: public  
@@ -890,9 +890,9 @@ agile.idm.entity.get('1','/sensor').then(function(result) {
   console.log('entity created!'+result);
 });
 ```
-<a name="agile.idm.entity.createEntity"></a>
+<a name="agile.idm.entity.create"></a>
 
-##### entity.createEntity(entityId, entityType, entity) ⇒ <code>Promise</code>
+##### entity.create(entityId, entityType, entity) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: Create a group onwned by the authenticated user  
 **Access**: public  
@@ -910,9 +910,9 @@ agile.idm.entity.create('1','/sensor',{"name":"entity's name"}).then(function(re
   console.log('entity created!'+result);
 });
 ```
-<a name="agile.idm.entity.deleteEntity"></a>
+<a name="agile.idm.entity.delete"></a>
 
-##### entity.deleteEntity(entityId, entityType) ⇒ <code>Promise</code>
+##### entity.delete(entityId, entityType) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: Delete entity  
 **Access**: public  
@@ -929,9 +929,9 @@ agile.idm.entity.delete('1','/sensor').then(function() {
   console.log('group removed!');
 });
 ```
-<a name="agile.idm.entity.setEntityAttribute"></a>
+<a name="agile.idm.entity.setAttribute"></a>
 
-##### entity.setEntityAttribute(with) ⇒ <code>Promise</code>
+##### entity.setAttribute(with) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: Set Entity's attribute  
 **Access**: public  
@@ -952,9 +952,9 @@ agile.idm.entity.setAttribute({
   console.log('entity created!'+result);
 });
 ```
-<a name="agile.idm.entity.deleteEntityAttribute"></a>
+<a name="agile.idm.entity.deleteAttribute"></a>
 
-##### entity.deleteEntityAttribute(entityId, entityType, attributeName-) ⇒ <code>Promise</code>
+##### entity.deleteAttribute(entityId, entityType, attributeName-) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: Delete Entity's attribute  
 **Access**: public  

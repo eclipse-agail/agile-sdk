@@ -9,14 +9,14 @@ const group = (base, token) => {
   return ({
     /**
     * @summary List all groups
-    * @name getGroups
+    * @name get
     * @public
     * @function
     * @memberof agile.idm.group
     * @fulfil {Array} all groups
     * @returns {Promise}
     * @example
-    * agile.idm.group.getGroups().then(function(groups) {
+    * agile.idm.group.get().then(function(groups) {
     *   console.log(groups);
     * });
     **/
@@ -31,7 +31,7 @@ const group = (base, token) => {
     },
     /**
     * @summary Create a group onwned by the authenticated user
-    * @name createGroup
+    * @name create
     * @public
     * @function
     * @memberof agile.idm.group
@@ -39,7 +39,7 @@ const group = (base, token) => {
     * @fulfil {Object} group created
     * @returns {Promise}
     * @example
-    * agile.idm.group.createGroup('ble-devices').then(function(group) {
+    * agile.idm.group.create('ble-devices').then(function(group) {
     *   console.log('group created!'+group);
     * });
     **/
@@ -52,7 +52,7 @@ const group = (base, token) => {
     .catch(errorHandler),
     /**
     * @summary Delete a group
-    * @name deleteGroup
+    * @name delete
     * @public
     * @function
     * @memberof agile.idm.group
@@ -61,7 +61,7 @@ const group = (base, token) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.group.deleteGroup('agile!@!agile-local','my-group').then(function() {
+    * agile.idm.group.delete('agile!@!agile-local','my-group').then(function() {
     *   console.log('group removed!');
     * });
     **/
@@ -73,7 +73,7 @@ const group = (base, token) => {
     .catch(errorHandler),
     /**
     * @summary Add entity to a group
-    * @name addEntityToGroup
+    * @name addEntity
     * @public
     * @function
     * @memberof agile.idm.group
@@ -101,7 +101,7 @@ const group = (base, token) => {
     .catch(errorHandler),
     /**
     * @summary Remove entity from a group
-    * @name removeEntityFromGroup
+    * @name removeEntity
     * @public
     * @function
     * @memberof agile.idm.group

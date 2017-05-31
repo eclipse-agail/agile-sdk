@@ -11,7 +11,7 @@ const idm = (base, token) => {
   return ({
     /**
     * @summary Get the user information for the user currnelty logged in, i.e. token provided when agileSDK was created
-    * @name getUserInfo
+    * @name getCurrentUserInfo
     * @public
     * @function
     * @memberof agile.idm.user
@@ -30,7 +30,7 @@ const idm = (base, token) => {
     .catch(errorHandler),
     /**
     * @summary Show information for a particular user by username and authentication type
-    * @name getuser
+    * @name get
     * @public
     * @function
     * @memberof agile.idm.user
@@ -39,7 +39,7 @@ const idm = (base, token) => {
     * @fulfil {Object} user found
     * @returns {Promise}
     * @example
-    * agile.idm.user.getuser("alice","agile-local").then(function(user) {
+    * agile.idm.user.get("alice","agile-local").then(function(user) {
     *   console.log(user);
     * });
     **/
@@ -54,7 +54,7 @@ const idm = (base, token) => {
     },
     /**
     * @summary Create user
-    * @name createUser
+    * @name create
     * @public
     * @function
     * @memberof agile.idm.user
@@ -89,7 +89,7 @@ const idm = (base, token) => {
     },
     /**
     * @summary Delete a user
-    * @name deleteUser
+    * @name delete
     * @public
     * @function
     * @memberof agile.idm.user

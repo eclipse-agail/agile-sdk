@@ -10,7 +10,7 @@ const entity = (base, token) => {
   return ({
     /**
     * @summary List all entities by type
-    * @name getEntitiesByType
+    * @name getByType
     * @public
     * @function
     * @memberof agile.idm.entity
@@ -33,7 +33,7 @@ const entity = (base, token) => {
     },
     /**
     * @summary List all entities which have a particular attribute value
-    * @name getEntitiesByAttributeValue
+    * @name getByAttributeValue
     * @public
     * @function
     * @memberof agile.idm.entity
@@ -57,7 +57,7 @@ const entity = (base, token) => {
     },
     /**
     * @summary get Entity by entity id and type
-    * @name getEntity
+    * @name get
     * @public
     * @function
     * @memberof agile.idm.entity
@@ -77,7 +77,7 @@ const entity = (base, token) => {
     .then(res => (res.data))
     .catch(errorHandler),    /**
         * @summary Create a group onwned by the authenticated user
-        * @name createEntity
+        * @name create
         * @public
         * @function
         * @memberof agile.idm.entity
@@ -100,7 +100,7 @@ const entity = (base, token) => {
         .catch(errorHandler),
     /**
     * @summary Delete entity
-    * @name deleteEntity
+    * @name delete
     * @public
     * @function
     * @memberof agile.idm.entity
@@ -121,7 +121,7 @@ const entity = (base, token) => {
     .catch(errorHandler),
     /**
     * @summary Set Entity's attribute
-    * @name setEntityAttribute
+    * @name setAttribute
     * @public
     * @function
     * @memberof agile.idm.entity
@@ -150,7 +150,7 @@ const entity = (base, token) => {
     .catch(errorHandler),
     /**
     * @summary Delete Entity's attribute
-    * @name deleteEntityAttribute
+    * @name deleteAttribute
     * @public
     * @function
     * @memberof agile.idm.entity
