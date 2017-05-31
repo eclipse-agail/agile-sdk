@@ -4,9 +4,13 @@ import parseUrl from 'url-parse';
 
 const idm = (base, token) => {
   base = `${base}`;
+  var instance = axios.create({
+    headers: { "Authorization" : `bearer ${token}`}
+  });
+
   return ({
     /**
-    * @summary Get the user information
+    * @summary Get the user information for the user currnelty logged in, i.e. token provided when agileSDK was created
     * @name getUserInfo
     * @public
     * @function
@@ -14,19 +18,18 @@ const idm = (base, token) => {
     * @fulfil {Object} userInfo - object with user information
     * @returns {Promise}
     * @example
-    * agile.idm.user.getuserInfo().then(function(info) {
+    * agile.idm.user.getCurrentUserInfo().then(function(info) {
     *  console.log(info);
     * });
     **/
-    getUserInfo: () => axios({
+    getCurrentUserInfo: () => instance.request({
       method: 'GET',
       url: `${base}/oauth2/api/userinfo`,
-      headers: {"Authorization":`bearer ${token}`}
     })
     .then(res => (res.data))
     .catch(errorHandler),
     /**
-    * @summary Show information for a particular user
+    * @summary Show information for a particular user by username and authentication type
     * @name getuser
     * @public
     * @function
@@ -40,14 +43,11 @@ const idm = (base, token) => {
     *   console.log(user);
     * });
     **/
-    getUser: (user_name, auth_type) => {
-      var parsed = parseUrl(`${base}/api/v1/user/`);
-      parsed.set("query",{'auth_type': auth_type, 'user_name': user_name});
-      let url = parsed.toString();
-      return axios({
+    get: (user_name, auth_type) => {
+      return instance.request({
         method: 'GET',
-        url: url,
-        headers: {"Authorization":`bearer ${token}`}
+        url: `${base}/api/v1/user/`,
+        params: {'auth_type': auth_type, 'user_name': user_name}
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -58,17 +58,17 @@ const idm = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.user
-    * @param {String} user_name user name
+    * @param {object} including user_name user name
     * @param {String} auth_type authentication type
     * @param [Object] options continaing  role  of the user as "role" and password as "password"
     * @fulfil {Object} user created
     * @returns {Promise}
     * @example
-    * agile.idm.user.createUser('bob','agile-local',{"role":"admin", "password":"secret"}).then(function(user) {
+    * agile.idm.user.create('bob','agile-local',{"role":"admin", "password":"secret"}).then(function(user) {
     *   console.log('user created!'+user);
     * });
     **/
-    createUser: (user_name, auth_type, options) => {
+    create: (user_name, auth_type, options) => {
       var user = {
         "auth_type": auth_type,
         "user_name": user_name
@@ -79,10 +79,9 @@ const idm = (base, token) => {
       if(options && options.password){
         user.password = options.password;
       }
-      return axios({
+      return instance.request({
         method: 'POST',
         url: `${base}/api/v1/user/`,
-        headers: {"Authorization" : `bearer ${token}`},
         data: user
       })
       .then(res => (res.data))
@@ -99,18 +98,16 @@ const idm = (base, token) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.user.deleteUser('bob','agile-local').then(function() {
+    * agile.idm.user.delete('bob','agile-local').then(function() {
     *   console.log('user removed!');
     * });
     **/
-    deleteUser: (user_name, auth_type) => {
-      var parsed = parseUrl(`${base}/api/v1/user/`);
-      parsed.set("query",{'auth_type': auth_type, 'user_name': user_name});
-      var url = parsed.toString();
-      return axios({
+    delete: (user_name, auth_type) => {
+
+      return instance.request({
         method: 'DELETE',
-        url: url,
-        headers: {"Authorization":`bearer ${token}`}
+        url: `${base}/api/v1/user/`,
+        params: {'auth_type': auth_type, 'user_name': user_name}
       })
       .then(res => (res))
       .catch(errorHandler);

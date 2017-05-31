@@ -12,18 +12,24 @@ import parseUrl from 'url-parse';
   * This document aims to describe all the functions supported by the SDK, as well as showing examples of their expected usage.
   *
   * If you feel something is missing, not clear or could be improved, please don't hesitate to open an [issue in GitHub](https://github.com/agile-iot/agile-sdk/issues/new), we'll be happy to help.
-  * @param {string} - agile-core REST API endpoint
-  * @param {string} - agile-idm REST API endpoint
-  * @param {string} - agile-idm token
+  * @param {Object} - including the api base url, idm base url (if not provided defaults to the same api host but default idm port), and a token.
   * @returns {Object}
   * @example
-  * var agile = require('agile-sdk')('http://agile-core:8080','http://agile-core:3000','zIOycOqbEQh4ayw7lGAm9ILBIr')
+  * var agile = require('agile-sdk')({
+      api:'http://agile-core:8080',
+      idm: 'http://agile-core:3000',
+      token: 'zIOycOqbEQh4ayw7lGAm9ILBIr'
+    })
 */
-const agileSDK = (base,idmBase, token) => {
+const agileSDK = (params) => {
   // parse url to remove any irregularites
-  const parsed = parseUrl(base);
+  const parsed = parseUrl(params.api);
   const apiBase = `${parsed.origin}/api`;
   const wsBase = `${parsed.set('protocol', 'ws:').origin}/ws`;
+  const idmBase = params.idm?params.idm:`${parsed.set('port', 3000).origin}`;
+  //for now we keep it as const... but token in the sdk should be updated once in a while, since it can expire.
+  //for now we just create a new SDK object each time
+  const token = params.token;
   return ({
     /**
     * @namespace protocolManager

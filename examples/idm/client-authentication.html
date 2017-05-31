@@ -1,8 +1,10 @@
-var token = require('./token_conf');
-var api = 'http://resin.local:8080'
-var idmurl = 'http://resin.local:3000';
-//var idmurl = 'http://resin.local:8080'
-var agile = require('../../dist')({
+<script src="../../dist/bundle.js"></script>
+<script>
+
+var api = 'http://agilegw.local:8080';
+var idmurl = 'http://agilegw.local:3000';;
+var token = "aUpp9RkAkQmsPrU3EQoR5i5DGt2VCLQCL7C14y84Ayqedjmbm1LuIes1TsSyn5Cv";
+var agile = agileSDK({
 api: api,
 idm: idmurl,
 token: token
@@ -28,4 +30,4 @@ agile.idm.user.getCurrentUserInfo()
 }).catch(function(error){
   console.log("error: "+console.log(error));
 });
-;
+</script>

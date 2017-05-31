@@ -1,71 +1,89 @@
 var token = require('./token_conf');
 var api = 'http://resin.local:8080'
 var idmurl = 'http://resin.local:3000';
-//var idmurl ='http://localhost:3000'
-
-
-var agile = require('../../dist')(api,idmurl,token)
+//var idmurl = 'http://resin.local:8080'
+var agile = require('../../dist')({
+api: api,
+idm: idmurl,
+token: token
+});
 var owner;
 
-agile.idm.user.getUserInfo()
+agile.idm.user.getCurrentUserInfo()
 .then(function(data) {
   owner = data.id;
-  return Promise.all([agile.idm.group.deleteGroup(owner,"gname"), agile.idm.entity.deleteEntity("1","sensor")]);
+  return Promise.all([agile.idm.group.delete(owner,"gname"), agile.idm.entity.delete("1","device")]);
 }).then(function(deletions){
-    return agile.idm.entity.createEntity("1","sensor",{"name":"my sensor","credentials":{"dropbox":"123"}});
+    return agile.idm.entity.create("1","device",{"name":"my device","credentials":{"dropbox":"123"}});
   },function error(err){
-    return agile.idm.entity.createEntity("1","sensor",{"name":"my sensor","credentials":{"dropbox":"123"}});
+    return agile.idm.entity.create("1","device",{"name":"my device","credentials":{"dropbox":"123"}});
 }).then(function(entity){
   console.log('entity created !'+JSON.stringify(entity))
-  return agile.idm.entity.getEntitiesByType("sensor");
+  return agile.idm.entity.getByType("device");
 }).then(function(entities){
   console.log('entities found  !'+JSON.stringify(entities))
-  return agile.idm.entity.setEntityAttribute("1","sensor","name","my sensor2");
+  return agile.idm.entity.setAttribute({
+    entity_id: '1',
+    entity_type: "device",
+    attribute_type: "name",
+    attribute_value: "my device2"
+
+  });
 }).then(function(entity){
   console.log('entitys name updated!'+JSON.stringify(entity))
   //setting attribute works with strings...
-  return agile.idm.entity.getEntitiesByAttributeValue([{attribute_type:"name",attribute_value:"my sensor2"}]);
+  return agile.idm.entity.getByAttributeValue([{attribute_type:"name",attribute_value:"my device2"}]);
 }).then(function(entities){
   console.log('entities found by attribute name and type'+JSON.stringify(entities))
   //it can also be an object...
-  return agile.idm.entity.setEntityAttribute("1","sensor","credentials",{"dropbox":"345", "drive":"drivestuff"});
+  return agile.idm.entity.setAttribute({
+    entity_id: '1',
+    entity_type: "device",
+    attribute_type: "credentials",
+    attribute_value: {"dropbox":"345", "drive":"drivestuff"}
+  });
 }).then(function(entity){
   console.log('entitys credentials updated!'+JSON.stringify(entity))
   //it can also be a nested attribute..
-  return agile.idm.entity.setEntityAttribute("1","sensor","credentials.dropbox","567");
+  return agile.idm.entity.setAttribute({
+    entity_id: '1',
+    entity_type: "device",
+    attribute_type: "credentials.dropbox",
+    attribute_value: "567"
+  });
 }).then(function(entity){
   console.log('entitys credentials updated!'+JSON.stringify(entity))
-  return agile.idm.entity.deleteEntityAttribute("1","sensor","credentials");
+  return agile.idm.entity.deleteAttribute("1","device","credentials");
 }).then(function(entity){
   console.log('entitys credentials deleted!'+JSON.stringify(entity))
-  return agile.idm.group.createGroup("gname");
+  return agile.idm.group.create("gname");
 }).then(function(group){
   console.log("group created!"+JSON.stringify(group));
-  return agile.idm.group.getGroups();
+  return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));
-  return agile.idm.group.addEntityToGroup(owner,"gname","1","sensor");
+  return agile.idm.group.addEntity({owner: owner, name:"gname", entity_id: "1", entity_type:"device"});
 }).then(function(entity){
   console.log("entity in group"+JSON.stringify(entity));
-  return agile.idm.group.getGroups();
+  return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));
-  return agile.idm.entity.getEntity("1","sensor");
+  return agile.idm.entity.get("1","device");
 }).then(function(entity){
   console.log('result of reading entity !'+JSON.stringify(entity))
-  return agile.idm.group.removeEntityFromGroup(owner,"gname","1","sensor");
+  return agile.idm.group.removeEntity({owner: owner, name:"gname", entity_id: "1", entity_type:"device"});
 }).then(function(result){
   console.log("entity has been removed from the group");
-  return agile.idm.group.getGroups();
+  return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));
-  return agile.idm.entity.deleteEntity("1","sensor");
+  return agile.idm.entity.delete("1","device");
 }).then(function(result){
   console.log("entity has been removed");
-  return agile.idm.group.getGroups();
+  return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));
-  return agile.idm.group.deleteGroup(owner, "gname");
+  return agile.idm.group.delete(owner, "gname");
 }).then(function(r) {
   console.log("group deleted"+r);
 }).catch(function(err) {

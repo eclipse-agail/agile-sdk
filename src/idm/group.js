@@ -3,6 +3,9 @@ import { errorHandler } from '../utils';
 
 const group = (base, token) => {
   base = `${base}`;
+  var instance = axios.create({
+    headers: { "Authorization" : `bearer ${token}`}
+  });
   return ({
     /**
     * @summary List all groups
@@ -17,12 +20,11 @@ const group = (base, token) => {
     *   console.log(groups);
     * });
     **/
-    getGroups: () => {
+    get: () => {
       let url = `${base}/api/v1/group`;
-      return axios({
+      return instance.request({
         method: 'GET',
         url: url,
-        headers: {"Authorization":`bearer ${token}`}
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -41,10 +43,9 @@ const group = (base, token) => {
     *   console.log('group created!'+group);
     * });
     **/
-    createGroup: (name) => axios({
+    create: (name) => instance.request({
       method: 'POST',
       url: `${base}/api/v1/group/`,
-      headers: {"Authorization" : `bearer ${token}`},
       data: {"group_name" : name}
     })
     .then(res => (res.data))
@@ -64,10 +65,9 @@ const group = (base, token) => {
     *   console.log('group removed!');
     * });
     **/
-    deleteGroup: (owner, name) => axios({
+    delete: (owner, name) => instance.request({
       method: 'DELETE',
       url: `${base}/api/v1/user/${owner}/group/${name}`,
-      headers: {"Authorization" : `bearer ${token}`}
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -77,21 +77,25 @@ const group = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.group
-    * @param {String} owner - Owner of the group
-    * @param {String} groupName - Name of the group
-    * @param {String} entityId - id of the entity
-    * @param {String} entityType - Type of the entity
+    * @param {Object} containing the owner of the group,
+      the name of the group,
+      the id of the entity to be added to the group,
+      and the Type of the entity
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.group.addEntityToGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
+    * agile.idm.group.addEntity({
+          owner: 'agile!@!agile-local',
+          name: 'my-group',
+          entity_id: '1',
+          entity_type: '/device'
+        }).then(function(updated) {
     *   console.log('entity updated !'+updated);
     * });
     **/
-    addEntityToGroup:(owner, name, entity_id, entity_type) => axios({
+    addEntity:(params) => instance.request({
       method: 'POST',
-      url: `${base}/api/v1/user/${owner}/group/${name}/entities/${entity_type}/${entity_id}`,
-      headers: {"Authorization" : `bearer ${token}`}
+      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`,
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -101,21 +105,25 @@ const group = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.group
-    * @param {String} owner - Owner of the group
-    * @param {String} groupName - Name of the group
-    * @param {String} entityId - id of the entity
-    * @param {String} entityType - Type of the entity
+    * @param {Object} containing the owner of the group,
+      the name of the group,
+      the id of the entity to be removed to the group,
+      and the Type of the entity
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.group.removeEntityFromGroup('agile!@!agile-local','my-group','1','/sensor').then(function(updated) {
+    * agile.idm.group.removeEntity('{
+          owner: 'agile!@!agile-local',
+          name: 'my-group',
+          entity_id: '1',
+          entity_type: '/device'
+        }).then(function(updated) {
     *   console.log('entity updated !'+updated);
     * });
     **/
-    removeEntityFromGroup:(owner, name, entity_id, entity_type) => axios({
+    removeEntity:(params) => instance.request({
       method: 'DELETE',
-      url: `${base}/api/v1/user/${owner}/group/${name}/entities/${entity_type}/${entity_id}`,
-      headers: {"Authorization" : `bearer ${token}`}
+      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`,
     })
     .then(res => (res.data))
     .catch(errorHandler),
