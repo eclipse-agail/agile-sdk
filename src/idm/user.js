@@ -5,7 +5,7 @@ import parseUrl from 'url-parse';
 const idm = (base, token) => {
   base = `${base}`;
   var instance = axios.create({
-    headers: { "Authorization" : `bearer ${token}`}
+    headers: { 'Authorization' : `bearer ${token}`}
   });
 
   return ({
@@ -39,7 +39,7 @@ const idm = (base, token) => {
     * @fulfil {Object} user found
     * @returns {Promise}
     * @example
-    * agile.idm.user.get("alice","agile-local").then(function(user) {
+    * agile.idm.user.get('alice','agile-local').then(function(user) {
     *   console.log(user);
     * });
     **/
@@ -60,18 +60,18 @@ const idm = (base, token) => {
     * @memberof agile.idm.user
     * @param {object} including user_name user name
     * @param {String} auth_type authentication type
-    * @param [Object] options continaing  role  of the user as "role" and password as "password"
+    * @param [Object] options continaing  role  of the user as 'role' and password as 'password'
     * @fulfil {Object} user created
     * @returns {Promise}
     * @example
-    * agile.idm.user.create('bob','agile-local',{"role":"admin", "password":"secret"}).then(function(user) {
+    * agile.idm.user.create('bob','agile-local',{'role':'admin', 'password':'secret'}).then(function(user) {
     *   console.log('user created!'+user);
     * });
     **/
     create: (user_name, auth_type, options) => {
       var user = {
-        "auth_type": auth_type,
-        "user_name": user_name
+        'auth_type': auth_type,
+        'user_name': user_name
       };
       if(options && options.role){
         user.role = options.role;

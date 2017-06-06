@@ -4,7 +4,7 @@ import { errorHandler } from '../utils';
 const entity = (base, token) => {
   base = `${base}`;
   var instance = axios.create({
-    headers: { "Authorization" : `bearer ${token}`}
+    headers: { 'Authorization' : `bearer ${token}`}
   });
 
   return ({
@@ -18,7 +18,7 @@ const entity = (base, token) => {
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
     * @example
-    * agile.idm.entity.getByType("sensor").then(function(entities) {
+    * agile.idm.entity.getByType('sensor').then(function(entities) {
     *   console.log(entities);
     * });
     **/
@@ -37,11 +37,11 @@ const entity = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.entity
-    * @param {Array} constraints - contains objects containing objects with the property  "attribute_type" to specify the attribute type and with the property "attribute_value" to specify the expected attribute value
+    * @param {Array} constraints - contains objects containing objects with the property  'attribute_type' to specify the attribute type and with the property 'attribute_value' to specify the expected attribute value
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
     * @example
-    * agile.idm.entity.getByAttributeValue([{attribute_typeattribute_type:"credentials.dropbox","attribute_value":"expected attribute value for dropbox credentials"}]).then(function(entities) {
+    * agile.idm.entity.getByAttributeValue([{attribute_typeattribute_type:'credentials.dropbox','attribute_value':'expected attribute value for dropbox credentials'}]).then(function(entities) {
     *   console.log(entities);
     * });
     **/
@@ -50,7 +50,7 @@ const entity = (base, token) => {
       return instance.request({
         method: 'POST',
         url: url,
-        data:{ "criteria":constraints}
+        data:{ 'criteria':constraints}
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -88,7 +88,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity created
     * @returns {Promise}
     * @example
-    * agile.idm.entity.create('1','/sensor',{"name":"entity's name"}).then(function(result) {
+    * agile.idm.entity.create('1','/sensor',{'name':'entity's name'}).then(function(result) {
     *   console.log('entity created!'+result);
     * });
     **/
@@ -136,8 +136,8 @@ const entity = (base, token) => {
     * agile.idm.entity.setAttribute({
           entity_id: '1',,
           entity_type: '/sensor',
-          attribute_type: "credentials",
-          attribute_value: {"dropbox":"entity's credentials for drop"}
+          attribute_type: 'credentials',
+          attribute_value: {'dropbox':'entity's credentials for drop'}
         }).then(function(result) {
     *   console.log('entity created!'+result);
     * });
@@ -145,7 +145,7 @@ const entity = (base, token) => {
     setAttribute: (params) => instance.request({
       method: 'PUT',
       url: `${base}/api/v1/entity/${params.entity_type}/${params.entity_id}/attribute/${params.attribute_type}/`,
-      data: { "value" : params.attribute_value}
+      data: { 'value' : params.attribute_value}
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -161,7 +161,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity updated entity
     * @returns {Promise}
     * @example
-    * agile.idm.entity.deleteAttribute('1','/sensor',"credentials").then(function(result) {
+    * agile.idm.entity.deleteAttribute('1','/sensor','credentials').then(function(result) {
     *   console.log('entity updated!'+result);
     * });
     **/

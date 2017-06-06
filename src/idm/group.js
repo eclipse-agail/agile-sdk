@@ -4,7 +4,7 @@ import { errorHandler } from '../utils';
 const group = (base, token) => {
   base = `${base}`;
   var instance = axios.create({
-    headers: { "Authorization" : `bearer ${token}`}
+    headers: { 'Authorization' : `bearer ${token}`}
   });
   return ({
     /**
@@ -46,7 +46,7 @@ const group = (base, token) => {
     create: (name) => instance.request({
       method: 'POST',
       url: `${base}/api/v1/group/`,
-      data: {"group_name" : name}
+      data: {'group_name' : name}
     })
     .then(res => (res.data))
     .catch(errorHandler),

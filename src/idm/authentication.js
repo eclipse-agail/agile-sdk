@@ -17,7 +17,7 @@ const entity = (base, token) => {
     * @fulfil {Object} Authentication information including token_type and access_token
     * @returns {Promise}
     * @example
-    * agile.idm.authentication.authenticateClient("MyAgileClient2","WLnhhc3LnesbYj0GspNA13zgJEroN8V").then(function(result) {
+    * agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V').then(function(result) {
     *   console.log(credentials.access_token);
     *   console.log(credentials.token_type);
     * });
