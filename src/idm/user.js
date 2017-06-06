@@ -10,7 +10,7 @@ const idm = (base, token) => {
 
   return ({
     /**
-    * @summary Get the user information for the user currnelty logged in, i.e. token provided when agileSDK was created
+    * @summary Get the user information for the user currently logged in, i.e. token provided when agileSDK was created
     * @name getCurrentUserInfo
     * @public
     * @function

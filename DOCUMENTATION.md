@@ -763,7 +763,7 @@ agile.idm.group.removeEntity({
 
 ##### user.getCurrentUserInfo() ⇒ <code>Promise</code>
 **Kind**: static method of [<code>user</code>](#agile.idm.user)  
-**Summary**: Get the user information for the user currnelty logged in, i.e. token provided when agileSDK was created  
+**Summary**: Get the user information for the user currently logged in, i.e. token provided when agileSDK was created  
 **Access**: public  
 **Fulfil**: <code>Object</code> userInfo - object with user information  
 **Example**  
