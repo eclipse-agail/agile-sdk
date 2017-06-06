@@ -658,8 +658,11 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
 
 **Example**  
 ```js
+agile.idm.group.get('agile!@!agile-local','my-group').then(function(group) {
+  console.log('this is my group '+JSON.stringify(group));
+});
 agile.idm.group.get().then(function(groups) {
-  console.log(groups);
+  console.log('these are all groups '+JSON.stringify(groups));
 });
 ```
 <a name="agile.idm.group.create"></a>
