@@ -37,7 +37,7 @@ const entity = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.entity
-    * @param {Array} constraints- contains objects containing objects with the property  "attribute_type" to specify the attribute type and with the property "attribute_value" to sepcify the expected attribute value
+    * @param {Array} constraints - contains objects containing objects with the property  "attribute_type" to specify the attribute type and with the property "attribute_value" to specify the expected attribute value
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
     * @example
@@ -75,29 +75,30 @@ const entity = (base, token) => {
       url: `${base}/api/v1/entity/${entity_type}/${entity_id}`,
     })
     .then(res => (res.data))
-    .catch(errorHandler),    /**
-        * @summary Create a group onwned by the authenticated user
-        * @name create
-        * @public
-        * @function
-        * @memberof agile.idm.entity
-        * @param {String} entityId - id of entity
-        * @param {String} entityType - type of entity
-        * @param {object} entity - An object containing the entity
-        * @fulfil {Object} entity created
-        * @returns {Promise}
-        * @example
-        * agile.idm.entity.create('1','/sensor',{"name":"entity's name"}).then(function(result) {
-        *   console.log('entity created!'+result);
-        * });
-        **/
-        create: (entity_id, entity_type, entity) => instance.request({
-          method: 'POST',
-          url: `${base}/api/v1/entity/${entity_type}/${entity_id}`,
-          data: entity
-        })
-        .then(res => (res.data))
-        .catch(errorHandler),
+    .catch(errorHandler),
+    /**
+    * @summary Create a group onwned by the authenticated user
+    * @name create
+    * @public
+    * @function
+    * @memberof agile.idm.entity
+    * @param {String} entityId - id of entity
+    * @param {String} entityType - type of entity
+    * @param {object} entity - An object containing the entity
+    * @fulfil {Object} entity created
+    * @returns {Promise}
+    * @example
+    * agile.idm.entity.create('1','/sensor',{"name":"entity's name"}).then(function(result) {
+    *   console.log('entity created!'+result);
+    * });
+    **/
+    create: (entity_id, entity_type, entity) => instance.request({
+      method: 'POST',
+      url: `${base}/api/v1/entity/${entity_type}/${entity_id}`,
+      data: entity
+    })
+    .then(res => (res.data))
+    .catch(errorHandler),
     /**
     * @summary Delete entity
     * @name delete

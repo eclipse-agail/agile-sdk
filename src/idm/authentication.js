@@ -17,7 +17,7 @@ const entity = (base, token) => {
     * @fulfil {Object} Authentication information including token_type and access_token
     * @returns {Promise}
     * @example
-    * agile.idm.authentication.authenticateClient("client_name","credentials").then(function(result) {
+    * agile.idm.authentication.authenticateClient("MyAgileClient2","WLnhhc3LnesbYj0GspNA13zgJEroN8V").then(function(result) {
     *   console.log(credentials.access_token);
     *   console.log(credentials.token_type);
     * });
@@ -28,14 +28,6 @@ const entity = (base, token) => {
         data:{}
       });
       let url = `${base}/oauth2/token`;
-      instance.interceptors.request.use((req) => {
-        if (req.method === 'POST') {
-          req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-          req.data = qs.stringify(req.data)
-        }
-        return req
-      }, (error) => Promise.reject(error))
-
       return instance.request({
         method: 'POST',
         url: url,
@@ -46,7 +38,7 @@ const entity = (base, token) => {
         headers:{
           'Content-Type' : 'application/x-www-form-urlencoded'
         },
-        data:{grant_type:'client_credentials'}
+        data: qs.stringify({grant_type:'client_credentials'})
       })
       .then(res => (res.data))
       .catch(errorHandler);
