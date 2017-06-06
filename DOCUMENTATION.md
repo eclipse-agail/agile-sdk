@@ -53,7 +53,7 @@ var agile = require('agile-sdk')({
         * [.write(protocolId, deviceId, data)](#agile.protocol.write) ⇒ <code>Promise</code>
     * [.idm](#agile.idm) : <code>object</code>
         * [.group](#agile.idm.group) : <code>object</code>
-            * [.get()](#agile.idm.group.get) ⇒ <code>Promise</code>
+            * [.get([owner], [groupName])](#agile.idm.group.get) ⇒ <code>Promise</code>
             * [.create(groupName)](#agile.idm.group.create) ⇒ <code>Promise</code>
             * [.delete(owner, groupName)](#agile.idm.group.delete) ⇒ <code>Promise</code>
             * [.addEntity(containing)](#agile.idm.group.addEntity) ⇒ <code>Promise</code>
@@ -65,7 +65,7 @@ var agile = require('agile-sdk')({
             * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
         * [.entity](#agile.idm.entity) : <code>object</code>
             * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
-            * [.getByAttributeValue(constraints-)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
+            * [.getByAttributeValue(constraints)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
             * [.get(entityId, entityType)](#agile.idm.entity.get) ⇒ <code>Promise</code>
             * [.create(entityId, entityType, entity)](#agile.idm.entity.create) ⇒ <code>Promise</code>
             * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
@@ -610,7 +610,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
 
 * [.idm](#agile.idm) : <code>object</code>
     * [.group](#agile.idm.group) : <code>object</code>
-        * [.get()](#agile.idm.group.get) ⇒ <code>Promise</code>
+        * [.get([owner], [groupName])](#agile.idm.group.get) ⇒ <code>Promise</code>
         * [.create(groupName)](#agile.idm.group.create) ⇒ <code>Promise</code>
         * [.delete(owner, groupName)](#agile.idm.group.delete) ⇒ <code>Promise</code>
         * [.addEntity(containing)](#agile.idm.group.addEntity) ⇒ <code>Promise</code>
@@ -622,7 +622,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
         * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
     * [.entity](#agile.idm.entity) : <code>object</code>
         * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
-        * [.getByAttributeValue(constraints-)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
+        * [.getByAttributeValue(constraints)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
         * [.get(entityId, entityType)](#agile.idm.entity.get) ⇒ <code>Promise</code>
         * [.create(entityId, entityType, entity)](#agile.idm.entity.create) ⇒ <code>Promise</code>
         * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
@@ -637,7 +637,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
 **Kind**: static namespace of [<code>idm</code>](#agile.idm)  
 
 * [.group](#agile.idm.group) : <code>object</code>
-    * [.get()](#agile.idm.group.get) ⇒ <code>Promise</code>
+    * [.get([owner], [groupName])](#agile.idm.group.get) ⇒ <code>Promise</code>
     * [.create(groupName)](#agile.idm.group.create) ⇒ <code>Promise</code>
     * [.delete(owner, groupName)](#agile.idm.group.delete) ⇒ <code>Promise</code>
     * [.addEntity(containing)](#agile.idm.group.addEntity) ⇒ <code>Promise</code>
@@ -645,11 +645,17 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
 
 <a name="agile.idm.group.get"></a>
 
-##### group.get() ⇒ <code>Promise</code>
+##### group.get([owner], [groupName]) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>group</code>](#agile.idm.group)  
 **Summary**: List all groups  
 **Access**: public  
-**Fulfil**: <code>Array</code> all groups  
+**Fulfil**: <code>Array</code> all groups if no arguments are provided, otherwise the group with given name and owner.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [owner] | <code>String</code> | Owner of the group |
+| [groupName] | <code>String</code> | Name of the group |
+
 **Example**  
 ```js
 agile.idm.group.get().then(function(groups) {
@@ -778,7 +784,7 @@ agile.idm.user.getCurrentUserInfo().then(function(info) {
 
 **Example**  
 ```js
-agile.idm.user.get("alice","agile-local").then(function(user) {
+agile.idm.user.get('alice','agile-local').then(function(user) {
   console.log(user);
 });
 ```
@@ -794,11 +800,11 @@ agile.idm.user.get("alice","agile-local").then(function(user) {
 | --- | --- | --- |
 | including | <code>object</code> | user_name user name |
 | auth_type | <code>String</code> | authentication type |
-| [Object] |  | options continaing  role  of the user as "role" and password as "password" |
+| [Object] |  | options continaing  role  of the user as 'role' and password as 'password' |
 
 **Example**  
 ```js
-agile.idm.user.create('bob','agile-local',{"role":"admin", "password":"secret"}).then(function(user) {
+agile.idm.user.create('bob','agile-local',{'role':'admin', 'password':'secret'}).then(function(user) {
   console.log('user created!'+user);
 });
 ```
@@ -828,7 +834,7 @@ agile.idm.user.delete('bob','agile-local').then(function() {
 
 * [.entity](#agile.idm.entity) : <code>object</code>
     * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
-    * [.getByAttributeValue(constraints-)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
+    * [.getByAttributeValue(constraints)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
     * [.get(entityId, entityType)](#agile.idm.entity.get) ⇒ <code>Promise</code>
     * [.create(entityId, entityType, entity)](#agile.idm.entity.create) ⇒ <code>Promise</code>
     * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
@@ -849,13 +855,13 @@ agile.idm.user.delete('bob','agile-local').then(function() {
 
 **Example**  
 ```js
-agile.idm.entity.getByType("sensor").then(function(entities) {
+agile.idm.entity.getByType('sensor').then(function(entities) {
   console.log(entities);
 });
 ```
 <a name="agile.idm.entity.getByAttributeValue"></a>
 
-##### entity.getByAttributeValue(constraints-) ⇒ <code>Promise</code>
+##### entity.getByAttributeValue(constraints) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
 **Summary**: List all entities which have a particular attribute value  
 **Access**: public  
@@ -863,11 +869,11 @@ agile.idm.entity.getByType("sensor").then(function(entities) {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| constraints- | <code>Array</code> | contains objects containing objects with the property  "attribute_type" to specify the attribute type and with the property "attribute_value" to sepcify the expected attribute value |
+| constraints | <code>Array</code> | contains objects containing objects with the property  'attribute_type' to specify the attribute type and with the property 'attribute_value' to specify the expected attribute value |
 
 **Example**  
 ```js
-agile.idm.entity.getByAttributeValue([{attribute_typeattribute_type:"credentials.dropbox","attribute_value":"expected attribute value for dropbox credentials"}]).then(function(entities) {
+agile.idm.entity.getByAttributeValue([{attribute_typeattribute_type:'credentials.dropbox','attribute_value':'expected attribute value for dropbox credentials'}]).then(function(entities) {
   console.log(entities);
 });
 ```
@@ -906,7 +912,7 @@ agile.idm.entity.get('1','/sensor').then(function(result) {
 
 **Example**  
 ```js
-agile.idm.entity.create('1','/sensor',{"name":"entity's name"}).then(function(result) {
+agile.idm.entity.create('1','/sensor',{'name':'entity's name'}).then(function(result) {
   console.log('entity created!'+result);
 });
 ```
@@ -946,8 +952,8 @@ agile.idm.entity.delete('1','/sensor').then(function() {
 agile.idm.entity.setAttribute({
           entity_id: '1',,
           entity_type: '/sensor',
-          attribute_type: "credentials",
-          attribute_value: {"dropbox":"entity's credentials for drop"}
+          attribute_type: 'credentials',
+          attribute_value: {'dropbox':'entity's credentials for drop'}
         }).then(function(result) {
   console.log('entity created!'+result);
 });
@@ -968,7 +974,7 @@ agile.idm.entity.setAttribute({
 
 **Example**  
 ```js
-agile.idm.entity.deleteAttribute('1','/sensor',"credentials").then(function(result) {
+agile.idm.entity.deleteAttribute('1','/sensor','credentials').then(function(result) {
   console.log('entity updated!'+result);
 });
 ```
@@ -991,7 +997,7 @@ agile.idm.entity.deleteAttribute('1','/sensor',"credentials").then(function(resu
 
 **Example**  
 ```js
-agile.idm.authentication.authenticateClient("client_name","credentials").then(function(result) {
+agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V').then(function(result) {
   console.log(credentials.access_token);
   console.log(credentials.token_type);
 });
