@@ -59,6 +59,9 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.group.create("gname");
 }).then(function(group){
   console.log("group created!"+JSON.stringify(group));
+  return agile.idm.group.get(owner, "gname");
+}).then(function(group){
+  console.log("group found!"+JSON.stringify(group));
   return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));

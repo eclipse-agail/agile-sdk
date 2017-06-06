@@ -3,7 +3,7 @@
 
 var api = 'http://agilegw.local:8080';
 var idmurl = 'http://agilegw.local:3000';;
-var token = "aUpp9RkAkQmsPrU3EQoR5i5DGt2VCLQCL7C14y84Ayqedjmbm1LuIes1TsSyn5Cv";
+var token = "LHkbkygsLrQaWLnhhc3LnesbYj0GspNA13zgJEroN8Va6pNyUXvgrErQ9QYsmJCj";
 var agile = agileSDK({
 api: api,
 idm: idmurl,
@@ -61,6 +61,9 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.group.create("gname");
 }).then(function(group){
   console.log("group created!"+JSON.stringify(group));
+  return agile.idm.group.get(owner, "gname");
+}).then(function(group){
+  console.log("group found!"+JSON.stringify(group));
   return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));

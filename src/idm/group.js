@@ -13,15 +13,17 @@ const group = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.group
-    * @fulfil {Array} all groups
+    * @param {String} [owner] - Owner of the group
+    * @param {String} [groupName] - Name of the group
+    * @fulfil {Array} all groups if no arguments are provided, otherwise the group with given name and owner.
     * @returns {Promise}
     * @example
     * agile.idm.group.get().then(function(groups) {
     *   console.log(groups);
     * });
     **/
-    get: () => {
-      let url = `${base}/api/v1/group`;
+    get: (owner, name) => {
+      var url = owner&&name?`${base}/api/v1/user/${owner}/group/${name}`:`${base}/api/v1/group`;
       return instance.request({
         method: 'GET',
         url: url,
