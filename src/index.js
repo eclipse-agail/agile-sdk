@@ -22,6 +22,10 @@ import parseUrl from 'url-parse';
     })
 */
 const agileSDK = (params) => {
+  //backwards compatibility
+  if (typeof params === 'string' || params instanceof String){
+    params = {api: params};
+  }
   // parse url to remove any irregularites
   const parsed = parseUrl(params.api);
   const apiBase = `${parsed.origin}/api`;
