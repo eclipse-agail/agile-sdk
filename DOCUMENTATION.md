@@ -61,7 +61,7 @@ var agile = require('agile-sdk')({
         * [.user](#agile.idm.user) : <code>object</code>
             * [.getCurrentUserInfo()](#agile.idm.user.getCurrentUserInfo) ⇒ <code>Promise</code>
             * [.get(user_name, auth_type)](#agile.idm.user.get) ⇒ <code>Promise</code>
-            * [.create(including, auth_type, [Object])](#agile.idm.user.create) ⇒ <code>Promise</code>
+            * [.create(including, auth_type, [options])](#agile.idm.user.create) ⇒ <code>Promise</code>
             * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
         * [.entity](#agile.idm.entity) : <code>object</code>
             * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
@@ -618,7 +618,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
     * [.user](#agile.idm.user) : <code>object</code>
         * [.getCurrentUserInfo()](#agile.idm.user.getCurrentUserInfo) ⇒ <code>Promise</code>
         * [.get(user_name, auth_type)](#agile.idm.user.get) ⇒ <code>Promise</code>
-        * [.create(including, auth_type, [Object])](#agile.idm.user.create) ⇒ <code>Promise</code>
+        * [.create(including, auth_type, [options])](#agile.idm.user.create) ⇒ <code>Promise</code>
         * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
     * [.entity](#agile.idm.entity) : <code>object</code>
         * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
@@ -756,7 +756,7 @@ agile.idm.group.removeEntity({
 * [.user](#agile.idm.user) : <code>object</code>
     * [.getCurrentUserInfo()](#agile.idm.user.getCurrentUserInfo) ⇒ <code>Promise</code>
     * [.get(user_name, auth_type)](#agile.idm.user.get) ⇒ <code>Promise</code>
-    * [.create(including, auth_type, [Object])](#agile.idm.user.create) ⇒ <code>Promise</code>
+    * [.create(including, auth_type, [options])](#agile.idm.user.create) ⇒ <code>Promise</code>
     * [.delete(user_name, auth_type)](#agile.idm.user.delete) ⇒ <code>Promise</code>
 
 <a name="agile.idm.user.getCurrentUserInfo"></a>
@@ -793,7 +793,7 @@ agile.idm.user.get('alice','agile-local').then(function(user) {
 ```
 <a name="agile.idm.user.create"></a>
 
-##### user.create(including, auth_type, [Object]) ⇒ <code>Promise</code>
+##### user.create(including, auth_type, [options]) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>user</code>](#agile.idm.user)  
 **Summary**: Create user  
 **Access**: public  
@@ -803,7 +803,7 @@ agile.idm.user.get('alice','agile-local').then(function(user) {
 | --- | --- | --- |
 | including | <code>object</code> | user_name user name |
 | auth_type | <code>String</code> | authentication type |
-| [Object] |  | options continaing  role  of the user as 'role' and password as 'password' |
+| [options] | <code>Object</code> | continaing  role  of the user as 'role' and password as 'password' |
 
 **Example**  
 ```js
@@ -915,7 +915,7 @@ agile.idm.entity.get('1','/sensor').then(function(result) {
 
 **Example**  
 ```js
-agile.idm.entity.create('1','/sensor',{'name':'entity's name'}).then(function(result) {
+agile.idm.entity.create('1','/sensor',{'name':'entity name'}).then(function(result) {
   console.log('entity created!'+result);
 });
 ```
@@ -956,7 +956,7 @@ agile.idm.entity.setAttribute({
           entity_id: '1',,
           entity_type: '/sensor',
           attribute_type: 'credentials',
-          attribute_value: {'dropbox':'entity's credentials for drop'}
+          attribute_value: {'dropbox':'entity credentials for drop'}
         }).then(function(result) {
   console.log('entity created!'+result);
 });

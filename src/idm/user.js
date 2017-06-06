@@ -60,7 +60,7 @@ const idm = (base, token) => {
     * @memberof agile.idm.user
     * @param {object} including user_name user name
     * @param {String} auth_type authentication type
-    * @param [Object] options continaing  role  of the user as 'role' and password as 'password'
+    * @param {Object} [options] continaing  role  of the user as 'role' and password as 'password'
     * @fulfil {Object} user created
     * @returns {Promise}
     * @example
