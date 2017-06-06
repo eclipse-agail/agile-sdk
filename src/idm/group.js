@@ -8,7 +8,7 @@ const group = (base, token) => {
   });
   return ({
     /**
-    * @summary List all groups
+    * @summary Get a particular group by name and owner
     * @name get
     * @public
     * @function
@@ -18,8 +18,11 @@ const group = (base, token) => {
     * @fulfil {Array} all groups if no arguments are provided, otherwise the group with given name and owner.
     * @returns {Promise}
     * @example
+    * agile.idm.group.get('agile!@!agile-local','my-group').then(function(group) {
+    *   console.log('this is my group '+JSON.stringify(group));
+    * });
     * agile.idm.group.get().then(function(groups) {
-    *   console.log(groups);
+    *   console.log('these are all groups '+JSON.stringify(groups));
     * });
     **/
     get: (owner, name) => {

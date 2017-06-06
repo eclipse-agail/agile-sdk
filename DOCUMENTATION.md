@@ -647,7 +647,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
 
 ##### group.get([owner], [groupName]) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>group</code>](#agile.idm.group)  
-**Summary**: List all groups  
+**Summary**: Get a particular group by name and owner  
 **Access**: public  
 **Fulfil**: <code>Array</code> all groups if no arguments are provided, otherwise the group with given name and owner.  
 
