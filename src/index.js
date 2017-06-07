@@ -22,17 +22,17 @@ import parseUrl from 'url-parse';
     })
 */
 const agileSDK = (params) => {
-  //backwards compatibility
-  if (typeof params === 'string' || params instanceof String){
+  // backwards compatibility
+  if (typeof params === 'string' || params instanceof String) {
     params = {api: params};
   }
   // parse url to remove any irregularites
   const parsed = parseUrl(params.api);
   const apiBase = `${parsed.origin}/api`;
   const wsBase = `${parsed.set('protocol', 'ws:').origin}/ws`;
-  const idmBase = params.idm?params.idm:`${parsed.set('port', 3000).origin}`;
-  //for now we keep it as const... but token in the sdk should be updated once in a while, since it can expire.
-  //for now we just create a new SDK object each time
+  const idmBase = params.idm ? params.idm : `${parsed.set('port', 3000).origin}`;
+  // for now we keep it as const... but token in the sdk should be updated once in a while, since it can expire.
+  // for now we just create a new SDK object each time
   const token = params.token;
   return ({
     /**

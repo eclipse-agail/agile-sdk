@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { errorHandler } from '../utils';
-import parseUrl from 'url-parse';
 
 const idm = (base, token) => {
   base = `${base}`;
   var instance = axios.create({
-    headers: { 'Authorization' : `bearer ${token}`}
+    headers: { 'Authorization': `bearer ${token}` }
   });
 
   return ({
@@ -24,7 +23,7 @@ const idm = (base, token) => {
     **/
     getCurrentUserInfo: () => instance.request({
       method: 'GET',
-      url: `${base}/oauth2/api/userinfo`,
+      url: `${base}/oauth2/api/userinfo`
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -34,8 +33,8 @@ const idm = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.user
-    * @param {String} user_name user name
-    * @param {String} auth_type authentication type
+    * @param {String} userName user name
+    * @param {String} authType authentication type
     * @fulfil {Object} user found
     * @returns {Promise}
     * @example
@@ -43,11 +42,11 @@ const idm = (base, token) => {
     *   console.log(user);
     * });
     **/
-    get: (user_name, auth_type) => {
+    get: (userName, authType) => {
       return instance.request({
         method: 'GET',
         url: `${base}/api/v1/user/`,
-        params: {'auth_type': auth_type, 'user_name': user_name}
+        params: {'auth_type': authType, 'user_name': userName}
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -58,8 +57,8 @@ const idm = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.user
-    * @param {object} including user_name user name
-    * @param {String} auth_type authentication type
+    * @param {object} including userName user name
+    * @param {String} authType authentication type
     * @param {Object} [options] continaing  role  of the user as 'role' and password as 'password'
     * @fulfil {Object} user created
     * @returns {Promise}
@@ -68,15 +67,15 @@ const idm = (base, token) => {
     *   console.log('user created!'+user);
     * });
     **/
-    create: (user_name, auth_type, options) => {
+    create: (userName, authType, options) => {
       var user = {
-        'auth_type': auth_type,
-        'user_name': user_name
+        'auth_type': authType,
+        'user_name': userName
       };
-      if(options && options.role){
+      if (options && options.role) {
         user.role = options.role;
       }
-      if(options && options.password){
+      if (options && options.password) {
         user.password = options.password;
       }
       return instance.request({
@@ -93,8 +92,8 @@ const idm = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.user
-    * @param {String} user_name user name
-    * @param {String} auth_type authentication type
+    * @param {String} userName user name
+    * @param {String} authType authentication type
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
@@ -102,12 +101,11 @@ const idm = (base, token) => {
     *   console.log('user removed!');
     * });
     **/
-    delete: (user_name, auth_type) => {
-
+    delete: (userName, authType) => {
       return instance.request({
         method: 'DELETE',
         url: `${base}/api/v1/user/`,
-        params: {'auth_type': auth_type, 'user_name': user_name}
+        params: {'auth_type': authType, 'user_name': userName}
       })
       .then(res => (res))
       .catch(errorHandler);

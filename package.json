@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "babel-node ./node_modules/.bin/_mocha",
-    "lint": "eslint src/**",
+    "lint": "eslint src/** --fix",
+    "lint:fix": "eslint src/**",
     "docs": "jsdoc2md 'src/**/*.js' > DOCUMENTATION.md",
     "build": "babel src --out-dir dist --copy-files && npm run build-browser",
     "build-browser": "webpack -p dist/index.js dist/bundle.js --output-library agileSDK",

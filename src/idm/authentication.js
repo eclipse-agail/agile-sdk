@@ -23,9 +23,9 @@ const entity = (base, token) => {
     * });
     **/
     authenticateClient: (client, secret) => {
-      //hack See https://github.com/mzabriskie/axios/issues/362
+      // hack See https://github.com/mzabriskie/axios/issues/362
       var instance = axios.create({
-        data:{}
+        data: {}
       });
       let url = `${base}/oauth2/token`;
       return instance.request({
@@ -35,14 +35,14 @@ const entity = (base, token) => {
           username: client,
           password: secret
         },
-        headers:{
-          'Content-Type' : 'application/x-www-form-urlencoded'
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: qs.stringify({grant_type:'client_credentials'})
+        data: qs.stringify({grant_type: 'client_credentials'})
       })
       .then(res => (res.data))
       .catch(errorHandler);
-    },
+    }
   });
 };
 

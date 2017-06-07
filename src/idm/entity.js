@@ -4,7 +4,7 @@ import { errorHandler } from '../utils';
 const entity = (base, token) => {
   base = `${base}`;
   var instance = axios.create({
-    headers: { 'Authorization' : `bearer ${token}`}
+    headers: { 'Authorization': `bearer ${token}` }
   });
 
   return ({
@@ -22,8 +22,8 @@ const entity = (base, token) => {
     *   console.log(entities);
     * });
     **/
-    getByType: (entity_type) => {
-      let url = `${base}/api/v1/entity/${entity_type}`;
+    getByType: (entityType) => {
+      let url = `${base}/api/v1/entity/${entityType}`;
       return instance.request({
         method: 'GET',
         url: url
@@ -41,7 +41,7 @@ const entity = (base, token) => {
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
     * @example
-    * agile.idm.entity.getByAttributeValue([{attribute_typeattribute_type:'credentials.dropbox','attribute_value':'expected attribute value for dropbox credentials'}]).then(function(entities) {
+    * agile.idm.entity.getByAttributeValue([{attributeTypeattributeType:'credentials.dropbox','attribute_value':'expected attribute value for dropbox credentials'}]).then(function(entities) {
     *   console.log(entities);
     * });
     **/
@@ -50,7 +50,7 @@ const entity = (base, token) => {
       return instance.request({
         method: 'POST',
         url: url,
-        data:{ 'criteria':constraints}
+        data: { 'criteria': constraints }
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -70,9 +70,9 @@ const entity = (base, token) => {
     *   console.log('entity created!'+result);
     * });
     **/
-    get: (entity_id, entity_type) => instance.request({
+    get: (entityId, entityType) => instance.request({
       method: 'get',
-      url: `${base}/api/v1/entity/${entity_type}/${entity_id}`,
+      url: `${base}/api/v1/entity/${entityType}/${entityId}`
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -92,9 +92,9 @@ const entity = (base, token) => {
     *   console.log('entity created!'+result);
     * });
     **/
-    create: (entity_id, entity_type, entity) => instance.request({
+    create: (entityId, entityType, entity) => instance.request({
       method: 'POST',
-      url: `${base}/api/v1/entity/${entity_type}/${entity_id}`,
+      url: `${base}/api/v1/entity/${entityType}/${entityId}`,
       data: entity
     })
     .then(res => (res.data))
@@ -114,9 +114,9 @@ const entity = (base, token) => {
     *   console.log('group removed!');
     * });
     **/
-    delete: (entity_id, entity_type) => instance.request({
+    delete: (entityId, entityType) => instance.request({
       method: 'DELETE',
-      url: `${base}/api/v1/entity/${entity_type}/${entity_id}`,
+      url: `${base}/api/v1/entity/${entityType}/${entityId}`
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -134,9 +134,9 @@ const entity = (base, token) => {
     * @returns {Promise}
     * @example
     * agile.idm.entity.setAttribute({
-          entity_id: '1',,
-          entity_type: 'sensor',
-          attribute_type: 'credentials',
+          entityId: '1',,
+          entityType: 'sensor',
+          attributeType: 'credentials',
           attribute_value: {'dropbox':'entity credentials for drop'}
         }).then(function(result) {
     *   console.log('entity created!'+result);
@@ -144,8 +144,8 @@ const entity = (base, token) => {
     **/
     setAttribute: (params) => instance.request({
       method: 'PUT',
-      url: `${base}/api/v1/entity/${params.entity_type}/${params.entity_id}/attribute/${params.attribute_type}/`,
-      data: { 'value' : params.attribute_value}
+      url: `${base}/api/v1/entity/${params.entityType}/${params.entityId}/attribute/${params.attributeType}/`,
+      data: { 'value': params.attribute_value }
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -165,12 +165,12 @@ const entity = (base, token) => {
     *   console.log('entity updated!'+result);
     * });
     **/
-    deleteAttribute: (entity_id, entity_type, attribute_type) => instance.request({
+    deleteAttribute: (entityId, entityType, attributeType) => instance.request({
       method: 'DELETE',
-      url: `${base}/api/v1/entity/${entity_type}/${entity_id}/attribute/${attribute_type}/`,
+      url: `${base}/api/v1/entity/${entityType}/${entityId}/attribute/${attributeType}/`
     })
     .then(res => (res.data))
-    .catch(errorHandler),
+    .catch(errorHandler)
   });
 };
 

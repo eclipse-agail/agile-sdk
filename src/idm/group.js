@@ -4,7 +4,7 @@ import { errorHandler } from '../utils';
 const group = (base, token) => {
   base = `${base}`;
   var instance = axios.create({
-    headers: { 'Authorization' : `bearer ${token}`}
+    headers: { 'Authorization': `bearer ${token}` }
   });
   return ({
     /**
@@ -26,10 +26,10 @@ const group = (base, token) => {
     * });
     **/
     get: (owner, name) => {
-      var url = owner&&name?`${base}/api/v1/user/${owner}/group/${name}`:`${base}/api/v1/group`;
+      var url = owner && name ? `${base}/api/v1/user/${owner}/group/${name}` : `${base}/api/v1/group`;
       return instance.request({
         method: 'GET',
-        url: url,
+        url: url
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -51,7 +51,7 @@ const group = (base, token) => {
     create: (name) => instance.request({
       method: 'POST',
       url: `${base}/api/v1/group/`,
-      data: {'group_name' : name}
+      data: {'group_name': name}
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -72,7 +72,7 @@ const group = (base, token) => {
     **/
     delete: (owner, name) => instance.request({
       method: 'DELETE',
-      url: `${base}/api/v1/user/${owner}/group/${name}`,
+      url: `${base}/api/v1/user/${owner}/group/${name}`
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -98,9 +98,9 @@ const group = (base, token) => {
     *   console.log('entity updated !'+updated);
     * });
     **/
-    addEntity:(params) => instance.request({
+    addEntity: (params) => instance.request({
       method: 'POST',
-      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`,
+      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -126,12 +126,12 @@ const group = (base, token) => {
     *   console.log('entity updated !'+updated);
     * });
     **/
-    removeEntity:(params) => instance.request({
+    removeEntity: (params) => instance.request({
       method: 'DELETE',
-      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`,
+      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`
     })
     .then(res => (res.data))
-    .catch(errorHandler),
+    .catch(errorHandler)
   });
 };
 
