@@ -895,7 +895,7 @@ agile.idm.entity.getByAttributeValue([{attribute_typeattribute_type:'credentials
 
 **Example**  
 ```js
-agile.idm.entity.get('1','/sensor').then(function(result) {
+agile.idm.entity.get('1','sensor').then(function(result) {
   console.log('entity created!'+result);
 });
 ```
@@ -915,7 +915,7 @@ agile.idm.entity.get('1','/sensor').then(function(result) {
 
 **Example**  
 ```js
-agile.idm.entity.create('1','/sensor',{'name':'entity name'}).then(function(result) {
+agile.idm.entity.create('1','sensor',{'name':'entity name'}).then(function(result) {
   console.log('entity created!'+result);
 });
 ```
@@ -934,7 +934,7 @@ agile.idm.entity.create('1','/sensor',{'name':'entity name'}).then(function(resu
 
 **Example**  
 ```js
-agile.idm.entity.delete('1','/sensor').then(function() {
+agile.idm.entity.delete('1','sensor').then(function() {
   console.log('group removed!');
 });
 ```
@@ -954,7 +954,7 @@ agile.idm.entity.delete('1','/sensor').then(function() {
 ```js
 agile.idm.entity.setAttribute({
           entity_id: '1',,
-          entity_type: '/sensor',
+          entity_type: 'sensor',
           attribute_type: 'credentials',
           attribute_value: {'dropbox':'entity credentials for drop'}
         }).then(function(result) {
@@ -977,7 +977,7 @@ agile.idm.entity.setAttribute({
 
 **Example**  
 ```js
-agile.idm.entity.deleteAttribute('1','/sensor','credentials').then(function(result) {
+agile.idm.entity.deleteAttribute('1','sensor','credentials').then(function(result) {
   console.log('entity updated!'+result);
 });
 ```

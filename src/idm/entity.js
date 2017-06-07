@@ -66,7 +66,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity entity
     * @returns {Promise}
     * @example
-    * agile.idm.entity.get('1','/sensor').then(function(result) {
+    * agile.idm.entity.get('1','sensor').then(function(result) {
     *   console.log('entity created!'+result);
     * });
     **/
@@ -88,7 +88,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity created
     * @returns {Promise}
     * @example
-    * agile.idm.entity.create('1','/sensor',{'name':'entity name'}).then(function(result) {
+    * agile.idm.entity.create('1','sensor',{'name':'entity name'}).then(function(result) {
     *   console.log('entity created!'+result);
     * });
     **/
@@ -110,7 +110,7 @@ const entity = (base, token) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.entity.delete('1','/sensor').then(function() {
+    * agile.idm.entity.delete('1','sensor').then(function() {
     *   console.log('group removed!');
     * });
     **/
@@ -135,7 +135,7 @@ const entity = (base, token) => {
     * @example
     * agile.idm.entity.setAttribute({
           entity_id: '1',,
-          entity_type: '/sensor',
+          entity_type: 'sensor',
           attribute_type: 'credentials',
           attribute_value: {'dropbox':'entity credentials for drop'}
         }).then(function(result) {
@@ -161,7 +161,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity updated entity
     * @returns {Promise}
     * @example
-    * agile.idm.entity.deleteAttribute('1','/sensor','credentials').then(function(result) {
+    * agile.idm.entity.deleteAttribute('1','sensor','credentials').then(function(result) {
     *   console.log('entity updated!'+result);
     * });
     **/
