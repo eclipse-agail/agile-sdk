@@ -18,6 +18,7 @@ If you feel something is missing, not clear or could be improved, please don't h
 var agile = require('agile-sdk')({
       api:'http://agile-core:8080',
       idm: 'http://agile-core:3000',
+      data: 'http://agile-data:1338',
       token: 'zIOycOqbEQh4ayw7lGAm9ILBIr'
     })
 ```
@@ -73,6 +74,17 @@ var agile = require('agile-sdk')({
             * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
         * [.authentication](#agile.idm.authentication) : <code>object</code>
             * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
+    * [.data](#agile.data) : <code>object</code>
+        * [.subscription](#agile.data.subscription) : <code>object</code>
+            * [.create(deviceID, componentID, [interval])](#agile.data.subscription.create) ⇒ <code>Promise</code>
+            * [.delete(deviceID, componentID)](#agile.data.subscription.delete) ⇒ <code>Promise</code>
+            * [.update(deviceID, componentID, [interval])](#agile.data.subscription.update) ⇒ <code>Promise</code>
+            * [.get([deviceID], [componentID])](#agile.data.subscription.get) ⇒ <code>Promise</code>
+        * [.record](#agile.data.record) : <code>object</code>
+            * [.get([query])](#agile.data.record.get) ⇒ <code>Promise</code>
+        * [.retention](#agile.data.retention) : <code>object</code>
+            * [.get()](#agile.data.retention.get) ⇒ <code>Promise</code>
+            * [.update(retentionInterval)](#agile.data.retention.update) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -1003,5 +1015,190 @@ agile.idm.entity.deleteAttribute('1','device','credentials').then(function(resul
 agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V').then(function(result) {
   console.log(credentials.access_token);
   console.log(credentials.token_type);
+});
+```
+<a name="agile.data"></a>
+
+### agile.data : <code>object</code>
+**Kind**: static namespace of <code>[agile](#agile)</code>  
+
+* [.data](#agile.data) : <code>object</code>
+    * [.subscription](#agile.data.subscription) : <code>object</code>
+        * [.create(deviceID, componentID, [interval])](#agile.data.subscription.create) ⇒ <code>Promise</code>
+        * [.delete(deviceID, componentID)](#agile.data.subscription.delete) ⇒ <code>Promise</code>
+        * [.update(deviceID, componentID, [interval])](#agile.data.subscription.update) ⇒ <code>Promise</code>
+        * [.get([deviceID], [componentID])](#agile.data.subscription.get) ⇒ <code>Promise</code>
+    * [.record](#agile.data.record) : <code>object</code>
+        * [.get([query])](#agile.data.record.get) ⇒ <code>Promise</code>
+    * [.retention](#agile.data.retention) : <code>object</code>
+        * [.get()](#agile.data.retention.get) ⇒ <code>Promise</code>
+        * [.update(retentionInterval)](#agile.data.retention.update) ⇒ <code>Promise</code>
+
+<a name="agile.data.subscription"></a>
+
+#### data.subscription : <code>object</code>
+**Kind**: static namespace of <code>[data](#agile.data)</code>  
+
+* [.subscription](#agile.data.subscription) : <code>object</code>
+    * [.create(deviceID, componentID, [interval])](#agile.data.subscription.create) ⇒ <code>Promise</code>
+    * [.delete(deviceID, componentID)](#agile.data.subscription.delete) ⇒ <code>Promise</code>
+    * [.update(deviceID, componentID, [interval])](#agile.data.subscription.update) ⇒ <code>Promise</code>
+    * [.get([deviceID], [componentID])](#agile.data.subscription.get) ⇒ <code>Promise</code>
+
+<a name="agile.data.subscription.create"></a>
+
+##### subscription.create(deviceID, componentID, [interval]) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[subscription](#agile.data.subscription)</code>  
+**Summary**: Create subscription for device component  
+**Access:** public  
+**Fulfil**: <code>Object</code>  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| deviceID | <code>String</code> |  | Agile deviceID |
+| componentID | <code>String</code> |  | Agile componentID |
+| [interval] | <code>Integer</code> | <code>3000</code> | Subscription interval |
+
+**Example**  
+```js
+agile.data.subscription.create('mySensor', 'temperature', 3000)
+.then(function(subscription) {
+  console.log(subscription);
+});
+```
+<a name="agile.data.subscription.delete"></a>
+
+##### subscription.delete(deviceID, componentID) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[subscription](#agile.data.subscription)</code>  
+**Summary**: Delete subscription for device component  
+**Access:** public  
+**Fulfil**: <code>null</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| deviceID | <code>String</code> | Agile deviceID |
+| componentID | <code>String</code> | Agile componentID |
+
+**Example**  
+```js
+agile.data.subscription.delete('mySensor', 'temperature')
+.then(function(subscription) {
+  console.log('Subscription deleted!');
+});
+```
+<a name="agile.data.subscription.update"></a>
+
+##### subscription.update(deviceID, componentID, [interval]) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[subscription](#agile.data.subscription)</code>  
+**Summary**: Update subscription for device component  
+**Access:** public  
+**Fulfil**: <code>Object</code>  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| deviceID | <code>String</code> |  | Agile deviceID |
+| componentID | <code>String</code> |  | Agile componentID |
+| [interval] | <code>Integer</code> | <code>3000</code> | Subscription interval |
+
+**Example**  
+```js
+agile.data.subscription.update('mySensor', 'temperature')
+.then(function(subscription) {
+  console.log(subscription);
+});
+```
+<a name="agile.data.subscription.get"></a>
+
+##### subscription.get([deviceID], [componentID]) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[subscription](#agile.data.subscription)</code>  
+**Summary**: Get subscription for device component or get all subscriptions on gateway  
+**Access:** public  
+**Fulfil**: <code>Object\|Array</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [deviceID] | <code>String</code> | Agile deviceID |
+| [componentID] | <code>String</code> | Agile componentID |
+
+**Example**  
+```js
+agile.data.subscription.get('mySensor', 'temperature')
+.then(function(subscription) {
+  console.log(subscription);
+});
+agile.data.subscription.get()
+.then(function(subscriptions) {
+  console.log(subscriptions);
+});
+```
+<a name="agile.data.record"></a>
+
+#### data.record : <code>object</code>
+**Kind**: static namespace of <code>[data](#agile.data)</code>  
+<a name="agile.data.record.get"></a>
+
+##### record.get([query]) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[record](#agile.data.record)</code>  
+**Summary**: Get records from gateway  
+**Access:** public  
+**Fulfil**: <code>Array</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [query] | <code>String</code> | Basic query that is transformed to influx sql |
+
+**Example**  
+```js
+agile.data.record.get()
+.then(function(subscription) {
+  console.log(subscription);
+});
+
+const query = 'where={"deviceID":"mySensor"}&order={"by":"time","direction":"ASC"}'
+agile.data.record.get(query)
+.then(function(records) {
+  console.log(records);
+});
+```
+<a name="agile.data.retention"></a>
+
+#### data.retention : <code>object</code>
+**Kind**: static namespace of <code>[data](#agile.data)</code>  
+
+* [.retention](#agile.data.retention) : <code>object</code>
+    * [.get()](#agile.data.retention.get) ⇒ <code>Promise</code>
+    * [.update(retentionInterval)](#agile.data.retention.update) ⇒ <code>Promise</code>
+
+<a name="agile.data.retention.get"></a>
+
+##### retention.get() ⇒ <code>Promise</code>
+**Kind**: static method of <code>[retention](#agile.data.retention)</code>  
+**Summary**: Get retention policy from gateway  
+**Access:** public  
+**Fulfil**: <code>Array</code>  
+**Example**  
+```js
+agile.data.retention.get()
+.then(function(retentionPolicy) {
+  console.log(retentionPolicy);
+});
+```
+<a name="agile.data.retention.update"></a>
+
+##### retention.update(retentionInterval) ⇒ <code>Promise</code>
+**Kind**: static method of <code>[retention](#agile.data.retention)</code>  
+**Summary**: Update retention policy from gateway  
+**Access:** public  
+**Fulfil**: <code>Array</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| retentionInterval | <code>Integer</code> | retentionInterval |
+
+**Example**  
+```js
+agile.data.retention.update(9000)
+.then(function(retentionPolicy) {
+  console.log(retentionPolicy);
 });
 ```
