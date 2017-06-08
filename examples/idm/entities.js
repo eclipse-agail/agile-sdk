@@ -27,7 +27,6 @@ agile.idm.user.getCurrentUserInfo()
     entityType: "device",
     attributeType: "name",
     attributeValue: "my device2"
-
   });
 }).then(function(entity){
   console.log('entitys name updated!'+JSON.stringify(entity))

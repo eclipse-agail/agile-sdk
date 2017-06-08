@@ -120,7 +120,7 @@ const group = (base, token) => {
     * agile.idm.group.removeEntity({
           owner: 'agile!@!agile-local',
           name: 'my-group',
-          entityId: '1',
+        entityId: '1',
           entityType: 'device'
         }).then(function(updated) {
     *   console.log('entity updated !'+updated);
