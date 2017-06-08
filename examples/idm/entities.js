@@ -64,7 +64,7 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));
-  return agile.idm.group.addEntity({owner: owner, name:"gname", entity_id: "1", entity_type:"device"});
+  return agile.idm.group.addEntity({owner: owner, name:"gname", entityId: "1", entityType:"device"});
 }).then(function(entity){
   console.log("entity in group"+JSON.stringify(entity));
   return agile.idm.group.get();
@@ -73,7 +73,7 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.entity.get("1","device");
 }).then(function(entity){
   console.log('result of reading entity !'+JSON.stringify(entity))
-  return agile.idm.group.removeEntity({owner: owner, name:"gname", entity_id: "1", entity_type:"device"});
+  return agile.idm.group.removeEntity({owner: owner, name:"gname", entityId: "1", entityType:"device"});
 }).then(function(result){
   console.log("entity has been removed from the group");
   return agile.idm.group.get();
