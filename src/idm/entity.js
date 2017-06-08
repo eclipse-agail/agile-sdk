@@ -37,20 +37,23 @@ const entity = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.entity
-    * @param {Array} constraints - contains objects containing objects with the property  'attribute_type' to specify the attribute type and with the property 'attribute_value' to specify the expected attribute value
+    * @param {Array} constraints - contains objects containing objects with the property  'attributeType' to specify the attribute type and with the property 'attributeValue' to specify the expected attribute value
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
     * @example
-    * agile.idm.entity.getByAttributeValue([{attributeTypeattributeType:'credentials.dropbox','attribute_value':'expected attribute value for dropbox credentials'}]).then(function(entities) {
+    * agile.idm.entity.getByAttributeValue([{attributeType:'credentials.dropbox','attributeValue':'expected attribute value for dropbox credentials'}]).then(function(entities) {
     *   console.log(entities);
     * });
     **/
     getByAttributeValue: (constraints) => {
       let url = `${base}/api/v1/entity/search`;
+      var cons = constraints.map((c) => {
+        return {attribute_type: c.attributeType, attribute_value: c.attributeValue};
+      });
       return instance.request({
         method: 'POST',
         url: url,
-        data: { 'criteria': constraints }
+        data: { 'criteria': cons }
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -137,7 +140,7 @@ const entity = (base, token) => {
           entityId: '1',,
           entityType: 'sensor',
           attributeType: 'credentials',
-          attribute_value: {'dropbox':'entity credentials for drop'}
+          attributeValue: {'dropbox':'entity credentials for drop'}
         }).then(function(result) {
     *   console.log('entity created!'+result);
     * });
@@ -145,7 +148,7 @@ const entity = (base, token) => {
     setAttribute: (params) => instance.request({
       method: 'PUT',
       url: `${base}/api/v1/entity/${params.entityType}/${params.entityId}/attribute/${params.attributeType}/`,
-      data: { 'value': params.attribute_value }
+      data: { 'value': params.attributeValue }
     })
     .then(res => (res.data))
     .catch(errorHandler),

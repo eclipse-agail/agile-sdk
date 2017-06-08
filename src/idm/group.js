@@ -92,15 +92,15 @@ const group = (base, token) => {
     * agile.idm.group.addEntity({
           owner: 'agile!@!agile-local',
           name: 'my-group',
-          entity_id: '1',
-          entity_type: '/device'
+          entityId: '1',
+          entityType: 'device'
         }).then(function(updated) {
     *   console.log('entity updated !'+updated);
     * });
     **/
     addEntity: (params) => instance.request({
       method: 'POST',
-      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`
+      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entityType}/${params.entityId}`
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -120,15 +120,15 @@ const group = (base, token) => {
     * agile.idm.group.removeEntity({
           owner: 'agile!@!agile-local',
           name: 'my-group',
-          entity_id: '1',
-          entity_type: '/device'
+          entityId: '1',
+          entityType: 'device'
         }).then(function(updated) {
     *   console.log('entity updated !'+updated);
     * });
     **/
     removeEntity: (params) => instance.request({
       method: 'DELETE',
-      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entity_type}/${params.entity_id}`
+      url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entityType}/${params.entityId}`
     })
     .then(res => (res.data))
     .catch(errorHandler)
