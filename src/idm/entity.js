@@ -18,7 +18,7 @@ const entity = (base, token) => {
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
     * @example
-    * agile.idm.entity.getByType('sensor').then(function(entities) {
+    * agile.idm.entity.getByType('device').then(function(entities) {
     *   console.log(entities);
     * });
     **/
@@ -37,20 +37,23 @@ const entity = (base, token) => {
     * @public
     * @function
     * @memberof agile.idm.entity
-    * @param {Array} constraints - contains objects containing objects with the property  'attribute_type' to specify the attribute type and with the property 'attribute_value' to specify the expected attribute value
+    * @param {Array} constraints - contains objects containing objects with the property  'attributeType' to specify the attribute type and with the property 'attributeValue' to specify the expected attribute value
     * @fulfil {Array} all entities with a given type
     * @returns {Promise}
     * @example
-    * agile.idm.entity.getByAttributeValue([{attributeTypeattributeType:'credentials.dropbox','attribute_value':'expected attribute value for dropbox credentials'}]).then(function(entities) {
+    * agile.idm.entity.getByAttributeValue([{attributeType:'credentials.dropbox','attributeValue':'expected attribute value for dropbox credentials'}]).then(function(entities) {
     *   console.log(entities);
     * });
     **/
     getByAttributeValue: (constraints) => {
       let url = `${base}/api/v1/entity/search`;
+      var cons = constraints.map((c) => {
+        return {attribute_type: c.attributeType, attribute_value: c.attributeValue};
+      });
       return instance.request({
         method: 'POST',
         url: url,
-        data: { 'criteria': constraints }
+        data: { 'criteria': cons }
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -66,7 +69,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity entity
     * @returns {Promise}
     * @example
-    * agile.idm.entity.get('1','sensor').then(function(result) {
+    * agile.idm.entity.get('1','device').then(function(result) {
     *   console.log('entity created!'+result);
     * });
     **/
@@ -88,7 +91,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity created
     * @returns {Promise}
     * @example
-    * agile.idm.entity.create('1','sensor',{'name':'entity name'}).then(function(result) {
+    * agile.idm.entity.create('1','device',{'name':'entity name'}).then(function(result) {
     *   console.log('entity created!'+result);
     * });
     **/
@@ -110,7 +113,7 @@ const entity = (base, token) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.entity.delete('1','sensor').then(function() {
+    * agile.idm.entity.delete('1','device').then(function() {
     *   console.log('group removed!');
     * });
     **/
@@ -135,9 +138,9 @@ const entity = (base, token) => {
     * @example
     * agile.idm.entity.setAttribute({
           entityId: '1',,
-          entityType: 'sensor',
+          entityType: 'device',
           attributeType: 'credentials',
-          attribute_value: {'dropbox':'entity credentials for drop'}
+          attributeValue: {'dropbox':'entity credentials for drop'}
         }).then(function(result) {
     *   console.log('entity created!'+result);
     * });
@@ -145,7 +148,7 @@ const entity = (base, token) => {
     setAttribute: (params) => instance.request({
       method: 'PUT',
       url: `${base}/api/v1/entity/${params.entityType}/${params.entityId}/attribute/${params.attributeType}/`,
-      data: { 'value': params.attribute_value }
+      data: { 'value': params.attributeValue }
     })
     .then(res => (res.data))
     .catch(errorHandler),
@@ -161,7 +164,7 @@ const entity = (base, token) => {
     * @fulfil {Object} entity updated entity
     * @returns {Promise}
     * @example
-    * agile.idm.entity.deleteAttribute('1','sensor','credentials').then(function(result) {
+    * agile.idm.entity.deleteAttribute('1','device','credentials').then(function(result) {
     *   console.log('entity updated!'+result);
     * });
     **/

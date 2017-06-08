@@ -23,33 +23,32 @@ agile.idm.user.getCurrentUserInfo()
 }).then(function(entities){
   console.log('entities found  !'+JSON.stringify(entities))
   return agile.idm.entity.setAttribute({
-    entity_id: '1',
-    entity_type: "device",
-    attribute_type: "name",
-    attribute_value: "my device2"
-
+    entityId: '1',
+    entityType: "device",
+    attributeType: "name",
+    attributeValue: "my device2"
   });
 }).then(function(entity){
   console.log('entitys name updated!'+JSON.stringify(entity))
   //setting attribute works with strings...
-  return agile.idm.entity.getByAttributeValue([{attribute_type:"name",attribute_value:"my device2"}]);
+  return agile.idm.entity.getByAttributeValue([{attributeType:"name",attributeValue:"my device2"}]);
 }).then(function(entities){
   console.log('entities found by attribute name and type'+JSON.stringify(entities))
   //it can also be an object...
   return agile.idm.entity.setAttribute({
-    entity_id: '1',
-    entity_type: "device",
-    attribute_type: "credentials",
-    attribute_value: {"dropbox":"345", "drive":"drivestuff"}
+    entityId: '1',
+    entityType: "device",
+    attributeType: "credentials",
+    attributeValue: {"dropbox":"345", "drive":"drivestuff"}
   });
 }).then(function(entity){
   console.log('entitys credentials updated!'+JSON.stringify(entity))
   //it can also be a nested attribute..
   return agile.idm.entity.setAttribute({
-    entity_id: '1',
-    entity_type: "device",
-    attribute_type: "credentials.dropbox",
-    attribute_value: "567"
+    entityId: '1',
+    entityType: "device",
+    attributeType: "credentials.dropbox",
+    attributeValue: "567"
   });
 }).then(function(entity){
   console.log('entitys credentials updated!'+JSON.stringify(entity))
@@ -65,7 +64,7 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.group.get();
 }).then(function(groups){
   console.log("groups are"+JSON.stringify(groups));
-  return agile.idm.group.addEntity({owner: owner, name:"gname", entity_id: "1", entity_type:"device"});
+  return agile.idm.group.addEntity({owner: owner, name:"gname", entityId: "1", entityType:"device"});
 }).then(function(entity){
   console.log("entity in group"+JSON.stringify(entity));
   return agile.idm.group.get();
@@ -74,7 +73,7 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.entity.get("1","device");
 }).then(function(entity){
   console.log('result of reading entity !'+JSON.stringify(entity))
-  return agile.idm.group.removeEntity({owner: owner, name:"gname", entity_id: "1", entity_type:"device"});
+  return agile.idm.group.removeEntity({owner: owner, name:"gname", entityId: "1", entityType:"device"});
 }).then(function(result){
   console.log("entity has been removed from the group");
   return agile.idm.group.get();
