@@ -1,0 +1,33 @@
+<script src="../../dist/bundle.js"></script>
+<script>
+
+var api = 'http://agilegw.local:8080';
+var idmurl = 'http://agilegw.local:3000';;
+var token = "aUpp9RkAkQmsPrU3EQoR5i5DGt2VCLQCL7C14y84Ayqedjmbm1LuIes1TsSyn5Cv";
+var agile = agileSDK({
+api: api,
+idm: idmurl,
+token: token
+});
+var owner;
+
+agile.idm.user.getCurrentUserInfo()
+.then(function(data) {
+  owner = data.id;
+  return Promise.all([agile.idm.entity.delete("MyAgileClient2","client")]);
+}).then(function(deletions){
+    return agile.idm.entity.create("MyAgileClient2","client",{"name":"MyAgileClient2","clientSecret":"theclientsecret", "redirectURI": "http://localhost:8080/auth/example/callback"});
+  },function error(err){
+    return agile.idm.entity.create("MyAgileClient2","client",{"name":"MyAgileClient2","clientSecret":"theclientsecret", "redirectURI": "http://localhost:8080/auth/example/callback"});
+}).then(function(entity){
+  console.log('client created !'+JSON.stringify(entity))
+  return agile.idm.authentication.authenticateClient("MyAgileClient2","theclientsecret");
+}).then(function(auth){
+  console.log('authentication result !'+JSON.stringify(auth))
+  return agile.idm.entity.delete("MyAgileClient2","client");
+}).then(function(result){
+  console.log("client has been removed");
+}).catch(function(error){
+  console.log("error: "+console.log(error));
+});
+</script>

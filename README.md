@@ -25,12 +25,16 @@ $ npm install --save agile-sdk
 Documentation
 -------------
 
-The module exports a single factory function that takes a your Agile API hostname as a single argument.
+The module exports a single factory function that takes an object including your Agile API hostname as the api property. Additionally, it can receive the idm url and a token.
 
 It's available in node.js and the browser.
 
 ``` js
-var agile = require('agile-sdk')('http://agile.local:8080')
+var agile = require('agile-sdk')({
+  api: 'http://agile.local:8080',
+  idm: 'http://agile.local:3000',
+  token: "LQCL7C14y84Ayqedjmbm1LuIes1TsSyn5Cv"
+})
 ```
 
 For convenience it's shipped with a browser bundle too with agileSDK expose as a global constant eg.
@@ -38,7 +42,11 @@ For convenience it's shipped with a browser bundle too with agileSDK expose as a
 ``` html
 <script src="node_modules/agile-sdk/dist/bundle.js"></script>
 <script>
-var agile = agileSDK('http://agile.local:8080');
+var agile = agileSDK({
+  api: 'http://agile.local:8080',
+  idm: 'http://agile.local:3000',
+  token: "LQCL7C14y84Ayqedjmbm1LuIes1TsSyn5Cv"
+});
 
 agile.protocolManager.discovery.start()
 .then(function() {
@@ -55,7 +63,11 @@ Here a example of reading data from a device:
 ``` js
 import agileSDK from 'agile-sdk';
 
-const agile = agileSDK('http://agile.local:8080');
+const agile = agileSDK({
+  api: 'http://agile.local:8080',
+  idm: 'http://agile.local:3000',
+  token: "LQCL7C14y84Ayqedjmbm1LuIes1TsSyn5Cv"
+});
 const deviceId = 'bleB0B448BE5084';
 const componentID = 'Temperature';
 

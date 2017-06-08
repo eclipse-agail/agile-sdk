@@ -2,6 +2,7 @@ import protocolManager from './protocolManager';
 import deviceManager from './deviceManager';
 import device from './device';
 import protocol from './protocol';
+import idm from './idm';
 import parseUrl from 'url-parse';
 /**
   * @namespace agile
@@ -11,16 +12,28 @@ import parseUrl from 'url-parse';
   * This document aims to describe all the functions supported by the SDK, as well as showing examples of their expected usage.
   *
   * If you feel something is missing, not clear or could be improved, please don't hesitate to open an [issue in GitHub](https://github.com/agile-iot/agile-sdk/issues/new), we'll be happy to help.
-  * @param {string} - agile-core REST API endpoint
+  * @param {Object} - including the api base url, idm base url (if not provided defaults to the same api host but default idm port), and a token.
   * @returns {Object}
   * @example
-  * var agile = require('agile-sdk')('http://agile-core:8080')
+  * var agile = require('agile-sdk')({
+      api:'http://agile-core:8080',
+      idm: 'http://agile-core:3000',
+      token: 'zIOycOqbEQh4ayw7lGAm9ILBIr'
+    })
 */
-const agileSDK = (base) => {
+const agileSDK = (params) => {
+  // backwards compatibility
+  if (typeof params === 'string' || params instanceof String) {
+    params = {api: params};
+  }
   // parse url to remove any irregularites
-  const parsed = parseUrl(base);
+  const parsed = parseUrl(params.api);
   const apiBase = `${parsed.origin}/api`;
   const wsBase = `${parsed.set('protocol', 'ws:').origin}/ws`;
+  const idmBase = params.idm ? params.idm : `${parsed.set('port', 3000).origin}`;
+  // for now we keep it as const... but token in the sdk should be updated once in a while, since it can expire.
+  // for now we just create a new SDK object each time
+  const token = params.token;
   return ({
     /**
     * @namespace protocolManager
@@ -41,7 +54,12 @@ const agileSDK = (base) => {
     * @namespace protocol
     * @memberof agile
     **/
-    protocol: protocol(apiBase)
+    protocol: protocol(apiBase),
+    /**
+    * @namespace idm
+    * @memberof agile
+    **/
+    idm: idm(idmBase, token)
   });
 };
 
