@@ -23,7 +23,7 @@ const subscription = (base) => {
     * });
     **/
     create: (deviceID, componentID, interval) => {
-      interval = interval ? interval : 3000
+      interval = interval || 3000;
       return axios({
         method: 'POST',
         url: base,
@@ -80,7 +80,7 @@ const subscription = (base) => {
     * });
     **/
     update: (deviceID, componentID, interval) => {
-      interval = interval ? interval : 3000
+      interval = interval || 3000;
 
       return axios({
         method: 'PUT',
@@ -114,13 +114,13 @@ const subscription = (base) => {
     * });
     **/
     get: (deviceID, componentID) => {
-      let url
+      let url;
       if (deviceID && componentID) {
-        url = `${base}/${deviceID}/${componentID}`
+        url = `${base}/${deviceID}/${componentID}`;
       } else if (deviceID) {
-        url = `${base}/${deviceID}`
+        url = `${base}/${deviceID}`;
       } else {
-        url = `${base}`
+        url = `${base}`;
       }
 
       return axios({
@@ -129,7 +129,7 @@ const subscription = (base) => {
       })
       .then(res => (res.data))
       .catch(errorHandler);
-    },
+    }
   });
 };
 

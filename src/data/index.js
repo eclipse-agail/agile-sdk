@@ -3,7 +3,7 @@ import record from './record';
 import retention from './retention';
 
 const data = (base) => {
-  base = `${base}/api`
+  base = `${base}/api`;
   return ({
     /**
     * @namespace subscription

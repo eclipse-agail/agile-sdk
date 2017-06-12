@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { errorHandler } from '../utils';
-import queryString from 'query-string'
 
 const subscription = (base) => {
   base = `${base}/record/retention`;
@@ -22,7 +21,6 @@ const subscription = (base) => {
     *
     **/
     get: () => {
-      let url = base
       return axios({
         method: 'GET',
         url: base
@@ -49,7 +47,6 @@ const subscription = (base) => {
     update: (retentionInterval) => {
       // TODO do some checks once we finalize what retention
       // interval type should be
-      let url = base
       return axios({
         method: 'PUT',
         url: base,
@@ -59,7 +56,7 @@ const subscription = (base) => {
       })
       .then(res => (res.data))
       .catch(errorHandler);
-    },
+    }
   });
 };
 
