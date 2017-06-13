@@ -34,6 +34,7 @@ describe('protocolManager', function() {
     });
   });
 
+
   describe('.get', function() {
     it('expect to return array of protocols', function() {
       const promise = agile.protocolManager.get()
