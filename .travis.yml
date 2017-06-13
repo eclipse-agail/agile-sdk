@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+- '7'
+sudo: required
+addons:
+  ssh_known_hosts: demo-fit.saclay.inria.fr
+  apt:
+    packages:
+    - screen
+notifications:
+  email: false
+before_install:
+- openssl aes-256-cbc -K $encrypted_2d87cfe52d6c_key -iv $encrypted_2d87cfe52d6c_iv
+  -in secrets.tar.enc -out secrets.tar -d
+- tar xvf secrets.tar
+- mv id_rsa_agile /tmp/id_rsa_agile
+- mv ssh.sh /tmp/ssh.sh
+- chmod 600 /tmp/id_rsa_agile
+- eval "$(ssh-agent -s)"
+- ssh-add /tmp/id_rsa_agile
+- screen -d -m bash /tmp/ssh.sh
+
+script:
+  - npm test
