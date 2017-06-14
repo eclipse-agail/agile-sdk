@@ -67,22 +67,22 @@ const discovery = (base) => {
       .catch(errorHandler);
     },
     /**
-    * @summary Return the status of discovery on the all or single protocol
+    * @summary Return the status object of discovery on the all or single protocol
     * @name status
     * @public
     * @function
     * @memberof agile.protocolManager.discovery
     *
     * @param [protocolId] - Agile protocol Id
-    * @fulfil {Object}
+    * @fulfil {Array|Object}
     * @returns {Promise}
     *
     * @example
-    * agile.protocolManager.discovery.status().then(function(status) {
-    *   console.log(status);
+    * agile.protocolManager.discovery.status().then(function(protocols) {
+    *   console.log(protocols);
     * });
-    * agile.protocolManager.discovery.status('Bluetooth LE').then(function(status) {
-    *   console.log(status);
+    * agile.protocolManager.discovery.status('Bluetooth LE').then(function(protocol) {
+    *   console.log(protocol.status);
     * });
     **/
     status: (protocolId) => {
