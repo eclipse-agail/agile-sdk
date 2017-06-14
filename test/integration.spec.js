@@ -2,64 +2,43 @@ import m from 'mochainon';
 import agileSDK from '../src/';
 import _ from 'lodash';
 
-const HOST = 'http://agile.local:8080/';
+const HOST = 'http://localhost:8080/';
 const agile = agileSDK(HOST);
 const base = 'api/device/';
 const deviceId = 'bleB0B448BE5084';
+const expect = m.chai.expect;
 
 describe('protocolManager', function() {
   describe('.discovery', function() {
     describe('.status', function() {
-      it('respond with an array of users', function() {
-        const promise = agile.protocolManager.discovery.status();
-        m.chai.expect(promise).to.eventually.equal('NONE');
+      it('should return Array of protocol + statuses', function(done) {
+        agile.protocolManager.discovery.status().then((data) => {
+           expect(data).to.be.an('Array');
+          done()
+        })
       });
     });
-    describe('.start', function() {
-      it('respond with an array of users', function() {
-        const promise = agile.protocolManager.discovery.start();
-        m.chai.expect(promise).to.eventually.equal('RUNNING');
-      });
-    });
+
     describe('.stop', function() {
-      it('respond with an array of users', function() {
-        const promise = agile.protocolManager.discovery.start();
-        m.chai.expect(promise).to.eventually.equal('NONE');
+      it('should stop without error', function() {
+        const promise = agile.protocolManager.discovery.stop()
+        return expect(promise).to.be.fulfilled;
+      });
+    });
+
+    describe('.start', function() {
+      it('should start without error', function() {
+        const promise = agile.protocolManager.discovery.start()
+        return expect(promise).to.be.fulfilled;
       });
     });
   });
+
+  describe('.get', function() {
+    it('expect to return array of protocols', function() {
+      const promise = agile.protocolManager.get()
+      return expect(promise).to.eventually.be.an('Array');
+    });
+  });
+
 });
-
-
-
-// describe('deviceManager', function() {
-//   describe('.get', function() {
-//     it('respond with an array of users', function() {
-//       agile.device.get(deviceId).then(components => {
-//         m.chai.expect(_.isArray(components)).to.be.true
-//       })
-//     });
-//   });
-//   describe('.status', function() {
-//     it('respond with an array of users', function() {
-//       const promise = agile.device.status(deviceId);
-//       m.chai.expect(promise).to.eventually.equal('AVAILABLE');
-//     });
-//   });
-// });
-
-// describe('device', function() {
-//   describe('.get', function() {
-//     it('respond with an array of users', function() {
-//       agile.device.get(deviceId).then(components => {
-//         m.chai.expect(_.isArray(components)).to.be.true
-//       })
-//     });
-//   });
-//   describe('.status', function() {
-//     it('respond with an array of users', function() {
-//       const promise = agile.device.status(deviceId);
-//       m.chai.expect(promise).to.eventually.equal('AVAILABLE');
-//     });
-//   });
-// });
