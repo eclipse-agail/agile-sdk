@@ -51,7 +51,9 @@ const group = (base, token) => {
     create: (name) => instance.request({
       method: 'POST',
       url: `${base}/api/v1/group/`,
-      data: {'group_name': name}
+      data: {
+        group_name: name
+      }
     })
     .then(res => (res.data))
     .catch(errorHandler),
