@@ -48,12 +48,17 @@ const entity = (base, token) => {
     getByAttributeValue: (constraints) => {
       let url = `${base}/api/v1/entity/search`;
       var cons = constraints.map((c) => {
-        return {attribute_type: c.attributeType, attribute_value: c.attributeValue};
+        return {
+          attribute_type: c.attributeType,
+          attribute_value: c.attributeValue
+        };
       });
       return instance.request({
         method: 'POST',
         url: url,
-        data: { 'criteria': cons }
+        data: {
+          criteria: cons
+        }
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -148,7 +153,9 @@ const entity = (base, token) => {
     setAttribute: (params) => instance.request({
       method: 'PUT',
       url: `${base}/api/v1/entity/${params.entityType}/${params.entityId}/attribute/${params.attributeType}/`,
-      data: { 'value': params.attributeValue }
+      data: {
+        value: params.attributeValue
+      }
     })
     .then(res => (res.data))
     .catch(errorHandler),
