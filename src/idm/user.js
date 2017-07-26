@@ -46,7 +46,10 @@ const idm = (base, token) => {
       return instance.request({
         method: 'GET',
         url: `${base}/api/v1/user/`,
-        params: {'auth_type': authType, 'user_name': userName}
+        params: {
+          auth_type: authType,
+          user_name: userName
+        }
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -69,8 +72,8 @@ const idm = (base, token) => {
     **/
     create: (userName, authType, options) => {
       var user = {
-        'auth_type': authType,
-        'user_name': userName
+        auth_type: authType,
+        user_name: userName
       };
       if (options && options.role) {
         user.role = options.role;
@@ -105,12 +108,67 @@ const idm = (base, token) => {
       return instance.request({
         method: 'DELETE',
         url: `${base}/api/v1/user/`,
-        params: {'auth_type': authType, 'user_name': userName}
+        params: {
+          auth_type: authType,
+          user_name: userName
+        }
       })
       .then(res => (res))
       .catch(errorHandler);
+    },
+    /**
+    * @summary Reset password for any user. The user executing this action needs to be allowed to do this, e.g. admin.
+    * @name resetPassword
+    * @public
+    * @function
+    * @memberof agile.idm.user
+    * @param {String} userName user name
+    * @param {String} authType authentication type
+    * @param {String} newPassword new password
+    * @fulfil {Undefined}
+    * @returns {Promise}
+    * @example
+    * agile.idm.user.setPassword('bob','agile-local',"myNewPassword").then(function() {
+    *   console.log('password updated!');
+    * });
+    **/
+    resetPassword: (userName, authType, newPassword) => {
+      return instance.request({
+        method: 'PUT',
+        url: `${base}/api/v1/user/${userName}!@!${authType}/password`,
+        data: {
+          new_password: newPassword
+        }
+      })
+      .then(res => (res.data))
+      .catch(errorHandler);
+    },
+    /**
+    * @summary update password for himself
+    * @name updatePassword
+    * @public
+    * @function
+    * @memberof agile.idm.user
+    * @param {String} oldPassword old password
+    * @param {String} newPassword new password
+    * @fulfil {Undefined}
+    * @returns {Promise}
+    * @example
+    * agile.idm.user.updatePassword("myOldPassword","myNewPassword").then(function() {
+    *   console.log('password updated!');
+    * });
+    **/
+    updatePassword: (oldPassword, newPassword) => {
+      return instance.request({
+        method: 'PUT',
+        url: `${base}/api/v1/user/password`,
+        data: {
+          old_password: oldPassword,
+          new_password: newPassword}
+      })
+      .then(res => (res.data))
+      .catch(errorHandler);
     }
-
   });
 };
 

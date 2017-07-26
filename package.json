@@ -7,6 +7,7 @@
   "scripts": {
     "test": "babel-node ./node_modules/.bin/_mocha",
     "lint": "eslint src/** --fix",
+    "lint-examples": "eslint examples/** --fix",
     "lint:fix": "eslint src/**",
     "docs": "jsdoc2md 'src/**/*.js' > DOCUMENTATION.md",
     "build": "babel src --out-dir dist --copy-files && npm run build-browser",
