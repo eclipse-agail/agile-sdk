@@ -1,22 +1,22 @@
 import axios from 'axios';
 import { errorHandler } from '../utils';
 
-const subscription = (base) => {
-  base = `${base}/record/retention`;
+const settings = (base) => {
+  base = `${base}/settings`;
   return ({
     /**
-    * @summary Get retention policy from gateway
+    * @summary Get settings for agile data
     * @name get
     * @public
     * @function
-    * @memberof agile.data.retention
+    * @memberof agile.data.settings
     * @fulfil {Array}
     * @returns {Promise}
     *
     * @example
-    * agile.data.retention.get()
-    * .then(function(retentionPolicy) {
-    *   console.log(retentionPolicy);
+    * agile.data.settings.get()
+    * .then(function(settings) {
+    *   console.log(settings);
     * });
     *
     **/
@@ -29,30 +29,30 @@ const subscription = (base) => {
       .catch(errorHandler);
     },
     /**
-    * @summary Update retention policy from gateway
+    * @summary Update settings for agile data
     * @name update
     * @public
     * @function
-    * @memberof agile.data.retention
-    * @param retentionInterval {Integer} - retentionInterval
+    * @memberof agile.data.settings
+    * @param settings {Object} - Updated settings values
     * @fulfil {Array}
     * @returns {Promise}
     *
     * @example
-    * agile.data.retention.update(9000)
-    * .then(function(retentionPolicy) {
-    *   console.log(retentionPolicy);
+    * agile.data.settings.update({
+    *  retention: '4d'
+    * })
+    * .then(function(newSettings) {
+    *   console.log(newSettings);
     * });
     **/
-    update: (retentionInterval) => {
+    update: (settings) => {
       // TODO do some checks once we finalize what retention
       // interval type should be
       return axios({
         method: 'PUT',
         url: base,
-        data: {
-          duration: retentionInterval
-        }
+        data: settings
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -60,4 +60,4 @@ const subscription = (base) => {
   });
 };
 
-export default subscription;
+export default settings;
