@@ -1,6 +1,6 @@
 import subscription from './subscription';
 import record from './record';
-import retention from './retention';
+import settings from './settings';
 
 const data = (base) => {
   base = `${base}/api`;
@@ -16,10 +16,10 @@ const data = (base) => {
     **/
     record: record(base),
     /**
-    * @namespace retention
+    * @namespace settings
     * @memberof agile.data
     **/
-    retention: retention(base)
+    settings: settings(base)
   });
 };
 

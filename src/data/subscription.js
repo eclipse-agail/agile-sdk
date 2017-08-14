@@ -10,28 +10,26 @@ const subscription = (base) => {
     * @public
     * @function
     * @memberof agile.data.subscription
-    * @param deviceID {String} - Agile deviceID
-    * @param componentID {String} - Agile componentID
-    * @param [interval=3000] {Integer} - Subscription interval
+    * @param [subscription] {Object} - New Subscription configuration
     * @fulfil {Object}
     * @returns {Promise}
     *
     * @example
-    * agile.data.subscription.create('mySensor', 'temperature', 3000)
+    * agile.data.subscription.create({
+    *  deviceID: 'myDevice',
+    *  componentID: 'temperature',
+    *  interval: 3000,
+    *  retention: '7d'
+    * })
     * .then(function(subscription) {
     *   console.log(subscription);
     * });
     **/
-    create: (deviceID, componentID, interval) => {
-      interval = interval || 3000;
+    create: (newSubscription) => {
       return axios({
         method: 'POST',
         url: base,
-        data: {
-          deviceID,
-          componentID,
-          interval
-        }
+        data: newSubscription
       })
       .then(res => (res.data))
       .catch(errorHandler);
@@ -42,69 +40,64 @@ const subscription = (base) => {
     * @public
     * @function
     * @memberof agile.data.subscription
-    * @param deviceID {String} - Agile deviceID
-    * @param componentID {String} - Agile componentID
+    * @param [subscriptionID] {String} - Agile data subscriptionID
     * @fulfil {null}
     * @returns {Promise}
     *
     * @example
-    * agile.data.subscription.delete('mySensor', 'temperature')
+    * agile.data.subscription.delete('128484893938')
     * .then(function(subscription) {
     *   console.log('Subscription deleted!');
     * });
     **/
-    delete: (deviceID, componentID) => {
+    delete: (id) => {
       return axios({
         method: 'DELETE',
-        url: `${base}/${deviceID}/${componentID}`
+        url: `${base}/${id}`
       })
       .then(res => (res.data))
       .catch(errorHandler);
     },
     /**
-    * @summary Update subscription for device component
+    * @summary Update subscription
     * @name update
     * @public
     * @function
     * @memberof agile.data.subscription
-    * @param deviceID {String} - Agile deviceID
-    * @param componentID {String} - Agile componentID
-    * @param [interval=3000] {Integer} - Subscription interval
+    * @param [subscriptionID] {String} - Agile data subscriptionID
+    * @param [subscription] {Object} - Updated Subscription configuration
     * @fulfil {Object}
     * @returns {Promise}
     *
     * @example
-    * agile.data.subscription.update('mySensor', 'temperature')
+    * agile.data.subscription.update('5991b583553d6897bd14f87d', {
+    *    interval : 25000
+    *  })
     * .then(function(subscription) {
     *   console.log(subscription);
     * });
     **/
-    update: (deviceID, componentID, interval) => {
-      interval = interval || 3000;
-
+    update: (id, subscription) => {
       return axios({
         method: 'PUT',
-        url: `${base}/${deviceID}/${componentID}`,
-        data: {
-          interval
-        }
+        url: `${base}/${id}`,
+        data: subscription
       })
       .then(res => (res.data))
       .catch(errorHandler);
     },
     /**
-    * @summary Get subscription for device component or get all subscriptions on gateway
+    * @summary Get single or all subscriptions on gateway
     * @name get
     * @public
     * @function
     * @memberof agile.data.subscription
-    * @param [deviceID] {String} - Agile deviceID
-    * @param [componentID] {String} - Agile componentID
+    * @param [subscriptionID] {String} - Agile data subscriptionID
     * @fulfil {Object|Array}
     * @returns {Promise}
     *
     * @example
-    * agile.data.subscription.get('mySensor', 'temperature')
+    * agile.data.subscription.get('5991b583553d6897bd14f87d')
     * .then(function(subscription) {
     *   console.log(subscription);
     * });
@@ -113,14 +106,11 @@ const subscription = (base) => {
     *   console.log(subscriptions);
     * });
     **/
-    get: (deviceID, componentID) => {
-      let url;
-      if (deviceID && componentID) {
-        url = `${base}/${deviceID}/${componentID}`;
-      } else if (deviceID) {
-        url = `${base}/${deviceID}`;
-      } else {
-        url = `${base}`;
+    get: (id) => {
+      let url = `${base}`;
+
+      if (id) {
+        let url = `${base}/${id}`;
       }
 
       return axios({
