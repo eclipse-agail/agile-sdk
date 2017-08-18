@@ -36,7 +36,7 @@ const pdp = (base, token) => {
         actions : array
       }
     })
-    .then(res => (res.data))
+    .then(res => (res.data.result))
     .catch(errorHandler),
 
   });
