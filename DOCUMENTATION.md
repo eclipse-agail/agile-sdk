@@ -67,10 +67,6 @@ var agile = require('agile-sdk')({
             * [.resetPassword(userName, authType, newPassword)](#agile.idm.user.resetPassword) ⇒ <code>Promise</code>
             * [.updatePassword(oldPassword, newPassword)](#agile.idm.user.updatePassword) ⇒ <code>Promise</code>
             * [.get(userName, authType)](#agile.idm.user.get) ⇒ <code>Promise</code>
-            * [.create(including, authType, [options])](#agile.idm.user.create) ⇒ <code>Promise</code>
-            * [.delete(userName, authType)](#agile.idm.user.delete) ⇒ <code>Promise</code>
-            * [.resetPassword(userName, authType, newPassword)](#agile.idm.user.resetPassword) ⇒ <code>Promise</code>
-            * [.updatePassword(oldPassword, newPassword)](#agile.idm.user.updatePassword) ⇒ <code>Promise</code>
         * [.entity](#agile.idm.entity) : <code>object</code>
             * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
             * [.getByAttributeValue(constraints)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
@@ -94,6 +90,7 @@ var agile = require('agile-sdk')({
             * [.update(retentionInterval)](#agile.data.retention.update) ⇒ <code>Promise</code>
     * [.policies](#agile.policies) : <code>object</code>
         * [.pdp](#agile.policies.pdp) : <code>object</code>
+            * [.evaluatePolicies(PDP)](#agile.policies.pdp.evaluatePolicies) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -302,8 +299,8 @@ agile.deviceManager.delete('bleB0B448BE5084').then(function() {
 
 | Param | Type |
 | --- | --- |
-| deviceOverview | <code>Object</code> | 
-| type | <code>string</code> | 
+| deviceOverview | <code>Object</code> |
+| type | <code>string</code> |
 
 **Example**  
 ```js
@@ -329,7 +326,7 @@ agile.deviceManager.create(deviceOverview, type).then(function(newDevice) {
 
 | Param | Type |
 | --- | --- |
-| deviceOverview | <code>Object</code> | 
+| deviceOverview | <code>Object</code> |
 
 **Example**  
 ```js
@@ -644,10 +641,6 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
         * [.resetPassword(userName, authType, newPassword)](#agile.idm.user.resetPassword) ⇒ <code>Promise</code>
         * [.updatePassword(oldPassword, newPassword)](#agile.idm.user.updatePassword) ⇒ <code>Promise</code>
         * [.get(userName, authType)](#agile.idm.user.get) ⇒ <code>Promise</code>
-        * [.create(including, authType, [options])](#agile.idm.user.create) ⇒ <code>Promise</code>
-        * [.delete(userName, authType)](#agile.idm.user.delete) ⇒ <code>Promise</code>
-        * [.resetPassword(userName, authType, newPassword)](#agile.idm.user.resetPassword) ⇒ <code>Promise</code>
-        * [.updatePassword(oldPassword, newPassword)](#agile.idm.user.updatePassword) ⇒ <code>Promise</code>
     * [.entity](#agile.idm.entity) : <code>object</code>
         * [.getByType(entityType)](#agile.idm.entity.getByType) ⇒ <code>Promise</code>
         * [.getByAttributeValue(constraints)](#agile.idm.entity.getByAttributeValue) ⇒ <code>Promise</code>
@@ -789,10 +782,6 @@ agile.idm.group.removeEntity({
     * [.resetPassword(userName, authType, newPassword)](#agile.idm.user.resetPassword) ⇒ <code>Promise</code>
     * [.updatePassword(oldPassword, newPassword)](#agile.idm.user.updatePassword) ⇒ <code>Promise</code>
     * [.get(userName, authType)](#agile.idm.user.get) ⇒ <code>Promise</code>
-    * [.create(including, authType, [options])](#agile.idm.user.create) ⇒ <code>Promise</code>
-    * [.delete(userName, authType)](#agile.idm.user.delete) ⇒ <code>Promise</code>
-    * [.resetPassword(userName, authType, newPassword)](#agile.idm.user.resetPassword) ⇒ <code>Promise</code>
-    * [.updatePassword(oldPassword, newPassword)](#agile.idm.user.updatePassword) ⇒ <code>Promise</code>
 
 <a name="agile.idm.user.getCurrentUserInfo"></a>
 
@@ -921,84 +910,6 @@ agile.idm.user.updatePassword("myOldPassword","myNewPassword").then(function() {
 ```js
 agile.idm.user.get('alice','agile-local').then(function(user) {
   console.log(user);
-});
-```
-<a name="agile.idm.user.create"></a>
-
-##### user.create(including, authType, [options]) ⇒ <code>Promise</code>
-**Kind**: static method of [<code>user</code>](#agile.idm.user)  
-**Summary**: Create user  
-**Access**: public  
-**Fulfil**: <code>Object</code> user created  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| including | <code>object</code> | userName user name |
-| authType | <code>String</code> | authentication type |
-| [options] | <code>Object</code> | continaing  role  of the user as 'role' and password as 'password' |
-
-**Example**  
-```js
-agile.idm.user.create('bob','agile-local',{'role':'admin', 'password':'secret'}).then(function(user) {
-  console.log('user created!'+user);
-});
-```
-<a name="agile.idm.user.delete"></a>
-
-##### user.delete(userName, authType) ⇒ <code>Promise</code>
-**Kind**: static method of [<code>user</code>](#agile.idm.user)  
-**Summary**: Delete a user  
-**Access**: public  
-**Fulfil**: <code>Undefined</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| userName | <code>String</code> | user name |
-| authType | <code>String</code> | authentication type |
-
-**Example**  
-```js
-agile.idm.user.delete('bob','agile-local').then(function() {
-  console.log('user removed!');
-});
-```
-<a name="agile.idm.user.resetPassword"></a>
-
-##### user.resetPassword(userName, authType, newPassword) ⇒ <code>Promise</code>
-**Kind**: static method of [<code>user</code>](#agile.idm.user)  
-**Summary**: Reset password for any user. The user executing this action needs to be allowed to do this, e.g. admin.  
-**Access**: public  
-**Fulfil**: <code>Undefined</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| userName | <code>String</code> | user name |
-| authType | <code>String</code> | authentication type |
-| newPassword | <code>String</code> | new password |
-
-**Example**  
-```js
-agile.idm.user.setPassword('bob','agile-local',"myNewPassword").then(function() {
-  console.log('password updated!');
-});
-```
-<a name="agile.idm.user.updatePassword"></a>
-
-##### user.updatePassword(oldPassword, newPassword) ⇒ <code>Promise</code>
-**Kind**: static method of [<code>user</code>](#agile.idm.user)  
-**Summary**: update password for himself  
-**Access**: public  
-**Fulfil**: <code>Undefined</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| oldPassword | <code>String</code> | old password |
-| newPassword | <code>String</code> | new password |
-
-**Example**  
-```js
-agile.idm.user.updatePassword("myOldPassword","myNewPassword").then(function() {
-  console.log('password updated!');
 });
 ```
 <a name="agile.idm.entity"></a>
@@ -1365,7 +1276,35 @@ agile.data.retention.update(9000)
 
 ### agile.policies : <code>object</code>
 **Kind**: static namespace of [<code>agile</code>](#agile)  
+
+* [.policies](#agile.policies) : <code>object</code>
+    * [.pdp](#agile.policies.pdp) : <code>object</code>
+        * [.evaluatePolicies(PDP)](#agile.policies.pdp.evaluatePolicies) ⇒ <code>Promise</code>
+
 <a name="agile.policies.pdp"></a>
 
 #### policies.pdp : <code>object</code>
 **Kind**: static namespace of [<code>policies</code>](#agile.policies)  
+<a name="agile.policies.pdp.evaluatePolicies"></a>
+
+##### pdp.evaluatePolicies(PDP) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pdp</code>](#agile.policies.pdp)  
+**Summary**: Evaluate policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Array</code> boolean - each elemtn in the array is a boolean value mapeed one-to-one to the PDP requests objects. Each boolean shows whether the policy evaluated in the same potition of the array was allowed or not.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| PDP | <code>Array</code> | request - each element in the array includes entityId, entityType, field indicating  the attribute or action to be executed. Finally the method can be read or write depending on the action to be performed.  For instance the example shows the evaluation of a policy showing whether the user logged in can read the attribute password for the user with id sam!@!agile-local |
+
+**Example**  
+```js
+agile.policies.pdp.evaluatePolicies([{
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password',
+     method : 'read'
+   }]).then(function(results) {
+ console.log(results);
+});
+```
