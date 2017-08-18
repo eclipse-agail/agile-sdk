@@ -36,8 +36,8 @@ const pdp = (base, token) => {
         actions : array
       }
     })
-      .then(res => (res.data))
-      .catch(errorHandler),
+    .then(res => (res.data.result))
+    .catch(errorHandler),
 
     /**
     * @summary Show information for a particular user by username and authentication type
