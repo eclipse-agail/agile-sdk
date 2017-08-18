@@ -90,6 +90,10 @@ var agile = require('agile-sdk')({
     * [.policies](#agile.policies) : <code>object</code>
         * [.pdp](#agile.policies.pdp) : <code>object</code>
             * [.evaluate(PDP)](#agile.policies.pdp.evaluate) ⇒ <code>Promise</code>
+        * [.pap](#agile.policies.pap) : <code>object</code>
+            * [.get(including)](#agile.policies.pap.get) ⇒ <code>Promise</code>
+            * [.set(including)](#agile.policies.pap.set) ⇒ <code>Promise</code>
+            * [.delete(including)](#agile.policies.pap.delete) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -1258,6 +1262,10 @@ agile.data.retention.update(9000)
 * [.policies](#agile.policies) : <code>object</code>
     * [.pdp](#agile.policies.pdp) : <code>object</code>
         * [.evaluate(PDP)](#agile.policies.pdp.evaluate) ⇒ <code>Promise</code>
+    * [.pap](#agile.policies.pap) : <code>object</code>
+        * [.get(including)](#agile.policies.pap.get) ⇒ <code>Promise</code>
+        * [.set(including)](#agile.policies.pap.set) ⇒ <code>Promise</code>
+        * [.delete(including)](#agile.policies.pap.delete) ⇒ <code>Promise</code>
 
 <a name="agile.policies.pdp"></a>
 
@@ -1283,6 +1291,90 @@ agile.policies.pdp.evaluate([{
      field : 'password',
      method : 'read'
    }]).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.policies.pap"></a>
+
+#### policies.pap : <code>object</code>
+**Kind**: static namespace of [<code>policies</code>](#agile.policies)  
+
+* [.pap](#agile.policies.pap) : <code>object</code>
+    * [.get(including)](#agile.policies.pap.get) ⇒ <code>Promise</code>
+    * [.set(including)](#agile.policies.pap.set) ⇒ <code>Promise</code>
+    * [.delete(including)](#agile.policies.pap.delete) ⇒ <code>Promise</code>
+
+<a name="agile.policies.pap.get"></a>
+
+##### pap.get(including) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pap</code>](#agile.policies.pap)  
+**Summary**: Get policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> Policy for the query, in case it is there  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| including | <code>Object</code> | entityType, entityId, and field optionally. If provided, field represents the attribute or action for which the policy is being queried. The example shows how to obtain the (read and write) policy for the user with id sam!@!agile-local. |
+
+**Example**  
+```js
+agile.policies.pap.get({
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password'
+   }).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.policies.pap.set"></a>
+
+##### pap.set(including) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pap</code>](#agile.policies.pap)  
+**Summary**: Set policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> Policy for the entity resulting after the update  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| including | <code>Object</code> | entityType, entityId, policy, and field optionally. If provided, field represents the attribute or action for which the policy is being queried. The example shows how to make the password of sam!@!agile-local readable and writable to anyone (do not do this in production!). |
+
+**Example**  
+```js
+agile.policies.pap.set({
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password',
+     policy :  [
+      {
+         op: "write"
+       },
+       {
+         op: "read"
+       }
+     ]
+   }).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.policies.pap.delete"></a>
+
+##### pap.delete(including) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pap</code>](#agile.policies.pap)  
+**Summary**: Delete policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> Policy for the entity resulting after the update  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| including | <code>Object</code> | entityType, entityId, and field optionally. If provided, field represents the attribute or action for which the policy is to be deleted. The example shows how to delete the (read and write) policy for the user with id sam!@!agile-local. |
+
+**Example**  
+```js
+agile.policies.pap.delete({
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password'
+   }).then(function(results) {
  console.log(results);
 });
 ```
