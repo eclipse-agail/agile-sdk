@@ -10,7 +10,7 @@ const pdp = (base, token) => {
   return ({
     /**
     * @summary Evaluate policies for a particular entity and action or attribute
-    * @name evaluatePolicies
+    * @name evaluate
     * @public
     * @function
     * @memberof agile.policies.pdp
@@ -20,7 +20,7 @@ const pdp = (base, token) => {
     * @fulfil {Array} boolean - each elemtn in the array is a boolean value mapeed one-to-one to the PDP requests objects. Each boolean shows whether the policy evaluated in the same potition of the array was allowed or not.
     * @returns {Promise}
     * @example
-    * agile.policies.pdp.evaluatePolicies([{
+    * agile.policies.pdp.evaluate([{
     *      entityId : 'sam!@!agile-local',
     *      entityType: 'user',
     *      field : 'password',
@@ -29,43 +29,16 @@ const pdp = (base, token) => {
     *  console.log(results);
     * });
     **/
-    evaluatePolicies: (array) => instance.request({
+    evaluate: (array) => instance.request({
       method: 'POST',
       url: `${base}/api/v1//pdp/batch/`,
       data: {
         actions : array
       }
     })
-      .then(res => (res.data))
-      .catch(errorHandler),
+    .then(res => (res.data))
+    .catch(errorHandler),
 
-    /**
-    * @summary Show information for a particular user by username and authentication type
-    * @name get
-    * @public
-    * @function
-    * @memberof agile.idm.user
-    * @param {String} userName user name
-    * @param {String} authType authentication type
-    * @fulfil {Object} user found
-    * @returns {Promise}
-    * @example
-    * agile.idm.user.get('alice','agile-local').then(function(user) {
-    *   console.log(user);
-    * });
-    **/
-    get: (userName, authType) => {
-      return instance.request({
-        method: 'GET',
-        url: `${base}/api/v1/user/`,
-        params: {
-          auth_type: authType,
-          user_name: userName
-        }
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
-    }
   });
 };
 

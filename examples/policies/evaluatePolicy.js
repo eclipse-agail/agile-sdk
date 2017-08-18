@@ -20,7 +20,7 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.user.create(username, authentication, {'role': 'admin', 'password': 'secret'});
 }).then(function (user){
   console.log('user created' + JSON.stringify(user));
-  return agile.policies.pdp.evaluatePolicies([{
+  return agile.policies.pdp.evaluate([{
         entityId : 'sam!@!agile-local',
         entityType: 'user',
         field : 'password',
