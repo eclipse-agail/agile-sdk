@@ -4,6 +4,8 @@ import device from './device';
 import protocol from './protocol';
 import idm from './idm';
 import data from './data';
+import policies from './policies';
+
 import parseUrl from 'url-parse';
 /**
   * @namespace agile
@@ -67,7 +69,13 @@ const agileSDK = (params) => {
     * @namespace data
     * @memberof agile
     **/
-    data: data(dataBase)
+    data: data(dataBase),
+    /**
+    * @namespace policies
+    * @memberof agile
+    **/
+    policies: policies(idmBase, token),
+
   });
 };
 
