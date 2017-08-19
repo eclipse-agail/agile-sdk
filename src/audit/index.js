@@ -72,7 +72,7 @@ const pdp = (base, token) => {
       })
       .then(res => (res.data.result))
       .catch(errorHandler);
-    },
+    }
   });
 };
 

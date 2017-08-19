@@ -18,19 +18,19 @@ agile.idm.user.getCurrentUserInfo()
 }, function error (err) {
   console.log('user not deleted' + JSON.stringify(err.toString()));
   return agile.idm.user.create(username, authentication, {'role': 'admin', 'password': 'secret'});
-}).then(function (user){
+}).then(function (user) {
   console.log('user created' + JSON.stringify(user));
-  return agile.policies.pdp.evaluatePolicies([{
-        entityId : 'sam!@!agile-local',
-        entityType: 'user',
-        field : 'password',
-        method : 'read'
-      },{
-        entityId : 'sam!@!agile-local',
-        entityType: 'user',
-        field : 'id',
-        method : 'read'
-      }
+  return agile.policies.pdp.evaluate([{
+    entityId: 'sam!@!agile-local',
+    entityType: 'user',
+    field: 'password',
+    method: 'read'
+  }, {
+    entityId: 'sam!@!agile-local',
+    entityType: 'user',
+    field: 'id',
+    method: 'read'
+  }
   ]);
 }).then(function (results) {
   console.log('pdp results' + JSON.stringify(results));

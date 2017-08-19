@@ -117,7 +117,7 @@ const agileSDK = (params) => {
     * @namespace audit
     * @memberof agile
     **/
-    audit: audit(idmBase, token),
+    audit: audit(idmBase, token)
 
   });
 };
