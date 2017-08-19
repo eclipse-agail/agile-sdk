@@ -94,6 +94,10 @@ var agile = require('agile-sdk')({
             * [.get(including)](#agile.policies.pap.get) ⇒ <code>Promise</code>
             * [.set(including)](#agile.policies.pap.set) ⇒ <code>Promise</code>
             * [.delete(including)](#agile.policies.pap.delete) ⇒ <code>Promise</code>
+    * [.audit](#agile.audit) : <code>object</code>
+        * [.getUserActions()](#agile.audit.getUserActions) ⇒ <code>Promise</code>
+        * [.getActionsOnUsersEntities()](#agile.audit.getActionsOnUsersEntities) ⇒ <code>Promise</code>
+        * [.cleanActionsOnUsersEntities()](#agile.audit.cleanActionsOnUsersEntities) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -1375,6 +1379,54 @@ agile.policies.pap.delete({
      entityType: 'user',
      field : 'password'
    }).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.audit"></a>
+
+### agile.audit : <code>object</code>
+**Kind**: static namespace of [<code>agile</code>](#agile)  
+
+* [.audit](#agile.audit) : <code>object</code>
+    * [.getUserActions()](#agile.audit.getUserActions) ⇒ <code>Promise</code>
+    * [.getActionsOnUsersEntities()](#agile.audit.getActionsOnUsersEntities) ⇒ <code>Promise</code>
+    * [.cleanActionsOnUsersEntities()](#agile.audit.cleanActionsOnUsersEntities) ⇒ <code>Promise</code>
+
+<a name="agile.audit.getUserActions"></a>
+
+#### audit.getUserActions() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>audit</code>](#agile.audit)  
+**Summary**: Get actions performed by currently logged in user  
+**Access**: public  
+**Fulfil**: <code>Array</code> Actions actions performed by the user authenticated with the token used by the SDK. Each action has a user, entity and time field to show who executed where action when on which entity.  
+**Example**  
+```js
+agile.policies.audit.getUserActions( ).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.audit.getActionsOnUsersEntities"></a>
+
+#### audit.getActionsOnUsersEntities() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>audit</code>](#agile.audit)  
+**Summary**: Get actions performed on entities owned by the user currently logged in  
+**Access**: public  
+**Fulfil**: <code>Array</code> Actions actions performed by the user authenticated with the token used by the SDK. Each action has a user, entity and time field to show who executed where action when on which entity.  
+**Example**  
+```js
+agile.policies.audit.getActionsOnUsersEntities( ).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.audit.cleanActionsOnUsersEntities"></a>
+
+#### audit.cleanActionsOnUsersEntities() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>audit</code>](#agile.audit)  
+**Summary**: Removes actions performed on entities owned by the user currently logged in  
+**Access**: public  
+**Example**  
+```js
+agile.policies.audit.cleanActionsOnUsersEntities( ).then(function(results) {
  console.log(results);
 });
 ```
