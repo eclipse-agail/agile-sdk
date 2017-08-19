@@ -5,6 +5,7 @@ import protocol from './protocol';
 import idm from './idm';
 import data from './data';
 import policies from './policies';
+import audit from './audit';
 
 import parseUrl from 'url-parse';
 import clone from 'lodash/clone';
@@ -112,6 +113,11 @@ const agileSDK = (params) => {
     * @memberof agile
     **/
     policies: policies(idmBase, token),
+    /**
+    * @namespace audit
+    * @memberof agile
+    **/
+    audit: audit(idmBase, token),
 
   });
 };
