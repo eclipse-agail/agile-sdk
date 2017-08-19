@@ -70,8 +70,8 @@ const pdp = (base, token) => {
       return instance.request({
         method: 'PUT',
         url: url,
-        data : {
-          policy : params.policy
+        data: {
+          policy: params.policy
         }
       })
       .then(res => (res.data.result))
@@ -105,7 +105,7 @@ const pdp = (base, token) => {
       })
       .then(res => (res.data.result))
       .catch(errorHandler);
-    },
+    }
 
   });
 };

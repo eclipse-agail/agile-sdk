@@ -1,3 +1,3 @@
-var token = 'Cy9vX0Z4Te322yJqDCWQEEv4PI2iVTa6dkpvf6Y2N4cqTYHypYsm3vbdX5ukjnB1';
+var token = 'kxrZPzy1WBmdjmZmtfNABLkcnBpjCbmflhoibBxlzneHOtu0MQ4Hg6RYdra12R5A';
 
 module.exports = token;

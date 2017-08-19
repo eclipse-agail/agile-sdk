@@ -33,11 +33,11 @@ const pdp = (base, token) => {
       method: 'POST',
       url: `${base}/api/v1//pdp/batch/`,
       data: {
-        actions : array
+        actions: array
       }
     })
     .then(res => (res.data.result))
-    .catch(errorHandler),
+    .catch(errorHandler)
 
   });
 };
