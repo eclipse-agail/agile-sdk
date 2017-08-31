@@ -162,6 +162,30 @@ const entity = (base) => {
       method: 'DELETE',
       url: `${base}/api/v1/entity/${entityType}/${entityId}/attribute/${attributeType}/`
     })
+<<<<<<< HEAD
+=======
+    .then(res => (res.data))
+    .catch(errorHandler),
+    /**
+    * @summary Get Entities schema
+    * @name getEntitiesSchema
+    * @public
+    * @function
+    * @memberof agile.idm.entity
+    * @fulfil {Object} JSON Schema with the configuration for the entity format
+    * @returns {Promise}
+    * @example
+    * agile.idm.entity.getEntitiesSchema().then(function(jsonschema) {
+    *   console.log('schema for the entities'+jsonschema);
+    * });
+    **/
+    getEntitiesSchema: () => instance.request({
+      method: 'GET',
+      url: `${base}/api/v1/entity_types/`
+    })
+    .then(res => (res.data))
+    .catch(errorHandler)
+
   });
 };
 
