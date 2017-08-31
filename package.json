@@ -10,6 +10,7 @@
     "lint-examples": "eslint examples/** --fix",
     "lint:fix": "eslint src/**",
     "docs": "jsdoc2md 'src/**/*.js' > DOCUMENTATION.md",
+    "watch": "babel src -w --out-dir dist --copy-files",
     "build": "babel src --out-dir dist --copy-files && npm run build-browser",
     "build-browser": "webpack -p dist/index.js dist/bundle.js --output-library agileSDK",
     "version": "versionist",

@@ -30,9 +30,7 @@ const subscription = (base) => {
         method: 'POST',
         url: base,
         data: newSubscription
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Delete subscription for device component
@@ -54,9 +52,7 @@ const subscription = (base) => {
       return axios({
         method: 'DELETE',
         url: `${base}/${id}`
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Update subscription
@@ -82,9 +78,7 @@ const subscription = (base) => {
         method: 'PUT',
         url: `${base}/${id}`,
         data: subscription
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Get single or all subscriptions on gateway
@@ -116,9 +110,7 @@ const subscription = (base) => {
       return axios({
         method: 'GET',
         url: url
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     }
   });
 };

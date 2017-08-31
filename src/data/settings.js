@@ -24,9 +24,7 @@ const settings = (base) => {
       return axios({
         method: 'GET',
         url: base
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Update settings for agile data
@@ -53,9 +51,7 @@ const settings = (base) => {
         method: 'PUT',
         url: base,
         data: settings
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     }
   });
 };

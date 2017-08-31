@@ -6,6 +6,7 @@ import idm from './idm';
 import data from './data';
 import parseUrl from 'url-parse';
 import clone from 'lodash/clone';
+import { tokenSet } from './utils'
 /**
   * @namespace agile
   * @description
@@ -37,8 +38,22 @@ const agileSDK = (params) => {
   const wsBase = `${clone(parsed).set('protocol', 'ws:').origin}/ws`;
   // for now we keep it as const... but token in the sdk should be updated once in a while, since it can expire.
   // for now we just create a new SDK object each time
-  const token = params.token;
+  const token = tokenSet(params.token);
+
   return ({
+    /**
+    * @summary Set/Update Idm Authentication token
+    * @name tokenSet
+    * @public
+    * @function
+    * @memberof agile
+    * @param {String} token - Idm Authentication token
+    * @fulfil {Token} token - Newly set Authentication
+    * @returns {String}
+    * @example
+    * agile.tokenSet('1234');
+    **/
+    tokenSet: tokenSet,
     /**
     * @namespace protocolManager
     * @memberof agile
@@ -63,7 +78,7 @@ const agileSDK = (params) => {
     * @namespace idm
     * @memberof agile
     **/
-    idm: idm(idmBase, token),
+    idm: idm(idmBase),
     /**
     * @namespace data
     * @memberof agile
