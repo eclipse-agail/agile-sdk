@@ -5,6 +5,7 @@ import protocol from './protocol';
 import idm from './idm';
 import data from './data';
 import parseUrl from 'url-parse';
+import clone from 'lodash/clone';
 /**
   * @namespace agile
   * @description
@@ -31,9 +32,9 @@ const agileSDK = (params) => {
   // parse url to remove any irregularites
   const parsed = parseUrl(params.api);
   const apiBase = `${parsed.origin}/api`;
-  const idmBase = params.idm ? params.idm : `${parsed.set('port', 3000).origin}`;
-  const dataBase = params.data ? params.data : `${parsed.set('port', 1338).origin}`;
-  const wsBase = `${parsed.set('protocol', 'ws:').origin}/ws`;
+  const idmBase = params.idm ? params.idm : `${clone(parsed).set('port', 3000).origin}`;
+  const dataBase = params.data ? params.data : `${clone(parsed).set('port', 1338).origin}`;
+  const wsBase = `${clone(parsed).set('protocol', 'ws:').origin}/ws`;
   // for now we keep it as const... but token in the sdk should be updated once in a while, since it can expire.
   // for now we just create a new SDK object each time
   const token = params.token;
