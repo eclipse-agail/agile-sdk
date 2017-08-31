@@ -74,6 +74,7 @@ var agile = require('agile-sdk')({
             * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
             * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
             * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
+            * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
         * [.authentication](#agile.idm.authentication) : <code>object</code>
             * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
     * [.data](#agile.data) : <code>object</code>
@@ -647,6 +648,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
         * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
         * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
         * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
+        * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
     * [.authentication](#agile.idm.authentication) : <code>object</code>
         * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
 
@@ -903,6 +905,7 @@ agile.idm.user.updatePassword("myOldPassword","myNewPassword").then(function() {
     * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
     * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
     * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
+    * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
 
 <a name="agile.idm.entity.getByType"></a>
 
@@ -1039,6 +1042,19 @@ agile.idm.entity.setAttribute({
 ```js
 agile.idm.entity.deleteAttribute('1','device','credentials').then(function(result) {
   console.log('entity updated!'+result);
+});
+```
+<a name="agile.idm.entity.getEntitiesSchema"></a>
+
+##### entity.getEntitiesSchema() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: Get Entities schema  
+**Access**: public  
+**Fulfil**: <code>Object</code> JSON Schema with the configuration for the entity format  
+**Example**  
+```js
+agile.idm.entity.getEntitiesSchema().then(function(jsonschema) {
+  console.log('schema for the entities'+jsonschema);
 });
 ```
 <a name="agile.idm.authentication"></a>
