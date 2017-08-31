@@ -31,9 +31,7 @@ const discovery = (base) => {
       return axios({
         method: 'POST',
         url: url
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Stop device discovery on all or single protocol
@@ -62,9 +60,7 @@ const discovery = (base) => {
       return axios({
         method: 'DELETE',
         url: url
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Return the status object of discovery on the all or single protocol
@@ -93,9 +89,7 @@ const discovery = (base) => {
       return axios({
         method: 'GET',
         url: url
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     }
   });
 };

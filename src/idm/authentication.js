@@ -40,8 +40,6 @@ const entity = (base, token) => {
         },
         data: qs.stringify({grant_type: 'client_credentials'})
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     }
   });
 };

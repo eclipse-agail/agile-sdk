@@ -1,11 +1,7 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
 const group = (base, token) => {
   base = `${base}`;
-  var instance = axios.create({
-    headers: { 'Authorization': `bearer ${token}` }
-  });
   return ({
     /**
     * @summary Get a particular group by name and owner
@@ -27,12 +23,10 @@ const group = (base, token) => {
     **/
     get: (owner, name) => {
       var url = owner && name ? `${base}/api/v1/user/${owner}/group/${name}` : `${base}/api/v1/group`;
-      return instance.request({
+      return axios.request({
         method: 'GET',
         url: url
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     },
     /**
     * @summary Create a group onwned by the authenticated user
@@ -48,15 +42,13 @@ const group = (base, token) => {
     *   console.log('group created!'+group);
     * });
     **/
-    create: (name) => instance.request({
+    create: (name) => axios.request({
       method: 'POST',
       url: `${base}/api/v1/group/`,
       data: {
         group_name: name
       }
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Delete a group
     * @name delete
@@ -72,12 +64,10 @@ const group = (base, token) => {
     *   console.log('group removed!');
     * });
     **/
-    delete: (owner, name) => instance.request({
+    delete: (owner, name) => axios.request({
       method: 'DELETE',
       url: `${base}/api/v1/user/${owner}/group/${name}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Add entity to a group
     * @name addEntity
@@ -100,12 +90,10 @@ const group = (base, token) => {
     *   console.log('entity updated !'+updated);
     * });
     **/
-    addEntity: (params) => instance.request({
+    addEntity: (params) => axios.request({
       method: 'POST',
       url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entityType}/${params.entityId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Remove entity from a group
     * @name removeEntity
@@ -128,12 +116,10 @@ const group = (base, token) => {
     *   console.log('entity updated !'+updated);
     * });
     **/
-    removeEntity: (params) => instance.request({
+    removeEntity: (params) => axios.request({
       method: 'DELETE',
       url: `${base}/api/v1/user/${params.owner}/group/${params.name}/entities/${params.entityType}/${params.entityId}`
     })
-    .then(res => (res.data))
-    .catch(errorHandler)
   });
 };
 

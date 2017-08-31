@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
 const protocol = (base) => {
   base = `${base}/protocol`;
@@ -23,9 +22,7 @@ const protocol = (base) => {
     disconnect: (protocolId, deviceId) => axios({
       method: 'POST',
       url: `${base}/${protocolId}/connection/${deviceId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Connect to the device
     * @name connect
@@ -45,9 +42,7 @@ const protocol = (base) => {
     connect: (protocolId, deviceId) => axios({
       method: 'DELETE',
       url: `${base}/${protocolId}/connection/${deviceId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Call a read via protocol
     * @name read
@@ -66,9 +61,7 @@ const protocol = (base) => {
     **/
     read: (protocolId, deviceId) => axios({
       url: `${base}/${protocolId}/${deviceId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Call a write via protocol
     * @name write
@@ -91,8 +84,6 @@ const protocol = (base) => {
       url: `${base}/${protocolId}/${deviceId}`,
       data: data
     })
-    .then(res => (res.data))
-    .catch(errorHandler)
   });
 };
 
