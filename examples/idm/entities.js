@@ -88,6 +88,10 @@ agile.idm.user.getCurrentUserInfo()
   return agile.idm.group.delete(owner, 'gname');
 }).then(function (r) {
   console.log('group deleted' + r);
+  return agile.idm.entity.getEntitiesSchema();
+}).then(function (schema) {
+  console.log('entities schema' + JSON.stringify(schema));
+
 }).catch(function (err) {
   console.log(err);
 });

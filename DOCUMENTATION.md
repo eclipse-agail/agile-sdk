@@ -74,6 +74,7 @@ var agile = require('agile-sdk')({
             * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
             * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
             * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
+            * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
         * [.authentication](#agile.idm.authentication) : <code>object</code>
             * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
     * [.data](#agile.data) : <code>object</code>
@@ -87,6 +88,17 @@ var agile = require('agile-sdk')({
         * [.retention](#agile.data.retention) : <code>object</code>
             * [.get()](#agile.data.retention.get) ⇒ <code>Promise</code>
             * [.update(retentionInterval)](#agile.data.retention.update) ⇒ <code>Promise</code>
+    * [.policies](#agile.policies) : <code>object</code>
+        * [.pdp](#agile.policies.pdp) : <code>object</code>
+            * [.evaluate(PDP)](#agile.policies.pdp.evaluate) ⇒ <code>Promise</code>
+        * [.pap](#agile.policies.pap) : <code>object</code>
+            * [.get(including)](#agile.policies.pap.get) ⇒ <code>Promise</code>
+            * [.set(including)](#agile.policies.pap.set) ⇒ <code>Promise</code>
+            * [.delete(including)](#agile.policies.pap.delete) ⇒ <code>Promise</code>
+    * [.audit](#agile.audit) : <code>object</code>
+        * [.getUserActions()](#agile.audit.getUserActions) ⇒ <code>Promise</code>
+        * [.getActionsOnUsersEntities()](#agile.audit.getActionsOnUsersEntities) ⇒ <code>Promise</code>
+        * [.cleanActionsOnUsersEntities()](#agile.audit.cleanActionsOnUsersEntities) ⇒ <code>Promise</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -644,6 +656,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
         * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
         * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
         * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
+        * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
     * [.authentication](#agile.idm.authentication) : <code>object</code>
         * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
 
@@ -900,6 +913,7 @@ agile.idm.user.updatePassword("myOldPassword","myNewPassword").then(function() {
     * [.delete(entityId, entityType)](#agile.idm.entity.delete) ⇒ <code>Promise</code>
     * [.setAttribute(with)](#agile.idm.entity.setAttribute) ⇒ <code>Promise</code>
     * [.deleteAttribute(entityId, entityType, attributeName-)](#agile.idm.entity.deleteAttribute) ⇒ <code>Promise</code>
+    * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
 
 <a name="agile.idm.entity.getByType"></a>
 
@@ -1036,6 +1050,19 @@ agile.idm.entity.setAttribute({
 ```js
 agile.idm.entity.deleteAttribute('1','device','credentials').then(function(result) {
   console.log('entity updated!'+result);
+});
+```
+<a name="agile.idm.entity.getEntitiesSchema"></a>
+
+##### entity.getEntitiesSchema() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>entity</code>](#agile.idm.entity)  
+**Summary**: Get Entities schema  
+**Access**: public  
+**Fulfil**: <code>Object</code> JSON Schema with the configuration for the entity format  
+**Example**  
+```js
+agile.idm.entity.getEntitiesSchema().then(function(jsonschema) {
+  console.log('schema for the entities'+jsonschema);
 });
 ```
 <a name="agile.idm.authentication"></a>
@@ -1245,5 +1272,177 @@ agile.data.retention.get()
 agile.data.retention.update(9000)
 .then(function(retentionPolicy) {
   console.log(retentionPolicy);
+});
+```
+<a name="agile.policies"></a>
+
+### agile.policies : <code>object</code>
+**Kind**: static namespace of [<code>agile</code>](#agile)  
+
+* [.policies](#agile.policies) : <code>object</code>
+    * [.pdp](#agile.policies.pdp) : <code>object</code>
+        * [.evaluate(PDP)](#agile.policies.pdp.evaluate) ⇒ <code>Promise</code>
+    * [.pap](#agile.policies.pap) : <code>object</code>
+        * [.get(including)](#agile.policies.pap.get) ⇒ <code>Promise</code>
+        * [.set(including)](#agile.policies.pap.set) ⇒ <code>Promise</code>
+        * [.delete(including)](#agile.policies.pap.delete) ⇒ <code>Promise</code>
+
+<a name="agile.policies.pdp"></a>
+
+#### policies.pdp : <code>object</code>
+**Kind**: static namespace of [<code>policies</code>](#agile.policies)  
+<a name="agile.policies.pdp.evaluate"></a>
+
+##### pdp.evaluate(PDP) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pdp</code>](#agile.policies.pdp)  
+**Summary**: Evaluate policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Array</code> boolean - each elemtn in the array is a boolean value mapeed one-to-one to the PDP requests objects. Each boolean shows whether the policy evaluated in the same potition of the array was allowed or not.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| PDP | <code>Array</code> | request - each element in the array includes entityId, entityType, field indicating  the attribute or action to be executed. Finally the method can be read or write depending on the action to be performed.  For instance the example shows the evaluation of a policy showing whether the user logged in can read the attribute password for the user with id sam!@!agile-local |
+
+**Example**  
+```js
+agile.policies.pdp.evaluate([{
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password',
+     method : 'read'
+   }]).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.policies.pap"></a>
+
+#### policies.pap : <code>object</code>
+**Kind**: static namespace of [<code>policies</code>](#agile.policies)  
+
+* [.pap](#agile.policies.pap) : <code>object</code>
+    * [.get(including)](#agile.policies.pap.get) ⇒ <code>Promise</code>
+    * [.set(including)](#agile.policies.pap.set) ⇒ <code>Promise</code>
+    * [.delete(including)](#agile.policies.pap.delete) ⇒ <code>Promise</code>
+
+<a name="agile.policies.pap.get"></a>
+
+##### pap.get(including) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pap</code>](#agile.policies.pap)  
+**Summary**: Get policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> Policy for the query, in case it is there  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| including | <code>Object</code> | entityType, entityId, and field optionally. If provided, field represents the attribute or action for which the policy is being queried. The example shows how to obtain the (read and write) policy for the user with id sam!@!agile-local. |
+
+**Example**  
+```js
+agile.policies.pap.get({
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password'
+   }).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.policies.pap.set"></a>
+
+##### pap.set(including) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pap</code>](#agile.policies.pap)  
+**Summary**: Set policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> Policy for the entity resulting after the update  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| including | <code>Object</code> | entityType, entityId, policy, and field optionally. If provided, field represents the attribute or action for which the policy is being queried. The example shows how to make the password of sam!@!agile-local readable and writable to anyone (do not do this in production!). |
+
+**Example**  
+```js
+agile.policies.pap.set({
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password',
+     policy :  [
+      {
+         op: "write"
+       },
+       {
+         op: "read"
+       }
+     ]
+   }).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.policies.pap.delete"></a>
+
+##### pap.delete(including) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>pap</code>](#agile.policies.pap)  
+**Summary**: Delete policies for a particular entity and action or attribute  
+**Access**: public  
+**Fulfil**: <code>Object</code> Policy for the entity resulting after the update  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| including | <code>Object</code> | entityType, entityId, and field optionally. If provided, field represents the attribute or action for which the policy is to be deleted. The example shows how to delete the (read and write) policy for the user with id sam!@!agile-local. |
+
+**Example**  
+```js
+agile.policies.pap.delete({
+     entityId : 'sam!@!agile-local',
+     entityType: 'user',
+     field : 'password'
+   }).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.audit"></a>
+
+### agile.audit : <code>object</code>
+**Kind**: static namespace of [<code>agile</code>](#agile)  
+
+* [.audit](#agile.audit) : <code>object</code>
+    * [.getUserActions()](#agile.audit.getUserActions) ⇒ <code>Promise</code>
+    * [.getActionsOnUsersEntities()](#agile.audit.getActionsOnUsersEntities) ⇒ <code>Promise</code>
+    * [.cleanActionsOnUsersEntities()](#agile.audit.cleanActionsOnUsersEntities) ⇒ <code>Promise</code>
+
+<a name="agile.audit.getUserActions"></a>
+
+#### audit.getUserActions() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>audit</code>](#agile.audit)  
+**Summary**: Get actions performed by currently logged in user  
+**Access**: public  
+**Fulfil**: <code>Array</code> Actions actions performed by the user authenticated with the token used by the SDK. Each action has a user, entity and time field to show who executed where action when on which entity.  
+**Example**  
+```js
+agile.policies.audit.getUserActions( ).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.audit.getActionsOnUsersEntities"></a>
+
+#### audit.getActionsOnUsersEntities() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>audit</code>](#agile.audit)  
+**Summary**: Get actions performed on entities owned by the user currently logged in  
+**Access**: public  
+**Fulfil**: <code>Array</code> Actions actions performed by the user authenticated with the token used by the SDK. Each action has a user, entity and time field to show who executed where action when on which entity.  
+**Example**  
+```js
+agile.policies.audit.getActionsOnUsersEntities( ).then(function(results) {
+ console.log(results);
+});
+```
+<a name="agile.audit.cleanActionsOnUsersEntities"></a>
+
+#### audit.cleanActionsOnUsersEntities() ⇒ <code>Promise</code>
+**Kind**: static method of [<code>audit</code>](#agile.audit)  
+**Summary**: Removes actions performed on entities owned by the user currently logged in  
+**Access**: public  
+**Example**  
+```js
+agile.policies.audit.cleanActionsOnUsersEntities( ).then(function(results) {
+ console.log(results);
 });
 ```
