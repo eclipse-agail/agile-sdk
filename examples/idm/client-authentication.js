@@ -1,11 +1,5 @@
-var token = require('./token_conf');
-var api = 'http://resin.local:8080';
-var idmurl = 'http://resin.local:3000';
-var agile = require('../../dist')({
-  api: api,
-  idm: idmurl,
-  token: token
-});
+var config = require('./token_conf');
+var agile = require('../../dist')(config);
 
 agile.idm.user.getCurrentUserInfo()
 .then(function (data) {
@@ -19,6 +13,7 @@ agile.idm.user.getCurrentUserInfo()
   console.log('client created !' + JSON.stringify(entity));
   return agile.idm.authentication.authenticateClient('MyAgileClient2', 'theclientsecret');
 }).then(function (auth) {
+  console.log(auth)
   console.log('authentication result !' + JSON.stringify(auth));
   return agile.idm.entity.delete('MyAgileClient2', 'client');
 }).then(function (result) {

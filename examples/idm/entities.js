@@ -1,11 +1,5 @@
-var token = require('./token_conf');
-var api = 'http://resin.local:8080';
-var idmurl = 'http://resin.local:3000';
-var agile = require('../../dist')({
-  api: api,
-  idm: idmurl,
-  token: token
-});
+var config = require('./token_conf');
+var agile = require('../../dist')(config);
 var owner;
 
 agile.idm.user.getCurrentUserInfo()
