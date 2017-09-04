@@ -88,6 +88,8 @@ var agile = require('agile-sdk')({
             * [.get()](#agile.data.settings.get) ⇒ <code>Promise</code>
             * [.update(settings)](#agile.data.settings.update) ⇒ <code>Promise</code>
     * [.tokenSet(token)](#agile.tokenSet) ⇒ <code>String</code>
+    * [.tokenGet()](#agile.tokenGet) ⇒ <code>String</code>
+    * [.tokenDelete()](#agile.tokenDelete) ⇒ <code>String</code>
 
 <a name="agile.protocolManager"></a>
 
@@ -1257,8 +1259,8 @@ agile.data.settings.update({
 ### agile.tokenSet(token) ⇒ <code>String</code>
 **Kind**: static method of <code>[agile](#agile)</code>  
 **Summary**: Set/Update Idm Authentication token  
+**Returns**: <code>String</code> - token - Newly set Idm Authentication token  
 **Access:** public  
-**Fulfil**: <code>Token</code> token - Newly set Authentication  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1267,4 +1269,24 @@ agile.data.settings.update({
 **Example**  
 ```js
 agile.tokenSet('1234');
+```
+<a name="agile.tokenGet"></a>
+
+### agile.tokenGet() ⇒ <code>String</code>
+**Kind**: static method of <code>[agile](#agile)</code>  
+**Summary**: Get Idm Authentication token  
+**Access:** public  
+**Example**  
+```js
+agile.tokenGet();
+```
+<a name="agile.tokenDelete"></a>
+
+### agile.tokenDelete() ⇒ <code>String</code>
+**Kind**: static method of <code>[agile](#agile)</code>  
+**Summary**: Unset/delete Idm Authentication token  
+**Access:** public  
+**Example**  
+```js
+agile.tokenDelete();
 ```
