@@ -23,6 +23,9 @@ const device = (base, wsBase) => {
     status: (deviceId) => axios({
       method: 'GET',
       url: `${base}/${deviceId}/status`
+    })
+    .then(data => {
+      return data.status
     }),
     /**
     * @summary Read values of all components from the device
