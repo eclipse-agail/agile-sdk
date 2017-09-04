@@ -24,8 +24,9 @@ const device = (base, wsBase) => {
       method: 'GET',
       url: `${base}/${deviceId}/status`
     })
-    .then(res => (res.data.status))
-    .catch(errorHandler),
+    .then(data => {
+      return data.status
+    }),
     /**
     * @summary Read values of all components from the device
     * @name get
@@ -53,9 +54,7 @@ const device = (base, wsBase) => {
       return axios({
         method: 'GET',
         url: url
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Connect the device at protocol level
@@ -74,9 +73,7 @@ const device = (base, wsBase) => {
     connect: (deviceId) => axios({
       method: 'POST',
       url: `${base}/${deviceId}/connection`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Disconnect device at protocol level
     * @name disconnect
@@ -94,9 +91,7 @@ const device = (base, wsBase) => {
     disconnect: (deviceId) => axios({
       method: 'DELETE',
       url: `${base}/${deviceId}/connection`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Perform an action on the device
     * @name execute
@@ -115,9 +110,7 @@ const device = (base, wsBase) => {
     execute: (deviceId, command) => axios({
       method: 'GET',
       url: `${base}/${deviceId}/execute/${command}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Get the last record fetched from the device or component
     * @name lastUpdate
@@ -147,9 +140,7 @@ const device = (base, wsBase) => {
       return axios({
         method: 'GET',
         url: url
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Enable a subscription to a data stream. Asynchronous data updates will be delivered via websocket.
@@ -183,9 +174,7 @@ const device = (base, wsBase) => {
     * });
     **/
     subscribe: (deviceId, componentId) => {
-      return new Promise(function (resolve, reject) {
-        resolve(new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`));
-      });
+      return Promise.resolve(new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`));
     },
     /**
     * @summary Unsubscribe from a data stream
@@ -206,8 +195,6 @@ const device = (base, wsBase) => {
       method: 'DELETE',
       url: `${base}/${deviceId}/${componentId}/subscribe`
     })
-    .then(res => (res.data))
-    .catch(errorHandler)
   });
 };
 

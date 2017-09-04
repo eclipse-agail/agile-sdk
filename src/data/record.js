@@ -32,9 +32,7 @@ const subscription = (base) => {
       return axios({
         method: 'GET',
         url: query ? `${base}?${query}` : base
-      })
-      .then(res => (res.data))
-      .catch(errorHandler);
+      });
     }
   });
 };

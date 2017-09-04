@@ -1,11 +1,7 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
-const idm = (base, token) => {
+const idm = (base) => {
   base = `${base}`;
-  var instance = axios.create({
-    headers: { 'Authorization': `bearer ${token}` }
-  });
 
   return ({
     /**
@@ -21,12 +17,10 @@ const idm = (base, token) => {
     *  console.log(info);
     * });
     **/
-    getCurrentUserInfo: () => instance.request({
+    getCurrentUserInfo: () => axios.request({
       method: 'GET',
       url: `${base}/oauth2/api/userinfo`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Show information for a particular user by username and authentication type
     * @name get
@@ -43,7 +37,7 @@ const idm = (base, token) => {
     * });
     **/
     get: (userName, authType) => {
-      return instance.request({
+      return axios.request({
         method: 'GET',
         url: `${base}/api/v1/user/`,
         params: {
@@ -51,8 +45,6 @@ const idm = (base, token) => {
           user_name: userName
         }
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     },
     /**
     * @summary Create user
@@ -81,13 +73,11 @@ const idm = (base, token) => {
       if (options && options.password) {
         user.password = options.password;
       }
-      return instance.request({
+      return axios.request({
         method: 'POST',
         url: `${base}/api/v1/user/`,
         data: user
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     },
     /**
     * @summary Delete a user
@@ -105,7 +95,7 @@ const idm = (base, token) => {
     * });
     **/
     delete: (userName, authType) => {
-      return instance.request({
+      return axios.request({
         method: 'DELETE',
         url: `${base}/api/v1/user/`,
         params: {
@@ -113,8 +103,6 @@ const idm = (base, token) => {
           user_name: userName
         }
       })
-      .then(res => (res))
-      .catch(errorHandler);
     },
     /**
     * @summary Reset password for any user. The user executing this action needs to be allowed to do this, e.g. admin.
@@ -133,15 +121,13 @@ const idm = (base, token) => {
     * });
     **/
     resetPassword: (userName, authType, newPassword) => {
-      return instance.request({
+      return axios.request({
         method: 'PUT',
         url: `${base}/api/v1/user/${userName}!@!${authType}/password`,
         data: {
           new_password: newPassword
         }
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     },
     /**
     * @summary update password for himself
@@ -159,15 +145,13 @@ const idm = (base, token) => {
     * });
     **/
     updatePassword: (oldPassword, newPassword) => {
-      return instance.request({
+      return axios.request({
         method: 'PUT',
         url: `${base}/api/v1/user/password`,
         data: {
           old_password: oldPassword,
           new_password: newPassword}
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     }
   });
 };

@@ -27,8 +27,6 @@ const deviceManager = (base) => {
         method: 'GET',
         url: url
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     },
     /**
     * @summary Delete a device definition and unregister it
@@ -47,9 +45,7 @@ const deviceManager = (base) => {
     delete: (deviceId) => axios({
       method: 'DELETE',
       url: `${base}/${deviceId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Register a new device based on information from ProtocolManager and device type
     * @name create
@@ -80,9 +76,7 @@ const deviceManager = (base) => {
         overview: deviceOverview,
         type: type
       }
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Get matching types for a device overview
     * @name typeof
@@ -110,8 +104,6 @@ const deviceManager = (base) => {
       url: `${base}/typeof`,
       data: deviceOverview
     })
-    .then(res => (res.data))
-    .catch(errorHandler)
   });
 };
 

@@ -3,29 +3,29 @@ import user from './user';
 import entity from './entity';
 import authentication from './authentication';
 
-const idm = (base, token) => {
+const idm = (base) => {
   base = `${base}`;
   return ({
     /**
     * @namespace group
     * @memberof agile.idm
     **/
-    group: group(base, token),
+    group: group(base),
     /**
     * @namespace user
     * @memberof agile.idm
     **/
-    user: user(base, token),
+    user: user(base),
     /**
     * @namespace entity
     * @memberof agile.idm
     **/
-    entity: entity(base, token),
+    entity: entity(base),
     /**
     * @namespace authentication
     * @memberof agile.idm
     **/
-    authentication: authentication(base, token)
+    authentication: authentication(base)
 
   });
 };
