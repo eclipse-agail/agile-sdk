@@ -6,7 +6,7 @@ import idm from './idm';
 import data from './data';
 import parseUrl from 'url-parse';
 import clone from 'lodash/clone';
-import { tokenSet } from './utils'
+import { tokenSet, tokenDelete, tokenGet } from './utils'
 /**
   * @namespace agile
   * @description
@@ -48,12 +48,33 @@ const agileSDK = (params) => {
     * @function
     * @memberof agile
     * @param {String} token - Idm Authentication token
-    * @fulfil {Token} token - Newly set Authentication
-    * @returns {String}
+    * @returns {String} token - Newly set Idm Authentication token
     * @example
     * agile.tokenSet('1234');
     **/
     tokenSet: tokenSet,
+    /**
+    * @summary Get Idm Authentication token
+    * @name tokenGet
+    * @public
+    * @function
+    * @memberof agile
+    * @returns {String}
+    * @example
+    * agile.tokenGet();
+    **/
+    tokenGet: tokenGet,
+    /**
+    * @summary Unset/delete Idm Authentication token
+    * @name tokenDelete
+    * @public
+    * @function
+    * @memberof agile
+    * @returns {String}
+    * @example
+    * agile.tokenDelete();
+    **/
+    tokenDelete: tokenDelete,
     /**
     * @namespace protocolManager
     * @memberof agile
