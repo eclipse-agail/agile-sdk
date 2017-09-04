@@ -3,7 +3,9 @@ import agileSDK from '../src/';
 import _ from 'lodash';
 
 const HOST = 'http://localhost:8080/';
-const agile = agileSDK(HOST);
+const agile = agileSDK({
+  api: HOST
+});
 const base = 'api/device/';
 const deviceId = 'bleB0B448BE5084';
 const expect = m.chai.expect;

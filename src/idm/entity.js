@@ -1,12 +1,7 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
-const entity = (base, token) => {
+const entity = (base) => {
   base = `${base}`;
-  var instance = axios.create({
-    headers: { 'Authorization': `bearer ${token}` }
-  });
-
   return ({
     /**
     * @summary List all entities by type
@@ -24,12 +19,10 @@ const entity = (base, token) => {
     **/
     getByType: (entityType) => {
       let url = `${base}/api/v1/entity/${entityType}`;
-      return instance.request({
+      return axios.request({
         method: 'GET',
         url: url
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     },
     /**
     * @summary List all entities which have a particular attribute value
@@ -53,15 +46,13 @@ const entity = (base, token) => {
           attribute_value: c.attributeValue
         };
       });
-      return instance.request({
+      return axios.request({
         method: 'POST',
         url: url,
         data: {
           criteria: cons
         }
       })
-      .then(res => (res.data))
-      .catch(errorHandler);
     },
     /**
     * @summary get Entity by entity id and type
@@ -78,12 +69,10 @@ const entity = (base, token) => {
     *   console.log('entity created!'+result);
     * });
     **/
-    get: (entityId, entityType) => instance.request({
+    get: (entityId, entityType) => axios.request({
       method: 'get',
       url: `${base}/api/v1/entity/${entityType}/${entityId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Create a group onwned by the authenticated user
     * @name create
@@ -100,13 +89,11 @@ const entity = (base, token) => {
     *   console.log('entity created!'+result);
     * });
     **/
-    create: (entityId, entityType, entity) => instance.request({
+    create: (entityId, entityType, entity) => axios.request({
       method: 'POST',
       url: `${base}/api/v1/entity/${entityType}/${entityId}`,
       data: entity
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Delete entity
     * @name delete
@@ -122,12 +109,10 @@ const entity = (base, token) => {
     *   console.log('group removed!');
     * });
     **/
-    delete: (entityId, entityType) => instance.request({
+    delete: (entityId, entityType) => axios.request({
       method: 'DELETE',
       url: `${base}/api/v1/entity/${entityType}/${entityId}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Set Entity's attribute
     * @name setAttribute
@@ -150,15 +135,13 @@ const entity = (base, token) => {
     *   console.log('entity created!'+result);
     * });
     **/
-    setAttribute: (params) => instance.request({
+    setAttribute: (params) => axios.request({
       method: 'PUT',
       url: `${base}/api/v1/entity/${params.entityType}/${params.entityId}/attribute/${params.attributeType}/`,
       data: {
         value: params.attributeValue
       }
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Delete Entity's attribute
     * @name deleteAttribute
@@ -175,12 +158,10 @@ const entity = (base, token) => {
     *   console.log('entity updated!'+result);
     * });
     **/
-    deleteAttribute: (entityId, entityType, attributeType) => instance.request({
+    deleteAttribute: (entityId, entityType, attributeType) => axios.request({
       method: 'DELETE',
       url: `${base}/api/v1/entity/${entityType}/${entityId}/attribute/${attributeType}/`
     })
-    .then(res => (res.data))
-    .catch(errorHandler)
   });
 };
 

@@ -21,9 +21,7 @@ const protocolManager = (base) => {
     get: () => axios({
       method: 'GET',
       url: `${base}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Unregister a Dbus Protocol object reference
     * @name delete
@@ -43,9 +41,7 @@ const protocolManager = (base) => {
     delete: () => axios({
       method: 'DELETE',
       url: `${base}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Register a new Dbus object implementing the protocol API
     * @name create
@@ -65,9 +61,7 @@ const protocolManager = (base) => {
     status: () => axios({
       method: 'POST',
       url: `${base}`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary List all discovered devices on all available protocols
     * @name devices
@@ -85,9 +79,7 @@ const protocolManager = (base) => {
     **/
     devices: () => axios({
       url: `${base}/devices`
-    })
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @namespace discovery
     * @memberof agile.protocolManager
