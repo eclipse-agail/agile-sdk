@@ -26,7 +26,7 @@ const group = (base, token) => {
       return axios.request({
         method: 'GET',
         url: url
-      })
+      });
     },
     /**
     * @summary Create a group onwned by the authenticated user

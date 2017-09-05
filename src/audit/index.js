@@ -1,12 +1,11 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
 const pdp = (base, token) => {
   base = `${base}`;
-  var instance = axios.create({
-    headers: { 'Authorization': `bearer ${token}` }
+  var instance = axios.create();
+  instance.interceptors.response.use((res) => {
+    return res.data.result;
   });
-
   return ({
     /**
     * @summary Get actions performed by currently logged in user
@@ -26,9 +25,7 @@ const pdp = (base, token) => {
       return instance.request({
         method: 'GET',
         url: url
-      })
-      .then(res => (res.data.result))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Get actions performed on entities owned by the user currently logged in
@@ -48,9 +45,7 @@ const pdp = (base, token) => {
       return instance.request({
         method: 'GET',
         url: url
-      })
-      .then(res => (res.data.result))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Removes actions performed on entities owned by the user currently logged in
@@ -69,9 +64,7 @@ const pdp = (base, token) => {
       return instance.request({
         method: 'DELETE',
         url: url
-      })
-      .then(res => (res.data.result))
-      .catch(errorHandler);
+      });
     }
   });
 };

@@ -3,9 +3,6 @@ import { errorHandler } from '../utils';
 
 const pdp = (base, token) => {
   base = `${base}`;
-  var instance = axios.create({
-    headers: { 'Authorization': `bearer ${token}` }
-  });
 
   return ({
     /**
@@ -30,12 +27,10 @@ const pdp = (base, token) => {
     get: (params) => {
       params.field = params.field || '';
       let url = `${base}/api/v1/pap/${params.entityType}/${params.entityId}/${params.field}`;
-      return instance.request({
+      return axios.request({
         method: 'GET',
         url: url
-      })
-      .then(res => (res.data.result))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Set policies for a particular entity and action or attribute
@@ -67,15 +62,13 @@ const pdp = (base, token) => {
     set: (params) => {
       params.field = params.field || '';
       let url = `${base}/api/v1/pap/${params.entityType}/${params.entityId}/${params.field}`;
-      return instance.request({
+      return axios.request({
         method: 'PUT',
         url: url,
         data: {
           policy: params.policy
         }
-      })
-      .then(res => (res.data.result))
-      .catch(errorHandler);
+      });
     },
     /**
     * @summary Delete policies for a particular entity and action or attribute
@@ -99,12 +92,10 @@ const pdp = (base, token) => {
     delete: (params) => {
       params.field = params.field || '';
       let url = `${base}/api/v1/pap/${params.entityType}/${params.entityId}/${params.field}`;
-      return instance.request({
+      return axios.request({
         method: 'DELETE',
         url: url
-      })
-      .then(res => (res.data.result))
-      .catch(errorHandler);
+      });
     }
 
   });

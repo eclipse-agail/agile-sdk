@@ -22,7 +22,7 @@ const entity = (base) => {
       return axios.request({
         method: 'GET',
         url: url
-      })
+      });
     },
     /**
     * @summary List all entities which have a particular attribute value
@@ -52,7 +52,7 @@ const entity = (base) => {
         data: {
           criteria: cons
         }
-      })
+      });
     },
     /**
     * @summary get Entity by entity id and type
@@ -161,11 +161,7 @@ const entity = (base) => {
     deleteAttribute: (entityId, entityType, attributeType) => axios.request({
       method: 'DELETE',
       url: `${base}/api/v1/entity/${entityType}/${entityId}/attribute/${attributeType}/`
-    })
-<<<<<<< HEAD
-=======
-    .then(res => (res.data))
-    .catch(errorHandler),
+    }),
     /**
     * @summary Get Entities schema
     * @name getEntitiesSchema
@@ -179,13 +175,10 @@ const entity = (base) => {
     *   console.log('schema for the entities'+jsonschema);
     * });
     **/
-    getEntitiesSchema: () => instance.request({
+    getEntitiesSchema: () => axios.request({
       method: 'GET',
       url: `${base}/api/v1/entity_types/`
     })
-    .then(res => (res.data))
-    .catch(errorHandler)
-
   });
 };
 
