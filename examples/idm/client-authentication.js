@@ -1,4 +1,4 @@
-var config = require('./token_conf');
+var config = require('../token_conf');
 var agile = require('../../dist')(config);
 
 agile.idm.user.getCurrentUserInfo()

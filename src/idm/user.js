@@ -44,7 +44,7 @@ const idm = (base) => {
           auth_type: authType,
           user_name: userName
         }
-      })
+      });
     },
     /**
     * @summary Create user
@@ -77,7 +77,7 @@ const idm = (base) => {
         method: 'POST',
         url: `${base}/api/v1/user/`,
         data: user
-      })
+      });
     },
     /**
     * @summary Delete a user
@@ -102,7 +102,7 @@ const idm = (base) => {
           auth_type: authType,
           user_name: userName
         }
-      })
+      });
     },
     /**
     * @summary Reset password for any user. The user executing this action needs to be allowed to do this, e.g. admin.
@@ -127,7 +127,7 @@ const idm = (base) => {
         data: {
           new_password: newPassword
         }
-      })
+      });
     },
     /**
     * @summary update password for himself
@@ -151,7 +151,7 @@ const idm = (base) => {
         data: {
           old_password: oldPassword,
           new_password: newPassword}
-      })
+      });
     }
   });
 };
