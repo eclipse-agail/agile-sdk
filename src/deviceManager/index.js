@@ -26,7 +26,7 @@ const deviceManager = (base) => {
       return axios({
         method: 'GET',
         url: url
-      })
+      });
     },
     /**
     * @summary Delete a device definition and unregister it

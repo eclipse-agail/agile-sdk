@@ -9,7 +9,7 @@ import audit from './audit';
 
 import parseUrl from 'url-parse';
 import clone from 'lodash/clone';
-import { tokenSet, tokenDelete, tokenGet } from './utils'
+import { tokenSet, tokenDelete, tokenGet } from './utils';
 /**
   * @namespace agile
   * @description

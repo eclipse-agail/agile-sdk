@@ -21,7 +21,7 @@ axios.interceptors.response.use((response) => {
 
 export const tokenSet = (token) => {
   if (token) {
-    axios.defaults.headers.common['Authorization'] = `bearer ${token}`
+    axios.defaults.headers.common['Authorization'] = `bearer ${token}`;
   }
   return token;
 };
@@ -33,6 +33,6 @@ export const tokenDelete = (token) => {
 
 export const tokenGet = (token) => {
   if (axios.defaults.headers.common['Authorization']) {
-    return axios.defaults.headers.common['Authorization'].split(' ')[1]
+    return axios.defaults.headers.common['Authorization'].split(' ')[1];
   }
 };

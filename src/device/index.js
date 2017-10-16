@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { errorHandler } from '../utils';
 const WS = require('websocket').w3cwebsocket;
+const WEB_SOCKETS = {};
 
 const device = (base, wsBase) => {
   base = `${base}/device`;
@@ -25,7 +26,7 @@ const device = (base, wsBase) => {
       url: `${base}/${deviceId}/status`
     })
     .then(data => {
-      return data.status
+      return data.status;
     }),
     /**
     * @summary Read values of all components from the device
@@ -174,7 +175,15 @@ const device = (base, wsBase) => {
     * });
     **/
     subscribe: (deviceId, componentId) => {
-      return Promise.resolve(new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`));
+      const id = deviceId + componentId;
+      if (!WEB_SOCKETS.hasOwnProperty(id)) {
+        try {
+          WEB_SOCKETS[id] = new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`);
+        } catch (err) {
+          Promise.reject(err);
+        }
+      }
+      return Promise.resolve(WEB_SOCKETS[id]);
     },
     /**
     * @summary Unsubscribe from a data stream
@@ -187,14 +196,24 @@ const device = (base, wsBase) => {
     * @fulfil {undefined}
     * @returns {Promise}
     * @example
-    * agile.device.get('bleB0B448BE5084', 'Temperature').then(function() {
+    * agile.device.unsubscribe('bleB0B448BE5084', 'Temperature').then(function() {
     *  console.log('Unsubscribed!');
     * });
     **/
-    unsubscribe: (deviceId, componentId) => axios({
-      method: 'DELETE',
-      url: `${base}/${deviceId}/${componentId}/subscribe`
-    })
+    unsubscribe: (deviceId, componentId) => {
+      const id = deviceId + componentId;
+      if (WEB_SOCKETS.hasOwnProperty(id)) {
+        try {
+          WEB_SOCKETS[id].close();
+          delete WEB_SOCKETS[id];
+        } catch (err) {
+          Promise.reject(err);
+        }
+      } else {
+        return Promise.reject(new Error('No websocket registered, ensure you run .subscribe before .unsubscribe'));
+      }
+      return Promise.resolve();
+    }
   });
 };
 
