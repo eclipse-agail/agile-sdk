@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { errorHandler } from '../utils';
 const WS = require('websocket').w3cwebsocket;
+const websockets = {};
 
 const device = (base, wsBase) => {
   base = `${base}/device`;
@@ -174,7 +175,11 @@ const device = (base, wsBase) => {
     * });
     **/
     subscribe: (deviceId, componentId) => {
-      return Promise.resolve(new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`));
+      var id = deviceId+componentId;
+      if (! websockets.hasOwnProperty(id)) {
+        websockets[id] = new WS(`${wsBase}/${deviceId}/${componentId}/subscribe`);
+      }
+      return Promise.resolve(websockets[id]);
     },
     /**
     * @summary Unsubscribe from a data stream
@@ -191,10 +196,13 @@ const device = (base, wsBase) => {
     *  console.log('Unsubscribed!');
     * });
     **/
-    unsubscribe: (deviceId, componentId) => axios({
-      method: 'DELETE',
-      url: `${base}/${deviceId}/${componentId}/subscribe`
-    })
+    unsubscribe: (deviceId, componentId) => {
+      var id = deviceId+componentId;
+      if (websockets.hasOwnProperty(id)) {
+        websockets[id].close();
+        delete websockets[id];
+      }
+    }
   });
 };
 
