@@ -127,7 +127,7 @@ const entity = (base) => {
     * @returns {Promise}
     * @example
     * agile.idm.entity.setAttribute({
-          entityId: '1',,
+          entityId: '1',
           entityType: 'device',
           attributeType: 'credentials',
           attributeValue: {'dropbox':'entity credentials for drop'}
