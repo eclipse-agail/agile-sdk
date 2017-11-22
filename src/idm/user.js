@@ -116,7 +116,7 @@ const idm = (base) => {
     * @fulfil {Undefined}
     * @returns {Promise}
     * @example
-    * agile.idm.user.setPassword('bob','agile-local',"myNewPassword").then(function() {
+    * agile.idm.user.resetPassword('bob','agile-local',"myNewPassword").then(function() {
     *   console.log('password updated!');
     * });
     **/
