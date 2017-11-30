@@ -21,7 +21,7 @@ axios.interceptors.response.use((response) => {
 
 export const tokenSet = (token) => {
   if (token) {
-    axios.defaults.headers.common['Authorization'] = `bearer ${token}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
   return token;
 };
