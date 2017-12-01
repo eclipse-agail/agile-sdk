@@ -1231,7 +1231,9 @@ agile.data.record.get()
   console.log(subscription);
 });
 
-const query = 'where={"deviceID":"mySensor"}&order={"by":"time","direction":"ASC"}'
+// you can use any valid mongo-querystring
+// https://www.npmjs.com/package/mongo-querystring
+const query = 'deviceID=mySensor'
 agile.data.record.get(query)
 .then(function(records) {
   console.log(records);
