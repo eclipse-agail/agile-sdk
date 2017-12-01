@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
 const discovery = (base) => {
   const protocolBase = base.slice(0, -1);

@@ -10,14 +10,7 @@ const expect = m.chai.expect;
 
 describe('protocolManager', function() {
   describe('.discovery', function() {
-    describe('.status', function() {
-      it('should return Array of protocol + statuses', function(done) {
-        agile.protocolManager.discovery.status().then((data) => {
-           expect(data).to.be.an('Array');
-          done()
-        })
-      });
-    });
+    this.timeout(5000)
 
     describe('.stop', function() {
       it('should stop without error', function() {
@@ -38,6 +31,13 @@ describe('protocolManager', function() {
   describe('.get', function() {
     it('expect to return array of protocols', function() {
       const promise = agile.protocolManager.get()
+      return expect(promise).to.eventually.be.an('Array');
+    });
+  });
+
+  describe('.devices', function() {
+    it('expect to return array of discovered devices', function() {
+      const promise = agile.protocolManager.devices()
       return expect(promise).to.eventually.be.an('Array');
     });
   });
