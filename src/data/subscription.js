@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
 const subscription = (base) => {
   base = `${base}/subscription`;
@@ -104,7 +103,7 @@ const subscription = (base) => {
       let url = `${base}`;
 
       if (id) {
-        let url = `${base}/${id}`;
+        url = `${base}/${id}`;
       }
 
       return axios({

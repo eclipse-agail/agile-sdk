@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
 const subscription = (base) => {
   base = `${base}/record`;

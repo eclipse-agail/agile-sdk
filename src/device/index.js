@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
+
 const WS = require('websocket').w3cwebsocket;
 const WEB_SOCKETS = {};
 

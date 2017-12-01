@@ -1,6 +1,4 @@
 import axios from 'axios';
-import qs from 'qs';
-import { errorHandler } from '../utils';
 
 const entity = (base, token) => {
   base = `${base}`;

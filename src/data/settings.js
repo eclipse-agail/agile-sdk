@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { errorHandler } from '../utils';
 
 const settings = (base) => {
   base = `${base}/settings`;

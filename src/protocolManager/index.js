@@ -1,6 +1,5 @@
 import axios from 'axios';
 import discovery from './discovery';
-import { errorHandler } from '../utils';
 
 const protocolManager = (base) => {
   base = `${base}/protocols`;

@@ -21,4 +21,5 @@ before_install:
 - screen -d -m bash /tmp/ssh.sh
 
 script:
+  - npm run lint
   - npm test
