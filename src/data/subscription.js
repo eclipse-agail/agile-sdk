@@ -94,12 +94,12 @@ const subscription = (base) => {
     * @public
     * @function
     * @memberof agile.data.subscription
-    * @param [subscriptionID] {String} - Agile data subscriptionID
+    * @param [query] {String} - Basic query that is transformed to influx sql
     * @fulfil {Object|Array}
     * @returns {Promise}
     *
     * @example
-    * agile.data.subscription.get('5991b583553d6897bd14f87d')
+    * agile.data.subscription.get('id=5991b583553d6897bd14f87d')
     * .then(function(subscription) {
     *   console.log(subscription);
     * });
@@ -108,16 +108,10 @@ const subscription = (base) => {
     *   console.log(subscriptions);
     * });
     **/
-    get: (id) => {
-      let url = `${base}`;
-
-      if (id) {
-        url = `${base}/${id}`;
-      }
-
+    get: (query) => {
       return axios({
         method: 'GET',
-        url: url
+        url: query ? `${base}?${query}` : base
       });
     }
   });
