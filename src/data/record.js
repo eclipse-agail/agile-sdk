@@ -43,6 +43,30 @@ const subscription = (base) => {
         method: 'GET',
         url: query ? `${base}?${query}` : base
       });
+    },
+
+    /**
+    * @summary Delete records from gateway
+    * @name delete
+    * @public
+    * @function
+    * @memberof agile.data.record
+    * @param [query] {String} - Basic query that is transformed to influx sql
+    * @fulfil {null}
+    * @returns {Promise}
+    *
+    * @example
+    * agile.data.record.delete('deviceID="myDevice&componentID="temperature""')
+    * .then(function() {
+    *   console.log('Data deleted!');
+    * });
+    **/
+
+    delete: (query) => {
+      return axios({
+        method: 'DELETE',
+        url: query ? `${base}?${query}` : base
+      });
     }
   });
 };
