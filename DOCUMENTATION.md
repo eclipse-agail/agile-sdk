@@ -85,6 +85,7 @@ var agile = require('agile-sdk')({
             * [.get([query])](#agile.data.subscription.get) ⇒ <code>Promise</code>
         * [.record](#agile.data.record) : <code>object</code>
             * [.get([query])](#agile.data.record.get) ⇒ <code>Promise</code>
+            * [.delete([query])](#agile.data.record.delete) ⇒ <code>Promise</code>
         * [.settings](#agile.data.settings) : <code>object</code>
             * [.get()](#agile.data.settings.get) ⇒ <code>Promise</code>
             * [.update(settings)](#agile.data.settings.update) ⇒ <code>Promise</code>
@@ -1105,6 +1106,7 @@ agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0Gsp
         * [.get([query])](#agile.data.subscription.get) ⇒ <code>Promise</code>
     * [.record](#agile.data.record) : <code>object</code>
         * [.get([query])](#agile.data.record.get) ⇒ <code>Promise</code>
+        * [.delete([query])](#agile.data.record.delete) ⇒ <code>Promise</code>
     * [.settings](#agile.data.settings) : <code>object</code>
         * [.get()](#agile.data.settings.get) ⇒ <code>Promise</code>
         * [.update(settings)](#agile.data.settings.update) ⇒ <code>Promise</code>
@@ -1212,6 +1214,11 @@ agile.data.subscription.get()
 
 #### data.record : <code>object</code>
 **Kind**: static namespace of [<code>data</code>](#agile.data)  
+
+* [.record](#agile.data.record) : <code>object</code>
+    * [.get([query])](#agile.data.record.get) ⇒ <code>Promise</code>
+    * [.delete([query])](#agile.data.record.delete) ⇒ <code>Promise</code>
+
 <a name="agile.data.record.get"></a>
 
 ##### record.get([query]) ⇒ <code>Promise</code>
@@ -1237,6 +1244,25 @@ const query = 'deviceID=mySensor'
 agile.data.record.get(query)
 .then(function(records) {
   console.log(records);
+});
+```
+<a name="agile.data.record.delete"></a>
+
+##### record.delete([query]) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>record</code>](#agile.data.record)  
+**Summary**: Delete records from gateway  
+**Access**: public  
+**Fulfil**: <code>null</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [query] | <code>String</code> | Basic query that is transformed to influx sql |
+
+**Example**  
+```js
+agile.data.record.delete('deviceID="myDevice&componentID="temperature""')
+.then(function() {
+  console.log('Data deleted!');
 });
 ```
 <a name="agile.data.settings"></a>
