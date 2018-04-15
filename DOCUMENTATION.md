@@ -91,8 +91,8 @@ var agile = require('agile-sdk')({
             * [.update(settings)](#agile.data.settings.update) ⇒ <code>Promise</code>
     * [.cloud](#agile.cloud) : <code>object</code>
         * [.getCloudsInfo()](#agile.cloud.getCloudsInfo) ⇒ <code>Promise</code>
-        * [.getCloudInfo()](#agile.cloud.getCloudInfo) ⇒ <code>Promise</code>
-        * [.exportDataToCloud([cloudName], [dataQuery], [customArgs])](#agile.cloud.exportDataToCloud) ⇒ <code>Promise</code>
+        * [.getCloudInfo(cloudName)](#agile.cloud.getCloudInfo) ⇒ <code>Promise</code>
+        * [.exportDataToCloud(cloudName, dataQuery, customArgs)](#agile.cloud.exportDataToCloud) ⇒ <code>Promise</code>
     * [.policies](#agile.policies) : <code>object</code>
         * [.pdp](#agile.policies.pdp) : <code>object</code>
             * [.evaluate(PDP)](#agile.policies.pdp.evaluate) ⇒ <code>Promise</code>
@@ -1320,8 +1320,8 @@ agile.data.settings.update({
 
 * [.cloud](#agile.cloud) : <code>object</code>
     * [.getCloudsInfo()](#agile.cloud.getCloudsInfo) ⇒ <code>Promise</code>
-    * [.getCloudInfo()](#agile.cloud.getCloudInfo) ⇒ <code>Promise</code>
-    * [.exportDataToCloud([cloudName], [dataQuery], [customArgs])](#agile.cloud.exportDataToCloud) ⇒ <code>Promise</code>
+    * [.getCloudInfo(cloudName)](#agile.cloud.getCloudInfo) ⇒ <code>Promise</code>
+    * [.exportDataToCloud(cloudName, dataQuery, customArgs)](#agile.cloud.exportDataToCloud) ⇒ <code>Promise</code>
 
 <a name="agile.cloud.getCloudsInfo"></a>
 
@@ -1338,11 +1338,16 @@ agile.cloud.getCloudsInfo().then(function(providers) {
 ```
 <a name="agile.cloud.getCloudInfo"></a>
 
-#### cloud.getCloudInfo() ⇒ <code>Promise</code>
+#### cloud.getCloudInfo(cloudName) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>cloud</code>](#agile.cloud)  
 **Summary**: Get the description of a supported cloud provider  
 **Access**: public  
 **Fulfil**: <code>Object</code> - Description of the cloud provider  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| cloudName | <code>String</code> | The name of the cloud provider |
+
 **Example**  
 ```js
 agile.cloud.getCloudInfo('owncloud').then(function(description) {
@@ -1352,7 +1357,7 @@ agile.cloud.getCloudInfo('owncloud').then(function(description) {
 ```
 <a name="agile.cloud.exportDataToCloud"></a>
 
-#### cloud.exportDataToCloud([cloudName], [dataQuery], [customArgs]) ⇒ <code>Promise</code>
+#### cloud.exportDataToCloud(cloudName, dataQuery, customArgs) ⇒ <code>Promise</code>
 **Kind**: static method of [<code>cloud</code>](#agile.cloud)  
 **Summary**: Export local data to a cloud  
 **Access**: public  
@@ -1360,9 +1365,9 @@ agile.cloud.getCloudInfo('owncloud').then(function(description) {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [cloudName] | <code>String</code> | The name of the cloud provider |
-| [dataQuery] | <code>Object</code> | An object encoding a sql query |
-| [customArgs] | <code>Object</code> | Cloud provider specific custom arguments |
+| cloudName | <code>String</code> | The name of the cloud provider |
+| dataQuery | <code>Object</code> | An object encoding a sql query |
+| customArgs | <code>Object</code> | Cloud provider specific custom arguments |
 
 **Example**  
 ```js

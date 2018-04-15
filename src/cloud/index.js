@@ -36,6 +36,7 @@ const cloud = (base) => {
     * @summary Get the description of a supported cloud provider
     * @name getCloudInfo
     * @public
+    * @param cloudName {String} - The name of the cloud provider
     * @function
     * @memberof agile.cloud
     * @fulfil {Object} - Description of the cloud provider
@@ -56,9 +57,9 @@ const cloud = (base) => {
     * @summary Export local data to a cloud
     * @name exportDataToCloud
     * @public
-    * @param [cloudName] {String} - The name of the cloud provider
-    * @param [dataQuery] {Object} - An object encoding a sql query
-    * @param [customArgs] {Object} - Cloud provider specific custom arguments
+    * @param cloudName {String} - The name of the cloud provider
+    * @param dataQuery {Object} - An object encoding a sql query
+    * @param customArgs {Object} - Cloud provider specific custom arguments
     * @function
     * @memberof agile.cloud
     * @fulfil {null}
