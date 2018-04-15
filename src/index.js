@@ -13,6 +13,7 @@ import device from './device';
 import protocol from './protocol';
 import idm from './idm';
 import data from './data';
+import cloud from './cloud';
 import policies from './policies';
 import audit from './audit';
 
@@ -116,6 +117,11 @@ const agileSDK = (params) => {
     * @memberof agile
     **/
     data: data(dataBase),
+    /**
+    * @namespace cloud
+    * @memberof agile
+    **/
+    cloud: cloud(dataBase),
     /**
     * @namespace policies
     * @memberof agile
