@@ -30,7 +30,7 @@ const cloud = (base) => {
       return axios({
         method: 'GET',
         url: `${base}/cloud`
-      })
+      });
     },
     /**
     * @summary Get the description of a supported cloud provider
@@ -51,7 +51,7 @@ const cloud = (base) => {
       return axios({
         method: 'GET',
         url: `${base}/cloud/${cloudName}`
-      })
+      });
     },
     /**
     * @summary Export local data to a cloud
@@ -89,7 +89,7 @@ const cloud = (base) => {
           query: dataQuery,
           customArgs
         }
-      })
+      });
     }
   });
 };
