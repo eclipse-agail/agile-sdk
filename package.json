@@ -1,0 +1,48 @@
+{
+  "name": "agile-sdk",
+  "version": "1.4.0",
+  "description": "javascript wrapper for agile-iot sdk",
+  "repository": "https://github.com/Agile-IoT/agile-sdk",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "babel-node ./node_modules/.bin/_mocha",
+    "lint": "eslint src/**",
+    "lint-examples": "eslint examples/** --fix",
+    "lint:fix": "eslint src/** --fix",
+    "docs": "jsdoc2md 'src/**/*.js' > DOCUMENTATION.md",
+    "watch": "babel src -w --out-dir dist --copy-files",
+    "build": "babel src --out-dir dist --copy-files && npm run build-browser",
+    "build-browser": "webpack -p dist/index.js dist/bundle.js --output-library agileSDK",
+    "version": "versionist",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "iot"
+  ],
+  "author": "craig-mulligan",
+  "browser": {
+    "websocket": "./dist/websocket.js"
+  },
+  "license": "EPL-2.0",
+  "dependencies": {
+    "axios": "0.15.3",
+    "lodash": "4.17.4",
+    "qs": "^6.4.0",
+    "url-parse": "1.1.7",
+    "websocket": "1.0.24"
+  },
+  "devDependencies": {
+    "babel-cli": "6.23.0",
+    "babel-preset-es2015": "6.22.0",
+    "eslint": "3.15.0",
+    "eslint-config-semistandard": "7.0.0",
+    "eslint-config-standard": "6.0.0",
+    "eslint-plugin-promise": "3.4.2",
+    "eslint-plugin-standard": "2.0.1",
+    "lodash": "4.17.4",
+    "mocha": "3.2.0",
+    "mochainon": "1.0.0",
+    "versionist": "2.8.1",
+    "webpack": "2.2.1"
+  }
+}
