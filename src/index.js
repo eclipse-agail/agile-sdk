@@ -117,7 +117,10 @@ const agileSDK = (params) => {
     * @memberof agile
     **/
     data: data(dataBase),
-
+    /**
+    * @namespace cloud
+    * @memberof agile
+    **/
     cloud: cloud(dataBase),
     /**
     * @namespace policies

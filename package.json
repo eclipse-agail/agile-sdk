@@ -1,6 +1,6 @@
 {
   "name": "agile-sdk",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "javascript wrapper for agile-iot sdk",
   "repository": "https://github.com/Agile-IoT/agile-sdk",
   "main": "dist/index.js",
