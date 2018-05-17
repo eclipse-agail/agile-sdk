@@ -118,7 +118,7 @@ const device = (base, wsBase) => {
     * });
     **/
     execute: (deviceId, command) => axios({
-      method: 'GET',
+      method: 'POST',
       url: `${base}/${deviceId}/execute/${command}`
     }),
     /**
