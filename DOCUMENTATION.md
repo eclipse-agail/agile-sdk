@@ -1121,7 +1121,7 @@ agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0Gsp
 
 **Example**  
 ```js
-agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V').then(function(result) {
+agile.idm.authentication.authenticateUser('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V', 'agile', 'secret').then(function(result) {
   console.log(credentials.access_token);
   console.log(credentials.token_type);
 });

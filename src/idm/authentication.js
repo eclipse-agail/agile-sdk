@@ -54,11 +54,11 @@ const entity = (base, token) => {
   * @param {String} client - client name. This is the client name provided to the create Entity when you register an Oauth2 client in AGILE-IDM. For more info: https://github.com/Agile-IoT/agile-idm-oauth2-client-example
   * @param {String} secret - client secret. This is the client name provided to the create Entity when you register an Oauth2 client in AGILE-IDM. For more info: https://github.com/Agile-IoT/agile-idm-oauth2-client-example
   * @param {String} username - username for agile-local user
-  * @param {String} password - password for the agile-local user 
+  * @param {String} password - password for the agile-local user
   * @fulfil {Object} Authentication information including token_type and access_token
   * @returns {Promise}
   * @example
-  * agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V').then(function(result) {
+  * agile.idm.authentication.authenticateUser('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V', 'agile', 'secret').then(function(result) {
   *   console.log(credentials.access_token);
   *   console.log(credentials.token_type);
   * });
