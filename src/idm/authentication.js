@@ -76,7 +76,7 @@ const entity = (base, token) => {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: {
-        grant_type: 'client_credentials',
+        grant_type: 'password',
         username: username,
         password : password
       }
