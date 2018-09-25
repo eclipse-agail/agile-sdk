@@ -77,6 +77,7 @@ var agile = require('agile-sdk')({
             * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
         * [.authentication](#agile.idm.authentication) : <code>object</code>
             * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
+            * [.authenticateUser(client, secret, username, password)](#agile.idm.authentication.authenticateUser) ⇒ <code>Promise</code>
     * [.data](#agile.data) : <code>object</code>
         * [.subscription](#agile.data.subscription) : <code>object</code>
             * [.create([subscription])](#agile.data.subscription.create) ⇒ <code>Promise</code>
@@ -667,6 +668,7 @@ agile.protocol.write('Bluetooth LE', 'bleB0B448BE5084', data).then(function() {
         * [.getEntitiesSchema()](#agile.idm.entity.getEntitiesSchema) ⇒ <code>Promise</code>
     * [.authentication](#agile.idm.authentication) : <code>object</code>
         * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
+        * [.authenticateUser(client, secret, username, password)](#agile.idm.authentication.authenticateUser) ⇒ <code>Promise</code>
 
 <a name="agile.idm.group"></a>
 
@@ -1077,6 +1079,11 @@ agile.idm.entity.getEntitiesSchema().then(function(jsonschema) {
 
 #### idm.authentication : <code>object</code>
 **Kind**: static namespace of [<code>idm</code>](#agile.idm)  
+
+* [.authentication](#agile.idm.authentication) : <code>object</code>
+    * [.authenticateClient(client, secret)](#agile.idm.authentication.authenticateClient) ⇒ <code>Promise</code>
+    * [.authenticateUser(client, secret, username, password)](#agile.idm.authentication.authenticateUser) ⇒ <code>Promise</code>
+
 <a name="agile.idm.authentication.authenticateClient"></a>
 
 ##### authentication.authenticateClient(client, secret) ⇒ <code>Promise</code>
@@ -1093,6 +1100,28 @@ agile.idm.entity.getEntitiesSchema().then(function(jsonschema) {
 **Example**  
 ```js
 agile.idm.authentication.authenticateClient('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V').then(function(result) {
+  console.log(credentials.access_token);
+  console.log(credentials.token_type);
+});
+```
+<a name="agile.idm.authentication.authenticateUser"></a>
+
+##### authentication.authenticateUser(client, secret, username, password) ⇒ <code>Promise</code>
+**Kind**: static method of [<code>authentication</code>](#agile.idm.authentication)  
+**Summary**: Authenticate a user for a particular client (application) relying on agile-security for user authentication.  
+**Access**: public  
+**Fulfil**: <code>Object</code> Authentication information including token_type and access_token  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| client | <code>String</code> | client name. This is the client name provided to the create Entity when you register an Oauth2 client in AGILE-IDM. For more info: https://github.com/Agile-IoT/agile-idm-oauth2-client-example |
+| secret | <code>String</code> | client secret. This is the client name provided to the create Entity when you register an Oauth2 client in AGILE-IDM. For more info: https://github.com/Agile-IoT/agile-idm-oauth2-client-example |
+| username | <code>String</code> | username for agile-local user |
+| password | <code>String</code> | password for the agile-local user |
+
+**Example**  
+```js
+agile.idm.authentication.authenticateUser('MyAgileClient2','WLnhhc3LnesbYj0GspNA13zgJEroN8V', 'agile', 'secret').then(function(result) {
   console.log(credentials.access_token);
   console.log(credentials.token_type);
 });
