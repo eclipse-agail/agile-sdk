@@ -62,25 +62,25 @@ const entity = (base, token) => {
   *   console.log(credentials.token_type);
   * });
   **/
-  authenticateUser: (client, secret, username, password) => {
-    let url = `${base}/oauth2/token`;
-    return axios.request({
-      method: 'POST',
-      url: url,
-      auth: {
-        username: client,
-        password: secret
-      },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        grant_type: 'password',
-        username: username,
-        password : password
-      }
-    });
-  }
+    authenticateUser: (client, secret, username, password) => {
+      let url = `${base}/oauth2/token`;
+      return axios.request({
+        method: 'POST',
+        url: url,
+        auth: {
+          username: client,
+          password: secret
+        },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          grant_type: 'password',
+          username: username,
+          password: password
+        }
+      });
+    }
   });
 };
 
