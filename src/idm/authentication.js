@@ -43,8 +43,7 @@ const entity = (base, token) => {
         },
         data: { grant_type: 'client_credentials' }
       });
-    }
-  },{
+    },
   /**
   * @summary Authenticate a user for a particular client (application) relying on agile-security for user authentication.
   * @name authenticateUser
