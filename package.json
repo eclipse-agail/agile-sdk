@@ -1,5 +1,5 @@
 {
-  "name": "sdk-temp-wip",
+  "name": "agile-sdk",
   "version": "1.4.0",
   "description": "javascript wrapper for agile-iot sdk",
   "repository": "https://github.com/Agile-IoT/agile-sdk",
