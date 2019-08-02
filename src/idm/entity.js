@@ -13,19 +13,19 @@ const entity = (base) => {
   base = `${base}`;
   return ({
     /**
-    * @summary List all entities by type
-    * @name getByType
-    * @public
-    * @function
-    * @memberof agile.idm.entity
-    * @param {String} entityType - type of entity
-    * @fulfil {Array} all entities with a given type
-    * @returns {Promise}
-    * @example
-    * agile.idm.entity.getByType('device').then(function(entities) {
-    *   console.log(entities);
-    * });
-    **/
+     * @summary List all entities by type
+     * @name getByType
+     * @public
+     * @function
+     * @memberof agile.idm.entity
+     * @param {String} entityType - type of entity
+     * @fulfil {Array} all entities with a given type
+     * @returns {Promise}
+     * @example
+     * agile.idm.entity.getByType('device').then(function(entities) {
+     *   console.log(entities);
+     * });
+     **/
     getByType: (entityType) => {
       let url = `${base}/api/v1/entity/${entityType}`;
       return axios.request({
@@ -34,19 +34,19 @@ const entity = (base) => {
       });
     },
     /**
-    * @summary List all entities which have a particular attribute value
-    * @name getByAttributeValue
-    * @public
-    * @function
-    * @memberof agile.idm.entity
-    * @param {Array} constraints - contains objects containing objects with the property  'attributeType' to specify the attribute type and with the property 'attributeValue' to specify the expected attribute value
-    * @fulfil {Array} all entities with a given type
-    * @returns {Promise}
-    * @example
-    * agile.idm.entity.getByAttributeValue([{attributeType:'credentials.dropbox','attributeValue':'expected attribute value for dropbox credentials'}]).then(function(entities) {
-    *   console.log(entities);
-    * });
-    **/
+     * @summary List all entities which have a particular attribute value
+     * @name getByAttributeValue
+     * @public
+     * @function
+     * @memberof agile.idm.entity
+     * @param {Array} constraints - contains objects containing objects with the property  'attributeType' to specify the attribute type and with the property 'attributeValue' to specify the expected attribute value. You can set a wildcard for the 'attributeValue' with the asterix * symbol.
+     * @fulfil {Array} all entities with a given type
+     * @returns {Promise}
+     * @example
+     * agile.idm.entity.getByAttributeValue([{attributeType:'credentials.dropbox','attributeValue':'expected attribute value for dropbox credentials'}]).then(function(entities) {
+     *   console.log(entities);
+     * });
+     **/
     getByAttributeValue: (constraints) => {
       let url = `${base}/api/v1/entity/search`;
       var cons = constraints.map((c) => {
@@ -64,60 +64,60 @@ const entity = (base) => {
       });
     },
     /**
-    * @summary get Entity by entity id and type
-    * @name get
-    * @public
-    * @function
-    * @memberof agile.idm.entity
-    * @param {String} entityId - id of entity
-    * @param {String} entityType - type of entity
-    * @fulfil {Object} entity entity
-    * @returns {Promise}
-    * @example
-    * agile.idm.entity.get('1','device').then(function(result) {
-    *   console.log('entity created!'+result);
-    * });
-    **/
+     * @summary get Entity by entity id and type
+     * @name get
+     * @public
+     * @function
+     * @memberof agile.idm.entity
+     * @param {String} entityId - id of entity
+     * @param {String} entityType - type of entity
+     * @fulfil {Object} entity entity
+     * @returns {Promise}
+     * @example
+     * agile.idm.entity.get('1','device').then(function(result) {
+     *   console.log('entity created!'+result);
+     * });
+     **/
     get: (entityId, entityType) => axios.request({
       method: 'get',
       url: `${base}/api/v1/entity/${entityType}/${entityId}`
     }),
     /**
-    * @summary Create a group onwned by the authenticated user
-    * @name create
-    * @public
-    * @function
-    * @memberof agile.idm.entity
-    * @param {String} entityId - id of entity
-    * @param {String} entityType - type of entity
-    * @param {object} entity - An object containing the entity
-    * @fulfil {Object} entity created
-    * @returns {Promise}
-    * @example
-    * agile.idm.entity.create('1','device',{'name':'entity name'}).then(function(result) {
-    *   console.log('entity created!'+result);
-    * });
-    **/
+     * @summary Create a group onwned by the authenticated user
+     * @name create
+     * @public
+     * @function
+     * @memberof agile.idm.entity
+     * @param {String} entityId - id of entity
+     * @param {String} entityType - type of entity
+     * @param {object} entity - An object containing the entity
+     * @fulfil {Object} entity created
+     * @returns {Promise}
+     * @example
+     * agile.idm.entity.create('1','device',{'name':'entity name'}).then(function(result) {
+     *   console.log('entity created!'+result);
+     * });
+     **/
     create: (entityId, entityType, entity) => axios.request({
       method: 'POST',
       url: `${base}/api/v1/entity/${entityType}/${entityId}`,
       data: entity
     }),
     /**
-    * @summary Delete entity
-    * @name delete
-    * @public
-    * @function
-    * @memberof agile.idm.entity
-    * @param {String} entityId - id of entity
-    * @param {String} entityType - type of entity
-    * @fulfil {Undefined}
-    * @returns {Promise}
-    * @example
-    * agile.idm.entity.delete('1','device').then(function() {
-    *   console.log('group removed!');
-    * });
-    **/
+     * @summary Delete entity
+     * @name delete
+     * @public
+     * @function
+     * @memberof agile.idm.entity
+     * @param {String} entityId - id of entity
+     * @param {String} entityType - type of entity
+     * @fulfil {Undefined}
+     * @returns {Promise}
+     * @example
+     * agile.idm.entity.delete('1','device').then(function() {
+     *   console.log('group removed!');
+     * });
+     **/
     delete: (entityId, entityType) => axios.request({
       method: 'DELETE',
       url: `${base}/api/v1/entity/${entityType}/${entityId}`
@@ -152,38 +152,38 @@ const entity = (base) => {
       }
     }),
     /**
-    * @summary Delete Entity's attribute
-    * @name deleteAttribute
-    * @public
-    * @function
-    * @memberof agile.idm.entity
-    * @param {String} entityId - id of entity
-    * @param {String} entityType - type of entity
-    * @param {String} attributeName- name of the attribute
-    * @fulfil {Object} entity updated entity
-    * @returns {Promise}
-    * @example
-    * agile.idm.entity.deleteAttribute('1','device','credentials').then(function(result) {
-    *   console.log('entity updated!'+result);
-    * });
-    **/
+     * @summary Delete Entity's attribute
+     * @name deleteAttribute
+     * @public
+     * @function
+     * @memberof agile.idm.entity
+     * @param {String} entityId - id of entity
+     * @param {String} entityType - type of entity
+     * @param {String} attributeName- name of the attribute
+     * @fulfil {Object} entity updated entity
+     * @returns {Promise}
+     * @example
+     * agile.idm.entity.deleteAttribute('1','device','credentials').then(function(result) {
+     *   console.log('entity updated!'+result);
+     * });
+     **/
     deleteAttribute: (entityId, entityType, attributeType) => axios.request({
       method: 'DELETE',
       url: `${base}/api/v1/entity/${entityType}/${entityId}/attribute/${attributeType}/`
     }),
     /**
-    * @summary Get Entities schema
-    * @name getEntitiesSchema
-    * @public
-    * @function
-    * @memberof agile.idm.entity
-    * @fulfil {Object} JSON Schema with the configuration for the entity format
-    * @returns {Promise}
-    * @example
-    * agile.idm.entity.getEntitiesSchema().then(function(jsonschema) {
-    *   console.log('schema for the entities'+jsonschema);
-    * });
-    **/
+     * @summary Get Entities schema
+     * @name getEntitiesSchema
+     * @public
+     * @function
+     * @memberof agile.idm.entity
+     * @fulfil {Object} JSON Schema with the configuration for the entity format
+     * @returns {Promise}
+     * @example
+     * agile.idm.entity.getEntitiesSchema().then(function(jsonschema) {
+     *   console.log('schema for the entities'+jsonschema);
+     * });
+     **/
     getEntitiesSchema: () => axios.request({
       method: 'GET',
       url: `${base}/api/v1/entity_types/`

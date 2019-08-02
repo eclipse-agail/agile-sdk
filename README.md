@@ -110,3 +110,13 @@ Tests
 ```
 npm run test
 ```
+
+Contribute
+-----
+
+After adding your changes it would be nice if you could document them.
+Use [jsdoc-to-markdown](https://www.npmjs.com/package/jsdoc-to-markdown) to automatically generate the API docs from jsdoc annotated source code.
+After installing the tool you can use this command to generate the docs:
+```bash
+npm run docs
+```

@@ -951,7 +951,7 @@ agile.idm.entity.getByType('device').then(function(entities) {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| constraints | <code>Array</code> | contains objects containing objects with the property  'attributeType' to specify the attribute type and with the property 'attributeValue' to specify the expected attribute value |
+| constraints | <code>Array</code> | contains objects containing objects with the property  'attributeType' to specify the attribute type and with the property 'attributeValue' to specify the expected attribute value. You can set a wildcard for the 'attributeValue' with the asterix * symbol. |
 
 **Example**  
 ```js
